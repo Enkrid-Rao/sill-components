@@ -2,7 +2,7 @@
 
 组件运行在宿主的 renderer 里；它看到的不是 Electron API，而是一份 `WidgetContext`。
 
-**当前状态：** Sill 0.4 的内置组件通过 TypeScript 的 `WidgetContext` 接收数据
+**当前状态：** Sill 0.5 的内置组件通过 TypeScript 的 `WidgetContext` 接收数据
 （`apps/desktop/src/renderer/src/widgets/types.ts`）。下面这份契约是它的公开化版本，
 IR 引擎与脚本沙箱落地后保持不变。
 
@@ -80,7 +80,7 @@ interface WidgetContext {
 
 ### 当前内置 context
 
-Sill 0.4 已经提供：
+Sill 0.5 已经提供：
 
 - `language`、`now`、`snapshot`、`todos`
 - `mediaPosition`、`mediaProgress`、`mediaCommand`
