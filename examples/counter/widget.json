@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "sill.counter",
+  "name": "Counter",
+  "description": "A tiny persistent counter, used as the script sandbox example.",
+  "version": "0.1.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.5.0",
+  "type": "script",
+  "size": { "w": 384, "h": 160, "minW": 300, "minH": 96 },
+  "permissions": ["storage"],
+  "ui": "ui/main.js"
+}
