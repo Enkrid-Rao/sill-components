@@ -4,7 +4,9 @@ Sill 的组件开发规范与示例。这个仓库回答一件事：
 
 > 一个第三方组件长什么样、能拿到什么数据、不能做什么，以及怎么验证它。
 
-**状态：spec v0.1（2026-11）。**
+Repository: <https://github.com/Enkrid-Rao/sill-components>
+
+**状态：spec v0.1（2026-11）。** Released as [`v0.1.0`](https://github.com/Enkrid-Rao/sill-components/releases/tag/v0.1.0).
 Sill 0.5 的宿主已经跑通「内置组件注册表」（`WIDGETS` / `WidgetShell`），
 但**声明式 IR 引擎、`.sill` 安装器、脚本沙箱和 CLI 还没有实现**。
 本仓库先把契约写清楚，作为下一步 `packages/engine` 的验收目标；文档中会明确标注
