@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sill.local/schemas/widget.schema.json",
-  "title": "Sill component manifest",
+  "title": "Sill widget manifest",
+  "description": "widget.json — the only entry point of a Sill widget package.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -12,39 +13,94 @@
     "author",
     "license",
     "runtime",
+    "engine",
     "type",
     "permissions",
     "ui"
   ],
   "properties": {
-    "schema": { "const": 1 },
+    "schema": {
+      "const": 1
+    },
     "id": {
       "type": "string",
-      "pattern": "^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$",
+      "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$",
       "minLength": 3,
       "maxLength": 80,
-      "description": "Reverse-domain identifier, globally unique."
+      "description": "Reverse-domain id with at least two labels. Lowercase letters, digits, '-' and '.' only; no empty label."
     },
-    "name": { "type": "string", "minLength": 1, "maxLength": 24 },
-    "description": { "type": "string", "maxLength": 200 },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 24
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 200
+    },
     "version": {
       "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][0-9A-Za-z.-]+)?$"
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$",
+      "description": "Semver 2.0.0, including prerelease and build metadata."
     },
-    "author": { "type": "string", "minLength": 1, "maxLength": 80 },
-    "license": { "type": "string", "minLength": 1, "maxLength": 40 },
-    "homepage": { "type": "string", "format": "uri" },
-    "runtime": { "type": "string", "minLength": 1, "maxLength": 80 },
-    "type": { "enum": ["declarative", "script"] },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40,
+      "description": "SPDX identifier."
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "runtime": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "description": "Host application range. Does not imply an engine; see engine."
+    },
+    "engine": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "description": "Widget engine range. A host that satisfies runtime but not engine must refuse to load."
+    },
+    "type": {
+      "enum": ["declarative", "script"]
+    },
     "size": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "w": { "type": "integer", "minimum": 240, "maximum": 1180 },
-        "h": { "type": "integer", "minimum": 64, "maximum": 1200 },
-        "minW": { "type": "integer", "minimum": 240, "maximum": 1180 },
-        "minH": { "type": "integer", "minimum": 64, "maximum": 1200 }
-      }
+        "w": { "type": "integer", "minimum": 160, "maximum": 1180 },
+        "h": { "type": "integer", "minimum": 48, "maximum": 2200 },
+        "minW": { "type": "integer", "minimum": 160, "maximum": 1110 },
+        "minH": { "type": "integer", "minimum": 48, "maximum": 2200 }
+      },
+      "description": "Suggested size only. The host does not resize a card from these numbers."
+    },
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default"],
+      "properties": {
+        "default": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "byColumns": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "1": { "type": "integer", "minimum": 1, "maximum": 1 },
+            "2": { "type": "integer", "minimum": 1, "maximum": 2 },
+            "3": { "type": "integer", "minimum": 1, "maximum": 3 }
+          }
+        }
+      },
+      "description": "Default column span. A user layout span always wins."
     },
     "permissions": {
       "type": "array",
@@ -56,7 +112,6 @@
           "data.media",
           "data.weather",
           "data.todo",
-          "data.files",
           "storage",
           "network",
           "commands",
@@ -66,29 +121,31 @@
     },
     "data": {
       "type": "array",
+      "maxItems": 16,
       "items": {
         "type": "object",
         "additionalProperties": false,
         "required": ["id", "source"],
         "properties": {
-          "id": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
-          "source": { "type": "string", "minLength": 1, "maxLength": 120 }
+          "id": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,31}$" },
+          "source": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9]*)+$" },
+          "description": { "type": "string", "maxLength": 120 }
         }
       }
     },
     "ui": {
-      "type": "string",
-      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*:).+$",
-      "description": "Relative path inside the package."
+      "$ref": "#/$defs/path",
+      "description": "Relative to the package root: ui/layout.json for declarative, ui/main.js for script."
     },
     "settings": {
       "type": "array",
+      "maxItems": 16,
       "items": {
         "oneOf": [
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["key", "type", "default"],
+            "required": ["key", "type", "default", "label"],
             "properties": {
               "key": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
               "type": { "const": "boolean" },
@@ -99,7 +156,7 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["key", "type", "default"],
+            "required": ["key", "type", "default", "label"],
             "properties": {
               "key": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
               "type": { "const": "number" },
@@ -113,7 +170,7 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["key", "type", "default", "options"],
+            "required": ["key", "type", "default", "options", "label"],
             "properties": {
               "key": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
               "type": { "const": "select" },
@@ -121,12 +178,13 @@
               "options": {
                 "type": "array",
                 "minItems": 1,
+                "maxItems": 32,
                 "items": {
                   "type": "object",
                   "additionalProperties": false,
                   "required": ["value", "label"],
                   "properties": {
-                    "value": { "type": "string" },
+                    "value": { "type": "string", "maxLength": 40 },
                     "label": { "$ref": "#/$defs/localizedLabel" }
                   }
                 }
@@ -137,7 +195,7 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["key", "type", "default"],
+            "required": ["key", "type", "default", "label"],
             "properties": {
               "key": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
               "type": { "const": "string" },
@@ -153,22 +211,79 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "en": { "type": "string" },
-        "zh": { "type": "string" }
+        "en": { "$ref": "#/$defs/path" },
+        "zh": { "$ref": "#/$defs/path" }
       }
     },
     "assets": {
       "type": "array",
-      "items": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\.)(?!.*:).+$" }
+      "maxItems": 100,
+      "items": { "$ref": "#/$defs/path" }
+    },
+    "fonts": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["family", "src"],
+        "properties": {
+          "family": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9 _-]{0,40}$" },
+          "src": { "$ref": "#/$defs/path" },
+          "weight": { "type": "integer", "minimum": 100, "maximum": 900, "multipleOf": 100 },
+          "style": { "enum": ["normal", "italic"] }
+        }
+      }
+    },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domains"],
+      "properties": {
+        "domains": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$",
+            "maxLength": 120
+          }
+        }
+      },
+      "description": "Exact host names. No wildcard, no scheme, no port."
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "permissions": { "contains": { "const": "network" } } },
+        "required": ["permissions"]
+      },
+      "then": { "required": ["network"] }
+    },
+    {
+      "if": { "required": ["network"] },
+      "then": {
+        "properties": { "permissions": { "contains": { "const": "network" } } },
+        "required": ["permissions"]
+      }
+    }
+  ],
   "$defs": {
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*:).+$",
+      "maxLength": 200,
+      "description": "POSIX-style relative path inside the package. Backslashes are rejected by validate."
+    },
     "localizedLabel": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "en": { "type": "string", "maxLength": 80 },
-        "zh": { "type": "string", "maxLength": 80 }
+        "en": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "zh": { "type": "string", "minLength": 1, "maxLength": 80 }
       },
       "minProperties": 1
     }

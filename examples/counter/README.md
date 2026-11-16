@@ -2,23 +2,39 @@
 
 脚本组件示例：一个持久化计数器，用来验收 sandbox、storage 和主题注入。
 
-```
+```text
 counter/
 ├─ widget.json
 └─ ui/main.js
 ```
 
-**当前状态：** 这段代码按 v1 的 `ctx` API 编写，Sill 0.4 还没有脚本沙箱，
-所以不能直接加载。它用于：
+## 它演示什么
 
-- 校验 manifest 的 `type: script` / `permissions: ["storage"]`
-- 验证 sandbox 不暴露 `require` / `fetch` / 宿主 DOM
-- 验证 storage 按组件隔离、卸载后保留
-- 验证主题 token 注入（`ctx.theme`）和语言切换
+- `type: script` 与 `permissions: ["storage"]`；
+- 单文件 ES module，默认导出 `mount` / `update` / `hide` / `dispose`；
+- `ctx.storage` 按组件 id 隔离、升级保留、卸载删除；
+- `ctx.theme` 注入颜色与字体；
+- 主题 / 语言变化走 `update`，不整页重载。
 
-引擎落地后：
+## 现在能做什么
+
+Sill 0.5.1 还没有脚本沙箱，所以它不能加载。它能做的是：
 
 ```bash
-sill validate .
-sill dev .
+python scripts/validate.py
 ```
+
+校验 manifest、`ui/main.js` 存在、权限声明与文件大小。沙箱落地后：
+
+```bash
+sill validate ./counter
+sill dev ./counter
+```
+
+## 验收
+
+- 点击 +1，数字与存储都更新；重开面板后从存储恢复。
+- 卸载后 `widget-data/sill.counter/` 被删除，重装从 0 开始。
+- 主题切换后按钮颜色跟随 `ctx.theme.accent`，不残留旧颜色。
+- 沙箱里 `require` / `fetch` / `window.open` 都不可用。
+- 崩溃只影响这张卡，面板其他部分正常。

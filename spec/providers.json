@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "providers": {
+    "time.now": {
+      "permission": "data.time",
+      "refresh": "1 s, host driven",
+      "shape": "object",
+      "fields": {
+        "iso": "string ISO 8601 with local offset",
+        "epoch": "number seconds",
+        "tz": "string IANA zone",
+        "time": "string HH:mm",
+        "date": "string YYYY-MM-DD",
+        "dateLabel": "string localized date",
+        "weekday": "number 0-6, Monday=0",
+        "hour": "number 0-23",
+        "minute": "number 0-59"
+      }
+    },
+    "system.cpu": {
+      "permission": "data.system",
+      "refresh": "1/2/3/5 s, set by the user",
+      "shape": "object",
+      "fields": {
+        "usage": "number 0-100",
+        "cores": "number"
+      }
+    },
+    "system.memory": {
+      "permission": "data.system",
+      "refresh": "1/2/3/5 s, set by the user",
+      "shape": "object",
+      "fields": {
+        "percent": "number 0-100",
+        "usedGb": "number",
+        "totalGb": "number"
+      }
+    },
+    "system.gpu": {
+      "permission": "data.system",
+      "refresh": "1/2/3/5 s, set by the user",
+      "shape": "object",
+      "fields": {
+        "usage": "number 0-100 | null",
+        "memMb": "number | null",
+        "totalMb": "number | null"
+      }
+    },
+    "system.network": {
+      "permission": "data.system",
+      "refresh": "1/2/3/5 s, set by the user",
+      "shape": "object",
+      "fields": {
+        "downBps": "number bytes/s",
+        "upBps": "number bytes/s"
+      }
+    },
+    "system.processes": {
+      "permission": "data.system",
+      "refresh": "1/2/3/5 s, set by the user",
+      "shape": "object",
+      "fields": {
+        "topRam": "array of { name: string, mb: number }",
+        "gpuMemMb": "number | null",
+        "gpuTotalMb": "number | null"
+      },
+      "arrayFields": ["topRam"],
+      "arrayItem": {
+        "name": "string",
+        "mb": "number"
+      }
+    },
+    "media.nowPlaying": {
+      "permission": "data.media",
+      "refresh": "1 s",
+      "shape": "object | null",
+      "fields": {
+        "title": "string",
+        "artist": "string",
+        "album": "string",
+        "status": "string Playing | Paused | Stopped | Closed",
+        "position": "number seconds",
+        "duration": "number seconds",
+        "progress": "number 0-100",
+        "app": "string"
+      }
+    },
+    "weather.current": {
+      "permission": "data.weather",
+      "refresh": "15 min, or on city change",
+      "shape": "object | null",
+      "fields": {
+        "temp": "number | null",
+        "high": "number | null",
+        "low": "number | null",
+        "code": "number WMO weather code",
+        "cityId": "string | null",
+        "cityName": "string",
+        "auto": "boolean",
+        "updatedAt": "number ms epoch",
+        "stale": "boolean",
+        "error": "boolean"
+      }
+    },
+    "todo.list": {
+      "permission": "data.todo",
+      "refresh": "on change",
+      "shape": "array",
+      "fields": {},
+      "item": {
+        "id": "string",
+        "text": "string",
+        "done": "boolean"
+      }
+    }
+  }
+}

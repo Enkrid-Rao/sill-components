@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "commands": [
+    {
+      "name": "todo.add",
+      "permission": "data.todo",
+      "args": { "text": "string" },
+      "description": "Append an open todo."
+    },
+    {
+      "name": "todo.toggle",
+      "permission": "data.todo",
+      "args": { "id": "string" },
+      "description": "Flip the done flag of one todo."
+    },
+    {
+      "name": "todo.update",
+      "permission": "data.todo",
+      "args": { "id": "string", "text": "string" },
+      "description": "Replace the text of one todo."
+    },
+    {
+      "name": "todo.remove",
+      "permission": "data.todo",
+      "args": { "id": "string" },
+      "description": "Delete one todo. The host keeps a 5 s undo buffer for the built-in card only."
+    },
+    {
+      "name": "media.playpause",
+      "permission": "data.media",
+      "args": {},
+      "description": "Toggle play/pause on the current SMTC session."
+    },
+    {
+      "name": "media.next",
+      "permission": "data.media",
+      "args": {},
+      "description": "Skip to the next track."
+    },
+    {
+      "name": "media.prev",
+      "permission": "data.media",
+      "args": {},
+      "description": "Skip to the previous track."
+    },
+    {
+      "name": "media.mute",
+      "permission": "data.media",
+      "args": {},
+      "description": "Toggle system mute."
+    },
+    {
+      "name": "media.volume",
+      "permission": "data.media",
+      "args": { "volume": "number" },
+      "description": "Set system volume, 0-100."
+    },
+    {
+      "name": "app.openUrl",
+      "permission": "commands",
+      "args": { "url": "string" },
+      "description": "Open an https URL in the default browser. http and custom schemes are rejected."
+    },
+    {
+      "name": "app.notify",
+      "permission": "commands",
+      "args": { "message": "string" },
+      "description": "Show a Windows toast. The host prefixes the widget name."
+    },
+    {
+      "name": "panel.toggle",
+      "permission": "commands",
+      "args": {},
+      "description": "Hide the rail. Show it again with the hotkey."
+    },
+    {
+      "name": "data.refresh",
+      "permission": "commands",
+      "args": {},
+      "description": "Ask the host to re-sample the providers this widget declared."
+    }
+  ]
+}
