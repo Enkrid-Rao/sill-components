@@ -53,7 +53,7 @@
 - `examples/clock`、`examples/counter` 通过 manifest schema。
 - `examples/clock` 的 `layout.json` 通过 IR schema。
 - `registry/catalog.json` 通过 catalog schema，五个 `docs` 路径存在。
-- `python scripts/validate.py` 本地通过；CI 在 push 后运行同一份脚本。
+- `python scripts/validate.py` 本地与 GitHub Actions 均通过。
 - 五个内置组件的行为描述对照 0.5.1 源码核对过。
 
 ## 未验证 / 已知缺口

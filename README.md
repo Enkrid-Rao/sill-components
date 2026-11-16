@@ -6,6 +6,7 @@ Sill 的组件规范与官方组件目录。这个仓库回答三件事：
 > 现在有哪些官方组件，源码在哪。
 
 Repository: <https://github.com/Enkrid-Rao/sill-components>
+![validate](https://github.com/Enkrid-Rao/sill-components/actions/workflows/validate.yml/badge.svg)
 状态：见 [STATUS.md](STATUS.md)。最后发布的规范 tag 是 `v0.1.0`；当前 `main` 是 v0.2 的收口版本，尚未打 tag。
 
 **先把边界说清楚：** Sill 0.5.1 已经有组件宿主（`WidgetShell` + `WIDGETS` 注册表），
