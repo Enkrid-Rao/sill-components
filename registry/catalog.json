@@ -1,0 +1,156 @@
+{
+  "schema": 1,
+  "updated": "2026-11-16",
+  "widgets": [
+    {
+      "id": "sill.hero",
+      "name": { "en": "Hero", "zh": "头图" },
+      "summary": {
+        "en": "Date, clock and the current weather on one card.",
+        "zh": "日期、时钟和当前天气，合成一张卡。"
+      },
+      "description": {
+        "en": "The top card of the rail. Weather keeps its last good sample when the network fails.",
+        "zh": "侧边廊顶部的卡片。天气请求失败时保留上一次成功数据。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": ["data.time", "data.weather"],
+      "size": { "w": 384, "h": 180 },
+      "span": 3,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/widgets/HeroWidget.tsx",
+        "ref": "v0.5.1"
+      },
+      "docs": "widgets/sill.hero/README.md",
+      "tags": ["clock", "weather"]
+    },
+    {
+      "id": "sill.system",
+      "name": { "en": "System", "zh": "系统" },
+      "summary": {
+        "en": "CPU, memory, GPU and network as four quiet bars.",
+        "zh": "CPU、内存、GPU、网络四根安静的条。"
+      },
+      "description": {
+        "en": "Readings ease between samples instead of snapping. The sample interval follows the monitor setting.",
+        "zh": "读数在两次采样之间缓动，不在新旧值之间跳变；采样间隔跟随设置里的监测频率。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": ["data.system"],
+      "size": { "w": 384, "h": 196 },
+      "span": 1,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/widgets/SystemWidget.tsx",
+        "ref": "v0.5.1"
+      },
+      "docs": "widgets/sill.system/README.md",
+      "tags": ["system", "monitor"]
+    },
+    {
+      "id": "sill.processes",
+      "name": { "en": "Processes", "zh": "进程" },
+      "summary": {
+        "en": "Top memory consumers and the GPU memory split.",
+        "zh": "内存占用最高的进程，以及显存占用。"
+      },
+      "description": {
+        "en": "Two rows of TOP RAM plus the dedicated GPU memory reading.",
+        "zh": "两行 TOP RAM，加上独立显卡的显存读数。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": ["data.system"],
+      "size": { "w": 384, "h": 144 },
+      "span": 1,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/widgets/ProcessesWidget.tsx",
+        "ref": "v0.5.1"
+      },
+      "docs": "widgets/sill.processes/README.md",
+      "tags": ["system", "processes"]
+    },
+    {
+      "id": "sill.media",
+      "name": { "en": "Media", "zh": "媒体" },
+      "summary": {
+        "en": "Windows now-playing, transport keys and system volume.",
+        "zh": "Windows 正在播放、传输键和系统音量。"
+      },
+      "description": {
+        "en": "Reads the SMTC session and sends play/pause, next, previous, mute and volume commands.",
+        "zh": "读取 SMTC 会话，发送播放/暂停、上一首、下一首、静音和音量命令。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": ["data.media"],
+      "size": { "w": 384, "h": 256 },
+      "span": 1,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/components/widgets/MediaWidget.tsx",
+        "ref": "v0.5.1"
+      },
+      "docs": "widgets/sill.media/README.md",
+      "tags": ["media", "controls"]
+    },
+    {
+      "id": "sill.todo",
+      "name": { "en": "Todo", "zh": "待办" },
+      "summary": {
+        "en": "A local todo list with filters, inline editing and a 5 second undo.",
+        "zh": "本地待办：过滤器、行内编辑，删除后 5 秒可撤销。"
+      },
+      "description": {
+        "en": "Open / Closed / All, add, toggle, edit and delete without rows jumping around.",
+        "zh": "Open / Closed / All、添加、勾选、编辑、删除，行不会上下跳。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": ["data.todo"],
+      "size": { "w": 384, "h": 300 },
+      "span": 3,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/components/widgets/TodoWidget.tsx",
+        "ref": "v0.5.1"
+      },
+      "docs": "widgets/sill.todo/README.md",
+      "tags": ["todo", "productivity"]
+    }
+  ]
+}
