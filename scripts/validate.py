@@ -635,6 +635,8 @@ def check_manifest(path: Path) -> None:
             error(path, f"{field} must stay inside the package")
         elif not target.is_file():
             error(path, f"{field} points to a missing file: {data[field]}")
+        elif target.stat().st_size > 2 * 1024 * 1024:
+            error(path, f"{field} is larger than 2 MB")
 
     assets = []
     for value in data.get("assets", []):
@@ -659,6 +661,15 @@ def check_manifest(path: Path) -> None:
         error(path, "assets exceed the 10 MB package budget")
     if len(assets) > 200:
         error(path, "assets exceed the 200 file budget")
+
+    package_files = [
+        item for item in widget_dir.rglob("*") if item.is_file() and ".git" not in item.parts
+    ]
+    package_total = sum(item.stat().st_size for item in package_files)
+    if package_total > 10 * 1024 * 1024:
+        error(path, "package exceeds the 10 MB budget")
+    if len(package_files) > 200:
+        error(path, "package exceeds the 200 file budget")
 
     for font in data.get("fonts", []):
         src = font["src"]
