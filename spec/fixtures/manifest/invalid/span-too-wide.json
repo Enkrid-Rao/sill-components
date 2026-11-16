@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "sill.span",
+  "name": "Span too wide",
+  "version": "1.0.0",
+  "author": "x",
+  "license": "MIT",
+  "runtime": ">=0.5.1",
+  "engine": ">=0.1.0",
+  "type": "declarative",
+  "permissions": [],
+  "span": { "default": 4 },
+  "ui": "ui/layout.json"
+}

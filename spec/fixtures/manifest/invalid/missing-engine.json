@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "sill.noengine",
+  "name": "No engine",
+  "version": "1.0.0",
+  "author": "x",
+  "license": "MIT",
+  "runtime": ">=0.5.1",
+  "type": "declarative",
+  "permissions": [],
+  "ui": "ui/layout.json"
+}

@@ -1,0 +1,5 @@
+{
+  "type": "text",
+  "bind": "now.time",
+  "style": "huge"
+}

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "updated": "2026-11-16",
+  "widgets": [
+    {
+      "id": "sill.bad",
+      "name": { "en": "Bad", "zh": "坏" },
+      "summary": { "en": "No docs field.", "zh": "缺 docs。" },
+      "version": "1.0.0",
+      "author": "x",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": []
+    }
+  ]
+}

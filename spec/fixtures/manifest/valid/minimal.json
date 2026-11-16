@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "sill.clock",
+  "name": "Clock",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.5.1",
+  "engine": ">=0.1.0",
+  "type": "declarative",
+  "permissions": ["data.time"],
+  "data": [{ "id": "now", "source": "time.now" }],
+  "ui": "ui/layout.json"
+}

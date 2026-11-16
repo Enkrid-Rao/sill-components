@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "updated": "2026-11-16",
+  "widgets": [
+    {
+      "id": "sill.hero",
+      "name": { "en": "Hero", "zh": "头图" },
+      "summary": { "en": "Clock and weather.", "zh": "时钟和天气。" },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": ["data.time", "data.weather"],
+      "span": 3,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/widgets/HeroWidget.tsx",
+        "ref": "v0.5.1"
+      },
+      "docs": "widgets/sill.hero/README.md"
+    }
+  ]
+}

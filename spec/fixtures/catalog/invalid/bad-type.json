@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "updated": "2026-11-16",
+  "widgets": [
+    {
+      "id": "sill.bad",
+      "name": { "en": "Bad", "zh": "坏" },
+      "summary": { "en": "Bad type.", "zh": "坏类型。" },
+      "version": "1.0.0",
+      "author": "x",
+      "license": "MIT",
+      "type": "binary",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.5.1",
+      "permissions": [],
+      "docs": "widgets/sill.hero/README.md"
+    }
+  ]
+}

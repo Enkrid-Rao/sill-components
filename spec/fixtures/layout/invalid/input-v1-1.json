@@ -1,0 +1,5 @@
+{
+  "type": "input",
+  "bind": "draft",
+  "placeholder": "Add a task"
+}

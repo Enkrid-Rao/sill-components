@@ -1,0 +1,39 @@
+{
+  "type": "vstack",
+  "gap": 10,
+  "children": [
+    {
+      "type": "hstack",
+      "justify": "between",
+      "children": [
+        { "type": "text", "value": "SYSTEM", "style": "caption" },
+        { "type": "text", "bind": "cpu.cores", "style": "caption" }
+      ]
+    },
+    { "type": "bar", "bind": "cpu.usage", "height": 5, "tone": "accent" },
+    { "type": "ring", "bind": "memory.percent", "size": 64, "thickness": 6 },
+    { "type": "divider", "inset": 4 },
+    {
+      "type": "list",
+      "items": "processes.topRam",
+      "limit": 2,
+      "empty": { "type": "text", "value": "—", "style": "caption" },
+      "itemTemplate": {
+        "type": "hstack",
+        "justify": "between",
+        "children": [
+          { "type": "text", "bind": "item.name", "style": "body", "maxLines": 1 },
+          { "type": "text", "bind": "item.mb", "style": "mono" }
+        ]
+      }
+    },
+    { "type": "spacer", "grow": true },
+    {
+      "type": "button",
+      "icon": "assets/refresh.svg",
+      "ariaI18n": { "key": "app.refresh" },
+      "variant": "ghost",
+      "action": { "type": "action", "name": "data.refresh", "args": {} }
+    }
+  ]
+}

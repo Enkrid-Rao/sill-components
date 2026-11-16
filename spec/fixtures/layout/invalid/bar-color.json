@@ -1,0 +1,5 @@
+{
+  "type": "bar",
+  "bind": "cpu.usage",
+  "color": "#ff0000"
+}

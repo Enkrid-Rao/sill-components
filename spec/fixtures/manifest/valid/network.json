@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "com.example.network",
+  "name": "Network",
+  "version": "0.1.0",
+  "author": "example",
+  "license": "MIT",
+  "runtime": ">=0.5.1",
+  "engine": ">=0.1.0",
+  "type": "script",
+  "size": { "w": 384, "h": 160, "minW": 240, "minH": 96 },
+  "span": { "default": 2, "byColumns": { "1": 1, "2": 2, "3": 3 } },
+  "permissions": ["network", "storage"],
+  "network": { "domains": ["api.example.com", "cdn.example.com"] },
+  "ui": "ui/main.js"
+}
