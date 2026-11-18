@@ -24,7 +24,8 @@
 | 动态布局 id | **开发分支可用** | `normalizeLayout(raw, knownIds)` |
 | 本地 `.sill` 安装 | **开发分支可用** | 设置 → 行为 → 组件 → 安装组件… |
 | 卸载 | **开发分支可用** | 设置里的已安装列表 |
-| CLI（validate / pack / new / dev） | **开发分支可用** | `packages/cli`，`pnpm sill` |`n| Web 组件 | **开发分支可用** | `type: "web"`，本地 `.sill`；trusted 全 Node / sandboxed 桥 |
+| CLI（validate / pack / new / dev） | **开发分支可用** | `packages/cli`，`pnpm sill` |
+| Web 组件 | **开发分支可用** | `type: "web"`，本地 `.sill`；trusted 全 Node / sandboxed 桥 |
 | 目录下载 / 更新 | **未实现** | 没有下载通道 |
 | 权限确认 | **开发分支可用** | 安装前显示 id / 版本 / 作者 / 权限 |
 | 签名 / 哈希 | **未实现** | 安装时只做静态校验 |
