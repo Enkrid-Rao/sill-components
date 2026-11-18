@@ -47,7 +47,8 @@ WidgetShell
 - 根来自 manifest `data[].id`；`data-sill-repeat` 内部额外有 `item`；
 - 字段来自 [providers.md](providers.md)；
 - 缺失 / null / 求值失败显示 `—`；
-- v1 有文本、i18n、`data-sill-if`、`data-sill-repeat`；没有表达式函数、动作和写操作；
+- v1 有文本、i18n、`data-sill-if`、`data-sill-repeat`、`data-sill-action`、`data-sill-meter`；
+  没有表达式函数和写操作（动作走白名单命令）。
 - 数据 / 语言变化时宿主重建 shadow root 再求值；不保留模板内部状态。
 
 ## 4. 环境

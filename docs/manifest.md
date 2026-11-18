@@ -108,9 +108,11 @@ v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混
 | `data.media` | 读当前媒体会话 |
 | `data.weather` | 读天气快照 |
 | `data.todo` | 读待办列表 |
+| `action.media` | 播放 / 暂停 / 上一首 / 下一首 / 静音 |
+| `action.todo` | 切换待办完成状态 |
 
 - 权限不能动态申请；加权限必须改 manifest，由用户重新确认。
-- v1 没有 `storage` / `network` / `commands` / `settings`；模板不能写、不能联网、不能执行动作。
+- v1 没有 `storage` / `network` / `settings`；模板不能写、不能联网。
 
 ## data
 

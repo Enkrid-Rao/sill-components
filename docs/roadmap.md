@@ -61,7 +61,7 @@
 
 - [x] `data-sill-i18n`
 - [x] `data-sill-if` / `data-sill-repeat`
-- [ ] `data-sill-action`（media / todo / panel）
+- [x] `data-sill-action`（media / todo）`n- [ ] `data-sill-action` 扩展到 panel / 启动程序
 - [ ] 只读 `storage`（可选，需重新评估权限）
 - [ ] 资源白名单（图片 / 字体，走自定义协议）
 - [ ] 更严格的 sanitizer 测试集

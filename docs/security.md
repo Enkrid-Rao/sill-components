@@ -71,11 +71,13 @@ class id role aria-* data-sill-*
 | `data.system` | 中 | 只读聚合指标，不暴露进程路径 / 命令行 / PID |
 | `data.media` | 中 | 只读当前会话 |
 | `data.weather` | 低 | 只读天气快照；不暴露精确坐标 |
-| `data.todo` | 中 | 只读待办；v1 不能改 |
+| `data.todo` | 中 | 只读待办 |
+| `action.media` | 中 | 播放控制；不暴露其他应用 |
+| `action.todo` | 中 | 只能切换完成状态，不能删除 / 批量改 |
 
 - 权限在安装时展示，不能静默升级。
 - 未声明的数据不进入模板。
-- v1 没有 `storage` / `network` / `commands` / `settings`。
+- v1 没有 `storage` / `network` / `settings`。
 
 ## 6. 包与路径
 

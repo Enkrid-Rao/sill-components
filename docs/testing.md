@@ -89,6 +89,9 @@ DPI：Windows 100% / 125% / 150% 各看一次。
 - [ ] `data-sill-repeat` 空数组移除模板行
 - [ ] repeat 内 `item.*` 正确，嵌套不超过 8 层
 - [ ] 数据更新后列表行数正确
+- [ ] 没有 `action.media` 时媒体按钮无效，声明后可用
+- [ ] `data-sill-meter` 写入 0–100，超出被夹住
+- [ ] 非数字 meter 回退到 0
 
 ## 5. 性能
 

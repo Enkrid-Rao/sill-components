@@ -31,7 +31,9 @@
         "data.system",
         "data.media",
         "data.weather",
-        "data.todo"
+        "data.todo",
+        "action.media",
+        "action.todo"
       ]
     },
     "entry": {

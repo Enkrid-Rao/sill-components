@@ -56,8 +56,10 @@ ALLOWED_TAGS = {
     "h2",
     "h3",
     "h4",
+    "button",
 }
-ALLOWED_ATTRS = {"class", "id", "role"}
+ALLOWED_ATTRS = {"class", "id", "role", "type"}
+ACTIONS = {"media.playpause", "media.next", "media.prev", "media.mute", "todo.toggle"}
 
 
 def rel(path: Path) -> str:
@@ -133,6 +135,9 @@ class TemplateHtml(HTMLParser):
         self.bindings: list[str] = []
         self.repeats: list[str] = []
         self.conditions: list[str] = []
+        self.meters: list[str] = []
+        self.action_args: list[str] = []
+        self.actions: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         self._tag(tag, attrs)
@@ -166,6 +171,21 @@ class TemplateHtml(HTMLParser):
                     self.repeats.append(value)
                 else:
                     self.problems.append("data-sill-repeat has no value")
+            if attribute == "data-sill-meter":
+                if value:
+                    self.meters.append(value)
+                else:
+                    self.problems.append("data-sill-meter has no value")
+            if attribute == "data-sill-action":
+                if value and value not in ACTIONS:
+                    self.problems.append(f"unknown action `{value}`")
+                elif value:
+                    self.actions.append(value)
+            if attribute == "data-sill-action-arg":
+                if value:
+                    self.action_args.append(value)
+                else:
+                    self.problems.append("data-sill-action-arg has no value")
             if attribute == "data-sill-if":
                 if value:
                     self.conditions.append(value)
@@ -233,6 +253,11 @@ def check_template(widget_dir: Path, manifest: dict, html_path: Path) -> None:
     problems, _ = template_problems(html, data_map)
     for problem in problems:
         error(html_path, problem)
+    for action in re.findall(r'data-sill-action=["\']([^"\']+)["\']', html):
+        if action.startswith("media.") and "action.media" not in manifest.get("permissions", []):
+            error(html_path, f"action `{action}` needs permission `action.media`")
+        if action.startswith("todo.") and "action.todo" not in manifest.get("permissions", []):
+            error(html_path, f"action `{action}` needs permission `action.todo`")
     css = css_path.read_text(encoding="utf-8")
     for problem in css_problems(css):
         error(css_path, problem)

@@ -26,7 +26,8 @@ ui/style.css
 - `version` 是 semver；
 - `type` 是 `template`；
 - `license`、`runtime`、`engine` 不能为空；
-- `permissions` 只能是 `data.time` / `data.system` / `data.media` / `data.weather` / `data.todo`；
+- `permissions` 只能是 `data.time` / `data.system` / `data.media` / `data.weather` / `data.todo` /
+  `action.media` / `action.todo`；
 - `ui` 必须是 `ui/index.html`；
 - `span.default` 在 1–3。
 

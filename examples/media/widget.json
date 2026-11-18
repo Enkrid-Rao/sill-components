@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "com.example.media",
+  "name": "Media",
+  "description": "Action demo for media controls.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.5.4",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "span": { "default": 1 },
+  "permissions": ["data.media", "action.media"],
+  "data": [{ "id": "media", "source": "media.nowPlaying" }],
+  "strings": {
+    "en": { "empty": "Not playing" },
+    "zh": { "empty": "未在播放" }
+  },
+  "ui": "ui/index.html"
+}

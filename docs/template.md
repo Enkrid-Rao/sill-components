@@ -42,13 +42,13 @@ WidgetShell
 允许的标签：
 
 ```text
-div span p section ul ol li strong em small b i br h1 h2 h3 h4
+div span p section ul ol li strong em small b i br h1 h2 h3 h4 button
 ```
 
 允许的属性：
 
 ```text
-class id role aria-* data-sill-*
+class id role type aria-* data-sill-*
 ```
 
 不允许：
@@ -110,7 +110,39 @@ sanitizer 测试。
 - 字段必须在 [providers.md](providers.md) 中定义；
 - 不允许任意 JS 表达式、函数调用或写操作。
 
-还没做：`data-sill-action`（命令）、格式化函数、图片 / 资源绑定。
+还没做：格式化函数、图片 / 资源绑定。
+
+## 动作
+
+```html
+<button type="button" data-sill-action="media.playpause">▶</button>
+<button type="button" data-sill-action="todo.toggle" data-sill-action-arg="item.id">完成</button>
+```
+
+- 只有白名单动作，模板不能自定义命令；
+- `media.playpause` / `media.next` / `media.prev` / `media.mute` 需要 `action.media`；
+- `todo.toggle` 需要 `action.todo`；
+- `data-sill-action-arg` 是路径，在 repeat 内可用 `item.*`；
+- 动作在宿主里执行，模板没有 JS；
+- 没有声明对应权限时点击无效。
+
+## 样式绑定
+
+进度条只需要数值，不需要通用样式表达式：
+
+```html
+<div class="bar"><div class="bar__fill" data-sill-meter="cpu.usage"></div></div>
+```
+
+```css
+.bar__fill {
+  width: calc(var(--sill-value, 0) * 1%);
+}
+```
+
+- 宿主把 0–100 的数字写到 `--sill-value`；
+- 不提供任意 CSS 字符串，避免注入和布局逃逸；
+- 没有值或非数字时不设置变量，CSS 回退到 0。
 
 ## 样式 token
 
