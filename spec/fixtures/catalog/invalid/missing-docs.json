@@ -12,7 +12,7 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": []
     }
   ]

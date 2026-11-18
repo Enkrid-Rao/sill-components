@@ -12,14 +12,14 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": ["data.time", "data.weather"],
       "span": 3,
       "installable": false,
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill",
         "path": "apps/desktop/src/renderer/src/widgets/HeroWidget.tsx",
-        "ref": "v0.5.1"
+        "ref": "v0.5.4"
       },
       "docs": "widgets/sill.hero/README.md"
     }
