@@ -63,23 +63,54 @@ sanitizer 测试。
 
 ## 数据绑定
 
-v1 只有文本绑定：
+文本：
 
 ```html
 <span data-sill-text="now.time"></span>
 <span data-sill-text="now.dateLabel"></span>
 ```
 
+本地化（文本来自 manifest 的 `strings`）：
+
+```html
+<div class="clock__label" data-sill-i18n="label"></div>
+```
+
+条件：
+
+```html
+<div data-sill-if="media.active">正在播放</div>
+<div data-sill-if="!media.active">未在播放</div>
+```
+
+- `data-sill-if` 只接受路径，`!` 取反；没有 `==`、函数或表达式；
+- 假值（`false` / `0` / `''` / `null` / `undefined`）会移除节点，真值保留；
+- 每次数据变化会重建 shadow root，再重新求值。
+
+列表：
+
+```html
+<div class="row" data-sill-repeat="processes.topRam">
+  <span data-sill-text="item.name"></span>
+  <span data-sill-text="item.mb"></span>
+</div>
+<div data-sill-if="!processes.topRam.length">暂无数据</div>
+```
+
+- `data-sill-repeat` 的值必须是数组；
+- 空数组会移除模板行；
+- 行内用 `item.*` 读当前项，`item` 本身也可以绑定；
+- 嵌套 repeat 最多展开 8 层，超过不再展开。
+
+规则：
+
 - 路径的根来自 manifest `data[].id`；
+- `data-sill-repeat` 内部额外有 `item` 作用域；
 - 缺失值渲染 `—`；
 - 字段必须在 [providers.md](providers.md) 中定义；
 - 不允许任意 JS 表达式、函数调用或写操作。
 
-后续版本再加：
-
-- `data-sill-i18n`（本地化文本）
-- `data-sill-if` / `data-sill-repeat`（条件 / 列表）
-- `data-sill-action`（命令）
+还没做：`data-sill-action`（命令）、格式化函数、图片 / 资源绑定。
 
 ## 样式 token
 

@@ -95,7 +95,6 @@ def validate_schema(path: Path, kind: str) -> tuple[object, int]:
     return data, len(problems)
 
 
-
 def check_range(path: Path, field: str, value: str) -> None:
     for token in value.split():
         if token == "*":
@@ -132,6 +131,8 @@ class TemplateHtml(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.problems: list[str] = []
         self.bindings: list[str] = []
+        self.repeats: list[str] = []
+        self.conditions: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         self._tag(tag, attrs)
@@ -160,6 +161,34 @@ class TemplateHtml(HTMLParser):
                     self.bindings.append(value)
                 else:
                     self.problems.append("data-sill-text has no value")
+            if attribute == "data-sill-repeat":
+                if value:
+                    self.repeats.append(value)
+                else:
+                    self.problems.append("data-sill-repeat has no value")
+            if attribute == "data-sill-if":
+                if value:
+                    self.conditions.append(value)
+                else:
+                    self.problems.append("data-sill-if has no value")
+
+
+def path_problems(path: str, data_map: dict[str, str], has_repeat: bool) -> list[str]:
+    clean = path[1:] if path.startswith("!") else path
+    parts = clean.split(".")
+    if len(parts) < 2:
+        return [f"binding `{path}` needs a provider field"]
+    root = parts[0]
+    if root == "item" and has_repeat:
+        return []
+    if root not in data_map:
+        return [f"binding root `{root}` is not declared in data"]
+    provider = PROVIDERS.get(data_map[root])
+    if provider is None:
+        return [f"unknown provider `{data_map[root]}`"]
+    if parts[1] not in provider.get("fields", {}):
+        return [f"provider `{data_map[root]}` has no field `{parts[1]}`"]
+    return []
 
 
 def template_problems(html: str, data_map: dict[str, str]) -> tuple[list[str], list[str]]:
@@ -168,19 +197,9 @@ def template_problems(html: str, data_map: dict[str, str]) -> tuple[list[str], l
     parser.close()
     problems = list(parser.problems)
     for binding in parser.bindings:
-        parts = binding.split(".")
-        if len(parts) < 2:
-            problems.append(f"binding `{binding}` needs a provider field")
-            continue
-        root = parts[0]
-        if root not in data_map:
-            problems.append(f"binding root `{root}` is not declared in data")
-            continue
-        provider = PROVIDERS.get(data_map[root])
-        if provider is None:
-            problems.append(f"unknown provider `{data_map[root]}`")
-        elif parts[1] not in provider.get("fields", {}):
-            problems.append(f"provider `{data_map[root]}` has no field `{parts[1]}`")
+        problems.extend(path_problems(binding, data_map, bool(parser.repeats)))
+    for path in parser.repeats + parser.conditions:
+        problems.extend(path_problems(path, data_map, bool(parser.repeats)))
     return problems, parser.bindings
 
 

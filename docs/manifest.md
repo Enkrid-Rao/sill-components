@@ -22,6 +22,10 @@
   "span": { "default": 1 },
   "permissions": ["data.time"],
   "data": [{ "id": "now", "source": "time.now" }],
+  "strings": {
+    "en": { "label": "LOCAL TIME" },
+    "zh": { "label": "本地时间" }
+  },
   "ui": "ui/index.html"
 }
 ```
@@ -45,9 +49,10 @@
 | `span` | 否 | 默认跨列 |
 | `permissions` | 是 | 只读数据权限 |
 | `data` | 否 | 绑定名 → provider |
+| `strings` | 否 | 内联本地化文本 |
 | `ui` | 是 | HTML 模板的相对路径 |
 
-v1 没有 `settings` / `locales` / `assets` / `fonts` / `network`。模板不执行 JS、不联网，
+v1 没有 `settings` / `locales` 文件 / `assets` / `fonts` / `network`。本地化放 `strings`，模板不执行 JS、不联网，
 这些能力在后续版本单独设计。
 
 ## id
@@ -120,6 +125,20 @@ v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混
 - `source` 是 [providers.md](providers.md) 里的 provider 名。
 - 多个绑定可以指向同一 provider；宿主负责去重与缓存。
 - 未在 `data` 声明的 provider 不可访问。
+
+## strings
+
+```json
+"strings": {
+  "en": { "label": "LOCAL TIME" },
+  "zh": { "label": "本地时间" }
+}
+```
+
+- 模板用 `data-sill-i18n="label"` 取当前语言；
+- 找不到当前语言时回退到 `en`，再回退到 key；
+- v1 只允许内联对象，不打包 `locales/*.json`；
+- 每个语言最多 100 个 key，单个值最多 160 字。
 
 ## ui
 

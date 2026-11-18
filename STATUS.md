@@ -2,14 +2,14 @@
 
 这份文件是「现在到底有什么」的唯一真值。其他文档描述契约与目标，不重复状态数字。
 
-最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `f809b0b`。
+最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `de32a5a`。
 
 ## 版本
 
 | 项 | 值 | 说明 |
 |---|---|---|
 | 正式宿主 | Sill 0.5.4 | 只有内置组件，没有模板引擎 / 安装器 |
-| 开发宿主 | Sill `main` `f809b0b` | 模板渲染、动态布局、本地 `.sill` 安装 |
+| 开发宿主 | Sill `main` `de32a5a` | 模板渲染、动态布局、本地 `.sill` 安装 |
 | 组件规范 | v0.3 | 本仓库 `main`；最后 tag 是 `v0.1.0` |
 | manifest `schema` | 1 | 未变 |
 | 模板引擎目标版本 | 0.1.0 | 开发分支可用，未打 tag |
@@ -35,7 +35,7 @@
 - 组件是 `widget.json` + `ui/index.html` + `ui/style.css`；
 - 宿主清洗 HTML/CSS 后挂到 Shadow DOM，放在 `WidgetShell` 的 `.card` 里；
 - 玻璃、圆角、atmosphere 由 `.card` / `.rail__atmo` 提供，模板只画内容；
-- v1 不执行 JS、不联网、不写数据；只有 `data-sill-text` 文本绑定；
+- v1 不执行 JS、不联网、不写数据；支持 `data-sill-text` / `data-sill-i18n` / `data-sill-if` / `data-sill-repeat`；
 - 本地 `.sill` 可以安装、隐藏、拖拽、跨列、卸载；
 - `pnpm sill validate/pack/new/dev` 可以在 Sill 工作区使用；
 - 安装路径 `<userData>/components/<id>@<version>/`，原子写入。
@@ -64,7 +64,7 @@
 - CLI 只在 Sill 工作区可用，没有发布成全局 `sill`。
 - 安装时没有签名、哈希校验。
 - 同一个 id 只能装一个版本；升级要先卸载。
-- 模板只有文本绑定；没有循环、条件、动作、i18n、图片资源。
+- 模板没有动作、格式化函数、图片资源、样式绑定。
 - sanitizer 是 v1 白名单，还没有完整安全测试集。
 - 五个内置组件仍是 React 实现，没有迁到模板。
 - webview / 任意 JS 组件还没有开始。

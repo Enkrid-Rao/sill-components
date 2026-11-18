@@ -22,14 +22,14 @@
         │ 受控 IPC
 Renderer（React 宿主）
   WidgetShell / .card / Shadow DOM 模板
-        │ 只读文本绑定
+        │ 只读文本 / 条件 / 列表
 模板内容（无 JS、无网络）
 ```
 
 - 模板不接触 Electron IPC；
 - 模板不执行 JS；
 - 模板不能读文件、不能发网络请求；
-- 模板只拿到 manifest 声明的 provider 文本。
+- 模板只拿到 manifest 声明的 provider 数据。
 
 ## 3. HTML 白名单
 

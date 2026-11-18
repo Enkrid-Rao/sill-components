@@ -96,9 +96,24 @@
         }
       }
     },
+    "strings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "en": { "$ref": "#/$defs/strings" },
+        "zh": { "$ref": "#/$defs/strings" }
+      }
+    },
     "ui": {
       "const": "ui/index.html",
       "description": "v1 fixed template entry point."
+    }
+  },
+  "$defs": {
+    "strings": {
+      "type": "object",
+      "maxProperties": 100,
+      "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 160 }
     }
   }
 }

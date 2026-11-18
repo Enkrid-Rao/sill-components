@@ -1,0 +1,10 @@
+<div class="processes">
+  <div class="processes__title" data-sill-i18n="title">TOP RAM</div>
+  <div class="processes__row" data-sill-repeat="processes.topRam">
+    <span class="processes__name" data-sill-text="item.name"></span>
+    <span class="processes__mb"><span data-sill-text="item.mb"></span> MB</span>
+  </div>
+  <div class="processes__empty" data-sill-if="!processes.topRam.length" data-sill-i18n="empty">
+    No process data
+  </div>
+</div>

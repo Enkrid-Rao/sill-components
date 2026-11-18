@@ -48,8 +48,7 @@ GPU 进程排行。
 
 ## 迁移到 `.sill`
 
-模板 v1 没有循环，不能渲染进程列表；processes 仍是 React 内置组件。
-等 `data-sill-repeat` 落地后再迁。
+`data-sill-repeat` 已可用，processes 可以迁成只读列表；内置版还有 GPU 行和空态，暂留 React。
 
 ## 验收
 

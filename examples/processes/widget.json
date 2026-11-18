@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "com.example.processes",
+  "name": "Top RAM",
+  "description": "Repeat + condition demo.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.5.4",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "span": { "default": 1 },
+  "permissions": ["data.system"],
+  "data": [{ "id": "processes", "source": "system.processes" }],
+  "strings": {
+    "en": { "title": "TOP RAM", "empty": "No process data" },
+    "zh": { "title": "内存占用", "empty": "暂无进程数据" }
+  },
+  "ui": "ui/index.html"
+}

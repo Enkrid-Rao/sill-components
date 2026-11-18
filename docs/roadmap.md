@@ -59,8 +59,8 @@
 
 ## v0.6 — 模板能力
 
-- [ ] `data-sill-i18n`
-- [ ] `data-sill-if` / `data-sill-repeat`
+- [x] `data-sill-i18n`
+- [x] `data-sill-if` / `data-sill-repeat`
 - [ ] `data-sill-action`（media / todo / panel）
 - [ ] 只读 `storage`（可选，需重新评估权限）
 - [ ] 资源白名单（图片 / 字体，走自定义协议）

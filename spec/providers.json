@@ -64,7 +64,9 @@
         "gpuMemMb": "number | null",
         "gpuTotalMb": "number | null"
       },
-      "arrayFields": ["topRam"],
+      "arrayFields": [
+        "topRam"
+      ],
       "arrayItem": {
         "name": "string",
         "mb": "number"
@@ -73,7 +75,7 @@
     "media.nowPlaying": {
       "permission": "data.media",
       "refresh": "1 s",
-      "shape": "object | null",
+      "shape": "object",
       "fields": {
         "title": "string",
         "artist": "string",
@@ -82,13 +84,16 @@
         "position": "number seconds",
         "duration": "number seconds",
         "progress": "number 0-100",
-        "app": "string"
+        "app": "string",
+        "active": "boolean",
+        "volume": "number 0-100; -1 = unknown",
+        "muted": "boolean"
       }
     },
     "weather.current": {
       "permission": "data.weather",
       "refresh": "15 min, or on city change",
-      "shape": "object | null",
+      "shape": "object",
       "fields": {
         "temp": "number | null",
         "high": "number | null",
@@ -99,7 +104,8 @@
         "auto": "boolean",
         "updatedAt": "number ms epoch",
         "stale": "boolean",
-        "error": "boolean"
+        "error": "boolean",
+        "condition": "string | null, localized"
       }
     },
     "todo.list": {

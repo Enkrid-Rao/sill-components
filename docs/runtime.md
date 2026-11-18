@@ -44,18 +44,18 @@ WidgetShell
 <div data-sill-text="system.cpu.usage"></div>
 ```
 
-- 根来自 manifest `data[].id`；
+- 根来自 manifest `data[].id`；`data-sill-repeat` 内部额外有 `item`；
 - 字段来自 [providers.md](providers.md)；
 - 缺失 / null / 求值失败显示 `—`；
-- v1 没有表达式、函数、条件、循环、动作；
-- 宿主在数据变化时只更新对应的 `[data-sill-text]` 节点，不重建整张卡。
+- v1 有文本、i18n、`data-sill-if`、`data-sill-repeat`；没有表达式函数、动作和写操作；
+- 数据 / 语言变化时宿主重建 shadow root 再求值；不保留模板内部状态。
 
 ## 4. 环境
 
 | 值 | 模板里怎么拿 |
 |---|---|
-| `language` | 目前不直接可用；宿主设置 `<html lang>`，后续加 `data-sill-i18n` |
-| 数据 | `data-sill-text` |
+| `language` | `data-sill-i18n`，文本来自 manifest `strings` |
+| 数据 | `data-sill-text` / `data-sill-if` / `data-sill-repeat` |
 | 主题 | CSS 变量：`--ink` / `--accent` / `--sans` / `--serif` |
 | 尺寸 | 卡片内容宽度；用 CSS 响应式，不假设固定宽度 |
 | 列数 | 宿主决定；模板只关心自己的内容宽度 |

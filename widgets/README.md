@@ -19,7 +19,7 @@
 本地 `.sill` 安装已经可用，目录下载还没做。从最简单的开始：
 
 1. `sill.clock` 这类只读文本卡先出 `.sill`；
-2. 等模板支持 `data-sill-if` / `data-sill-repeat`，再做 system / processes；
+2. system / processes 可以开始用 `data-sill-if` / `data-sill-repeat` 做只读版；
 3. media / todo 需要命令和状态，走后续的受限脚本路线，不塞进模板。
 
 在这之前，新增内置组件的流程仍然是改 Sill 的 `registry.tsx`，不是往这个目录放包。

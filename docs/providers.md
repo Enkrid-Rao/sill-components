@@ -24,7 +24,8 @@
 - 短名在组件内唯一，`[A-Za-z_][A-Za-z0-9_]*`。
 - 未声明的短名不可访问，校验会失败。
 - 同一个 provider 可以被两个短名引用，宿主负责去重与缓存。
-- `data-sill-text` 的根只能是 `data[].id`；v1 没有 `settings` / `item` 作用域。
+- `data-sill-text` / `data-sill-if` 的根是 `data[].id`；`data-sill-repeat` 内部额外有 `item` 作用域。
+- v1 没有 `settings` 作用域，也没有表达式函数。
 
 不要写 `system.cpu.usage`——`system.cpu` 是 provider 名，不是绑定名。
 
@@ -45,7 +46,7 @@
 | `minute` | number | 0–59 |
 
 `dateLabel` 会随 `language` 重新采样；切语言时组件不需要自己格式化日期。
-需要自定义格式时用 `format(now.iso, "…")`，不要对 `now.time` 再格式化一次。
+时间格式化由宿主完成；v1 没有 `format()` 函数，模板只负责取字段。
 
 ## 系统
 
@@ -105,8 +106,11 @@
 | `duration` | number | 秒，可能为 0（直播 / 未知） |
 | `progress` | number | 0–100，由宿主算好，避免每个组件重复除 |
 | `app` | string | 来源应用名 |
+| `active` | boolean | 当前是否有可显示的媒体 |
+| `volume` | number | 系统音量 0–100；-1 表示还没读到 |
+| `muted` | boolean | 系统静音 |
 
-没有会话时整个 provider 为 `null`，不是空对象。
+没有会话时 `active=false`，其他字段为空；模板用 `data-sill-if="media.active"` 判断。
 
 ## 天气
 
@@ -119,13 +123,14 @@
 | `low` | number \| null | 当日最低 |
 | `code` | number | WMO weather code |
 | `cityId` | string \| null | 设置里选的城市 id；自动定位时可能为 null |
-| `cityName` | string | provider 给的名称；组件可用 `cityId` 查本地化表 |
+| `cityName` | string | 已本地化的城市名 |
+| `condition` | string \| null | 已本地化的天气描述 |
 | `auto` | boolean | 是否自动定位 |
 | `updatedAt` | number | 采样时间，ms epoch |
 | `stale` | boolean | 数据超过刷新周期，仍是上一次成功值 |
 | `error` | boolean | 最近一次请求失败 |
 
-没有数据时整个 provider 为 `null`。失败但以前成功过时，provider 保留旧值并把 `stale` 置真。
+没有数据时字段为 `null` / `-1`；失败但以前成功过时，provider 保留旧值并把 `stale` 置真。
 
 ## 待办
 

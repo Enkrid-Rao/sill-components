@@ -13,5 +13,9 @@
   "span": { "default": 1 },
   "permissions": ["data.time"],
   "data": [{ "id": "now", "source": "time.now" }],
+  "strings": {
+    "en": { "label": "LOCAL TIME" },
+    "zh": { "label": "本地时间" }
+  },
   "ui": "ui/index.html"
 }

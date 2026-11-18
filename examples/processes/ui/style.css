@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+.processes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.processes__title {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.processes__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.processes__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.processes__mb {
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.processes__empty {
+  color: var(--ink-faint);
+  font-size: 12px;
+}
