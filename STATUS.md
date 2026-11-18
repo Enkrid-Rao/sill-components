@@ -2,14 +2,14 @@
 
 这份文件是「现在到底有什么」的唯一真值。其他文档描述契约与目标，不重复状态数字。
 
-最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `8d94900`。
+最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `3abc890`。
 
 ## 版本
 
 | 项 | 值 | 说明 |
 |---|---|---|
 | 正式宿主 | Sill 0.5.4 | 只有内置组件，没有模板引擎 / 安装器 |
-| 开发宿主 | Sill `main` `8d94900` | 模板渲染、动态布局、本地 `.sill` 安装 |
+| 开发宿主 | Sill `main` `3abc890` | 模板渲染、动态布局、本地 `.sill` 安装 |
 | 组件规范 | v0.3 | 本仓库 `main`；最后 tag 是 `v0.1.0` |
 | manifest `schema` | 1 | 未变 |
 | 模板引擎目标版本 | 0.1.0 | 开发分支可用，未打 tag |
@@ -53,7 +53,7 @@
 ## 已验证
 
 - `examples/clock` 通过 manifest schema 与模板校验。
-- `registry/catalog.json` 通过 catalog schema，五个 `docs` 路径存在。
+- `registry/catalog.json` 通过 catalog schema，六个 `docs` 路径存在。
 - `python scripts/validate.py` 本地通过，GitHub Actions 通过。
 - Sill 开发分支的 `.sill` 安装、加载、卸载通过程序化测试。
 - 额外文件 / 路径穿越 / `<script>` / CSS `url()` 四类坏包被拒绝。
@@ -70,7 +70,7 @@
 - 动作只有 `media.*` / `todo.toggle`，需要对应 `action.*` 权限；
 - 没有格式化函数、图片资源、通用样式绑定。
 - sanitizer 是 v1 白名单，还没有完整安全测试集。
-- 五个内置组件仍是 React 实现，没有迁到模板。
+- 六个内置组件仍是 React 实现，没有迁到模板。
 - web 组件可以本地 `.sill` 安装；`trusted` 有完整 Node，`sandboxed` 只走桥；还没有 assets / 目录下载。
 
 ## 更新规则

@@ -9,9 +9,10 @@
 | [sill.system](sill.system/README.md) | CPU / 内存 / GPU / 网络 | builtin | 否 |
 | [sill.processes](sill.processes/README.md) | TOP RAM 与显存 | builtin | 否 |
 | [sill.media](sill.media/README.md) | 正在播放与音量 | builtin | 否 |
+| [sill.shelf](sill.shelf/README.md) | 快捷方式收纳 | builtin | 否 |
 | [sill.todo](sill.todo/README.md) | 本地待办 | builtin | 否 |
 
-这五个都随 Sill 0.5.4 发布，但都还是宿主内置实现。`installable: false` 是准确的：
+五个随 Sill 0.5.4 发布；`sill.shelf` 在开发分支，下一版发布。六个都还是宿主内置实现。`installable: false` 是准确的：
 它们没有 `.sill` 包，也不应该被安装器当成可下载组件。
 
 ## 什么时候会有可安装的组件

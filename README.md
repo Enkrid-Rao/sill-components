@@ -112,6 +112,7 @@ web 组件由 `trust` 决定能力。
 | `sill.hero` | 头图 | builtin | 时间、天气 | 否 |
 | `sill.system` | 系统 | builtin | CPU / 内存 / GPU / 网络 | 否 |
 | `sill.processes` | 进程 | builtin | 进程、显存 | 否 |
+| `sill.shelf` | 收纳 | builtin | 快捷方式 | 否 |
 | `sill.media` | 媒体 | builtin | SMTC、音量 | 否 |
 | `sill.todo` | 待办 | builtin | 待办 | 否 |
 

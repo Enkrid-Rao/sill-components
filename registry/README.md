@@ -10,7 +10,7 @@
 
 ## 现在有什么
 
-五个内置组件，全部随 Sill 0.5.4 一起发布：
+六个内置组件；前五个随 Sill 0.5.4 发布，`sill.shelf` 在开发分支：
 
 | id | 名称 | 数据 | 跨列 | 文档 |
 |---|---|---|---|---|
@@ -18,12 +18,13 @@
 | `sill.system` | 系统 | CPU / 内存 / GPU / 网络 | 1 | [sill.system](../widgets/sill.system/README.md) |
 | `sill.processes` | 进程 | 进程内存、显存 | 1 | [sill.processes](../widgets/sill.processes/README.md) |
 | `sill.media` | 媒体 | SMTC、系统音量 | 1 | [sill.media](../widgets/sill.media/README.md) |
+| `sill.shelf` | 收纳 | 快捷方式 | 1 | [sill.shelf](../widgets/sill.shelf/README.md) |
 | `sill.todo` | 待办 | 本地待办 | 1 或整行 | [sill.todo](../widgets/sill.todo/README.md) |
 
 它们目前是**宿主内置实现**，不是 `.sill` 包：`installable` 全是 `false`。
 内置组件已经能在面板里工作；它们没有独立安装包，所以不能从目录下载。
 
-**为什么没有把它们的源码复制进来：** 这五个组件和宿主的 CSS、React context、布局 id
+**为什么没有把它们的源码复制进来：** 这六个组件和宿主的 CSS、React context、布局 id
 绑在一起，复制一份到本仓库会立刻漂移，而且没有宿主依赖也编译不了。目录只记录来源、权限与
 契约；等它们变成真正独立的 `.sill` 包，再逐个搬进来。
 

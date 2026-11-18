@@ -4,7 +4,10 @@
   "widgets": [
     {
       "id": "sill.hero",
-      "name": { "en": "Hero", "zh": "头图" },
+      "name": {
+        "en": "Hero",
+        "zh": "头图"
+      },
       "summary": {
         "en": "Date, clock and the current weather on one card.",
         "zh": "日期、时钟和当前天气，合成一张卡。"
@@ -20,8 +23,14 @@
       "status": "builtin",
       "engine": ">=0.1.0",
       "runtime": ">=0.5.4",
-      "permissions": ["data.time", "data.weather"],
-      "size": { "w": 384, "h": 180 },
+      "permissions": [
+        "data.time",
+        "data.weather"
+      ],
+      "size": {
+        "w": 384,
+        "h": 180
+      },
       "span": 3,
       "installable": false,
       "source": {
@@ -30,11 +39,17 @@
         "ref": "v0.5.4"
       },
       "docs": "widgets/sill.hero/README.md",
-      "tags": ["clock", "weather"]
+      "tags": [
+        "clock",
+        "weather"
+      ]
     },
     {
       "id": "sill.system",
-      "name": { "en": "System", "zh": "系统" },
+      "name": {
+        "en": "System",
+        "zh": "系统"
+      },
       "summary": {
         "en": "CPU, memory, GPU and network as four quiet bars.",
         "zh": "CPU、内存、GPU、网络四根安静的条。"
@@ -50,8 +65,13 @@
       "status": "builtin",
       "engine": ">=0.1.0",
       "runtime": ">=0.5.4",
-      "permissions": ["data.system"],
-      "size": { "w": 384, "h": 196 },
+      "permissions": [
+        "data.system"
+      ],
+      "size": {
+        "w": 384,
+        "h": 196
+      },
       "span": 1,
       "installable": false,
       "source": {
@@ -60,11 +80,17 @@
         "ref": "v0.5.4"
       },
       "docs": "widgets/sill.system/README.md",
-      "tags": ["system", "monitor"]
+      "tags": [
+        "system",
+        "monitor"
+      ]
     },
     {
       "id": "sill.processes",
-      "name": { "en": "Processes", "zh": "进程" },
+      "name": {
+        "en": "Processes",
+        "zh": "进程"
+      },
       "summary": {
         "en": "Top memory consumers and the GPU memory split.",
         "zh": "内存占用最高的进程，以及显存占用。"
@@ -80,8 +106,13 @@
       "status": "builtin",
       "engine": ">=0.1.0",
       "runtime": ">=0.5.4",
-      "permissions": ["data.system"],
-      "size": { "w": 384, "h": 144 },
+      "permissions": [
+        "data.system"
+      ],
+      "size": {
+        "w": 384,
+        "h": 144
+      },
       "span": 1,
       "installable": false,
       "source": {
@@ -90,11 +121,17 @@
         "ref": "v0.5.4"
       },
       "docs": "widgets/sill.processes/README.md",
-      "tags": ["system", "processes"]
+      "tags": [
+        "system",
+        "processes"
+      ]
     },
     {
       "id": "sill.media",
-      "name": { "en": "Media", "zh": "媒体" },
+      "name": {
+        "en": "Media",
+        "zh": "媒体"
+      },
       "summary": {
         "en": "Windows now-playing, transport keys and system volume.",
         "zh": "Windows 正在播放、传输键和系统音量。"
@@ -110,8 +147,13 @@
       "status": "builtin",
       "engine": ">=0.1.0",
       "runtime": ">=0.5.4",
-      "permissions": ["data.media"],
-      "size": { "w": 384, "h": 256 },
+      "permissions": [
+        "data.media"
+      ],
+      "size": {
+        "w": 384,
+        "h": 256
+      },
       "span": 1,
       "installable": false,
       "source": {
@@ -120,11 +162,57 @@
         "ref": "v0.5.4"
       },
       "docs": "widgets/sill.media/README.md",
-      "tags": ["media", "controls"]
+      "tags": [
+        "media",
+        "controls"
+      ]
+    },
+    {
+      "id": "sill.shelf",
+      "name": {
+        "en": "Shelf",
+        "zh": "收纳"
+      },
+      "summary": {
+        "en": "A small shelf of app and file shortcuts.",
+        "zh": "一小格应用与文件快捷方式。"
+      },
+      "description": {
+        "en": "Add .lnk/.exe shortcuts, show native icons, open and remove. Main branch; next release.",
+        "zh": "添加 .lnk/.exe，显示系统图标，点击打开、可删除。开发分支；下一版发布。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "builtin",
+      "status": "builtin",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.6.0",
+      "permissions": [],
+      "size": {
+        "w": 384,
+        "h": 150
+      },
+      "span": 1,
+      "installable": false,
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill",
+        "path": "apps/desktop/src/renderer/src/components/ShelfWidget.tsx",
+        "ref": "v0.5.4"
+      },
+      "docs": "widgets/sill.shelf/README.md",
+      "tags": [
+        "shortcut",
+        "shelf",
+        "launcher"
+      ]
     },
     {
       "id": "sill.todo",
-      "name": { "en": "Todo", "zh": "待办" },
+      "name": {
+        "en": "Todo",
+        "zh": "待办"
+      },
       "summary": {
         "en": "A local todo list with filters, inline editing and a 5 second undo.",
         "zh": "本地待办：过滤器、行内编辑，删除后 5 秒可撤销。"
@@ -140,8 +228,13 @@
       "status": "builtin",
       "engine": ">=0.1.0",
       "runtime": ">=0.5.4",
-      "permissions": ["data.todo"],
-      "size": { "w": 384, "h": 300 },
+      "permissions": [
+        "data.todo"
+      ],
+      "size": {
+        "w": 384,
+        "h": 300
+      },
       "span": 3,
       "installable": false,
       "source": {
@@ -150,7 +243,10 @@
         "ref": "v0.5.4"
       },
       "docs": "widgets/sill.todo/README.md",
-      "tags": ["todo", "productivity"]
+      "tags": [
+        "todo",
+        "productivity"
+      ]
     }
   ]
 }
