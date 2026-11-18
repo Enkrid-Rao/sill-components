@@ -150,7 +150,7 @@ pnpm dev
 
 1. 把 `widget.json`、`ui/index.html`、`ui/style.css` 压成 zip；
 2. 把扩展名改成 `.sill`；
-3. 设置 → 行为 → 组件 → 安装组件…。
+3. 设置 → 行为 → 组件 → 安装组件…，确认 id / 版本 / 作者 / 权限后安装。
 
 `SILL_DEV_WIDGET` 和本地 `.sill` 安装只在当前开发分支可用。正式发布、目录下载和 CLI 还没做。
 

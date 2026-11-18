@@ -50,7 +50,7 @@
 - [ ] `sill validate <dir>`
 - [ ] `sill dev <dir>`（热重载 + 错误面板）
 - [ ] `sill pack <dir>`（`.sill` zip）
-- [ ] 安装前权限确认
+- [x] 安装前权限确认
 - [ ] 版本升级
 - [ ] `sill new <id>` 模板
 
