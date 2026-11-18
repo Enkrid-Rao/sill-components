@@ -2,14 +2,14 @@
 
 这份文件是「现在到底有什么」的唯一真值。其他文档描述契约与目标，不重复状态数字。
 
-最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `41da433`。
+最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `9c87b4f`。
 
 ## 版本
 
 | 项 | 值 | 说明 |
 |---|---|---|
 | 正式宿主 | Sill 0.5.4 | 只有内置组件，没有模板引擎 / 安装器 |
-| 开发宿主 | Sill `main` `41da433` | 模板渲染、动态布局、本地 `.sill` 安装 |
+| 开发宿主 | Sill `main` `9c87b4f` | 模板渲染、动态布局、本地 `.sill` 安装 |
 | 组件规范 | v0.3 | 本仓库 `main`；最后 tag 是 `v0.1.0` |
 | manifest `schema` | 1 | 未变 |
 | 模板引擎目标版本 | 0.1.0 | 开发分支可用，未打 tag |
@@ -35,7 +35,7 @@
 - 组件是 `widget.json` + `ui/index.html` + `ui/style.css`；
 - 宿主清洗 HTML/CSS 后挂到 Shadow DOM，放在 `WidgetShell` 的 `.card` 里；
 - 玻璃、圆角、atmosphere 由 `.card` / `.rail__atmo` 提供，模板只画内容；
-- v1 不执行 JS、不联网、不写数据；支持 `data-sill-text` / `data-sill-i18n` / `data-sill-if` / `data-sill-repeat`；
+- v1 不执行 JS、不联网、不写数据；支持 `data-sill-text` / `i18n` / `if` / `repeat` / `action` / `meter`；
 - 本地 `.sill` 可以安装、隐藏、拖拽、跨列、卸载；
 - `pnpm sill validate/pack/new/dev` 可以在 Sill 工作区使用；
 - 安装路径 `<userData>/components/<id>@<version>/`，原子写入。
@@ -57,6 +57,8 @@
 - Sill 开发分支的 `.sill` 安装、加载、卸载通过程序化测试。
 - 额外文件 / 路径穿越 / `<script>` / CSS `url()` 四类坏包被拒绝。
 - 模板卡在默认 / Lagoon / 320 宽 / 安装后布局下截图核对过。
+- `examples/processes` 的 repeat / if / i18n 与 `examples/media` 的 action / meter 安装后渲染正常。
+- `pnpm test`：安装器 + provider 10 个测试通过；`verify.yml` 通过。
 
 ## 未验证 / 已知缺口
 
