@@ -36,11 +36,6 @@ SCHEMAS = {
     "catalog": ROOT / "spec" / "catalog.schema.json",
 }
 
-SEMVER_RE = re.compile(
-    r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
-    r"(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?"
-    r"(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$"
-)
 RANGE_TOKEN_RE = re.compile(r"^(>=|<=|>|<|=|\^|~)?\s*v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)$")
 
 ALLOWED_TAGS = {
@@ -99,12 +94,6 @@ def validate_schema(path: Path, kind: str) -> tuple[object, int]:
         error(path, f"{kind} schema: {problem.message} (at {at})")
     return data, len(problems)
 
-
-def parse_version(text: str):
-    match = SEMVER_RE.match(text)
-    if not match:
-        return None
-    return tuple(int(match.group(i)) for i in range(1, 4))
 
 
 def check_range(path: Path, field: str, value: str) -> None:

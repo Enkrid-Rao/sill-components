@@ -67,8 +67,8 @@ v1 没有 `settings` / `locales` / `assets` / `fonts` / `network`。模板不执
 
 - `version` 是组件自己的 semver，允许 prerelease 与 build metadata。
 - `runtime` 是宿主应用范围；`engine` 是模板引擎范围。**两个都满足才加载。**
-- 0.5.4 满足 `runtime`，但模板引擎还没正式发布；安装器落地前，模板只能通过
-  `SILL_DEV_WIDGET` 在开发分支预览。
+- 0.5.4 正式版没有模板引擎；开发分支可以直接安装本地 `.sill`，也可以用
+  `SILL_DEV_WIDGET` 预览文件夹。
 - 两个范围都是 semver range；不满足时拒绝加载，不降级。
 
 ## type
@@ -127,7 +127,7 @@ v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混
 "ui": "ui/index.html"
 ```
 
-- 必须是包根下的相对路径，`.html` 结尾；
+- 必须是包根下的相对路径，v1 固定 `ui/index.html`；
 - 同目录必须有 `style.css`；
 - 不接受 `..`、绝对路径、反斜杠、盘符、UNC；
 - 模板不能带 `ui/*.js`。
@@ -140,7 +140,7 @@ v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混
 2. `schema` 精确等于 `1`。
 3. `id` 至少两段、格式合法；全局唯一。
 4. `version` 是合法 semver；`runtime` / `engine` 是合法 range。
-5. `type` 精确等于 `template`；`ui` 指向 `.html`。
+5. `type` 精确等于 `template`；`ui` 固定为 `ui/index.html`。
 6. `ui` 是包内相对路径，不逃出包根，不含反斜杠、盘符、UNC、`..`。
 7. `ui` 指向的文件存在；同目录 `style.css` 存在。
 8. `permissions` 覆盖 `data[].source` 所需的权限。
@@ -154,15 +154,17 @@ v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混
 ## 安装路径与配额
 
 路径相对于宿主的 `userData`，不要写死 `%APPDATA%`——便携版会把它指到 exe 旁的 `Sill-data`。
+包结构、安装与卸载见 [package.md](package.md)。
 
 | 内容 | 路径 | 配额 |
 |---|---|---|
-| 组件包 | `<userData>/components/<id>@<version>/` | 10 MB / 200 文件 |
+| 组件包 | `<userData>/components/<id>@<version>/` | 10 MB / 3 文件 / 单文件 512 KB |
 | 组件存储 | 暂未开放 | — |
 | 组件设置 | 暂未开放 | — |
 | 目录索引缓存 | `<userData>/catalog/` | 由宿主管理 |
 
-- 升级保留布局；卸载删除组件目录，不动用户待办、全局设置与布局。
+- 同一个 id 只允许一个版本；升级要先卸载再安装。
+- 卸载删除组件目录，并把 id 从布局移除；不动用户待办、全局设置与主题。
 - 安装使用临时目录 + 原子 rename；失败不留下半个包。
 - 组件目录名由 `id@version` 生成，不信任压缩包内目录名。
 

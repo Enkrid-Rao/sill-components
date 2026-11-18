@@ -17,7 +17,7 @@ my-widget/
    └─ style.css    # 内容样式
 ```
 
-- `widget.json` 的 `ui` 指向 HTML 文件，默认 `ui/index.html`；
+- `widget.json` 的 `ui` 在 v1 固定为 `ui/index.html`；
 - `style.css` 固定放在 HTML 同目录；
 - 不打包 JS；`ui/*.js` 会被校验拒绝；
 - 没有 `assets/`、`locales/`、`settings/`；这些是后续版本。

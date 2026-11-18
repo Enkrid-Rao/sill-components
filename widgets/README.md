@@ -16,7 +16,7 @@
 
 ## 什么时候会有可安装的组件
 
-模板引擎（`render` / `sanitize` / `bind`）和安装器落地之后，从最简单的开始：
+本地 `.sill` 安装已经可用，目录下载还没做。从最简单的开始：
 
 1. `sill.clock` 这类只读文本卡先出 `.sill`；
 2. 等模板支持 `data-sill-if` / `data-sill-repeat`，再做 system / processes；

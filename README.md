@@ -7,8 +7,9 @@ Sill 的组件规范与官方组件目录。这个仓库主要说明：
 
 ## 状态
 
-Sill 0.5.4 已内置五张卡，并有模板渲染原型。模板引擎、`.sill` 安装器、CLI、动态布局 id 未完成。
-下面的 manifest 是目标格式，现在不能分发 `.sill` 包。已实现部分见 [STATUS.md](STATUS.md)。
+Sill 0.5.4 有内置五张卡。开发分支（`main`）有模板渲染、动态布局和本地 `.sill` 安装。
+正式 0.5.4 没有模板引擎和安装器；下面的 manifest 是当前格式，现在可以在开发分支本地安装，
+但还不能通过官方目录分发。已实现部分见 [STATUS.md](STATUS.md)。
 
 ## 组件格式
 
@@ -122,6 +123,7 @@ my-widget/
 | [docs/template.md](docs/template.md) | 模板结构、HTML/CSS 规则、绑定、token |
 | [docs/manifest.md](docs/manifest.md) | `widget.json` 字段、校验、权限 |
 | [docs/runtime.md](docs/runtime.md) | 渲染、尺寸、主题、性能 |
+| [docs/package.md](docs/package.md) | `.sill` 包结构、安装、卸载 |
 | [docs/providers.md](docs/providers.md) | provider 字段与权限 |
 | [docs/security.md](docs/security.md) | 白名单、Shadow DOM、包边界 |
 | [docs/testing.md](docs/testing.md) | 验收清单 |
@@ -144,7 +146,13 @@ $env:SILL_DEV_WIDGET = 'D:\Projects\Sill\examples\dev-widget'
 pnpm dev
 ```
 
-`SILL_DEV_WIDGET` 只在当前开发分支可用。正式安装等 `.sill` 安装器。
+安装本地 `.sill`：
+
+1. 把 `widget.json`、`ui/index.html`、`ui/style.css` 压成 zip；
+2. 把扩展名改成 `.sill`；
+3. 设置 → 行为 → 组件 → 安装组件…。
+
+`SILL_DEV_WIDGET` 和本地 `.sill` 安装只在当前开发分支可用。正式发布、目录下载和 CLI 还没做。
 
 ## 版本
 

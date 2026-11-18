@@ -27,29 +27,31 @@
 - [x] 模板示例 clock
 - [ ] 与 Sill 主仓库的模板引擎接口对齐评审
 
-**完成标准：** 一个只读 `render` 示例在 Sill 开发分支里通过 `SILL_DEV_WIDGET` 显示，
-视觉与内置卡一致；`python scripts/validate.py` 全绿。
+**完成标准：** 一个只读 template 示例在 Sill 开发分支里通过 `SILL_DEV_WIDGET` 或本地 `.sill`
+显示，视觉与内置卡一致；`python scripts/validate.py` 全绿。
 
 ## v0.4 — 宿主模板引擎
 
 在 Sill 主仓库实现：
 
-- [ ] 动态卡片 id，模板卡进入 `layout.json`
-- [ ] manifest 校验 + HTML/CSS sanitizer
-- [ ] Shadow DOM 渲染、绑定更新
-- [ ] 语言 / 主题 / 尺寸变化
-- [ ] 错误占位与开发者错误信息
+- [x] 动态卡片 id，模板卡进入 `layout.json`
+- [x] manifest 基础校验 + HTML/CSS sanitizer
+- [x] Shadow DOM 渲染、绑定更新
+- [x] 语言 / 主题 / 尺寸变化
+- [ ] 统一的错误占位与开发者错误信息
 - [ ] 单元测试：白名单、绑定、缺失数据
 
-**完成标准：** 不设置开发开关也能从文件夹加载模板卡；拖拽、跨列、隐藏、重启保持。
+**完成标准：** 模板卡可以安装、拖拽、跨列、隐藏、重启保持。
 
 ## v0.5 — CLI 与安装器
 
+- [x] 本地 `.sill` 安装：临时目录 + 原子 rename
+- [x] 卸载
 - [ ] `sill validate <dir>`
 - [ ] `sill dev <dir>`（热重载 + 错误面板）
 - [ ] `sill pack <dir>`（`.sill` zip）
-- [ ] 安装器：临时目录 + 原子 rename + 权限确认
-- [ ] 卸载 / 版本升级
+- [ ] 安装前权限确认
+- [ ] 版本升级
 - [ ] `sill new <id>` 模板
 
 **完成标准：** 作者从零到本地预览 ≤ 5 分钟；安装 clock 后卡片出现在布局里；卸载无残留。

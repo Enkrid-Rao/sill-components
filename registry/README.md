@@ -21,9 +21,9 @@
 | `sill.todo` | 待办 | 本地待办 | 1 或整行 | [sill.todo](../widgets/sill.todo/README.md) |
 
 它们目前是**宿主内置实现**，不是 `.sill` 包：`installable` 全是 `false`。
-内置组件已经能在面板里工作；模板引擎和安装器还没完成，所以它们现在还不是 `.sill` 包。
+内置组件已经能在面板里工作；它们没有独立安装包，所以不能从目录下载。
 
-**为什么没有把它们的源码复制进来：** 这五个组件和宿主的 CSS、React context、`CardId`
+**为什么没有把它们的源码复制进来：** 这五个组件和宿主的 CSS、React context、布局 id
 绑在一起，复制一份到本仓库会立刻漂移，而且没有宿主依赖也编译不了。目录只记录来源、权限与
 契约；等它们变成真正独立的 `.sill` 包，再逐个搬进来。
 
@@ -71,21 +71,21 @@
 - 目录顶部的 `updated` 是索引变更日期，不是组件发布日期。
 - 内置组件的 `source.ref` 指向 Sill 的发布标签；`ref` 不存在时，条目视为失效。
 
-## 提交组件（安装器落地之后）
+## 提交组件（目录下载开放之后）
 
-现在还没有下载与安装通道，所以不接受「只交一个 `.sill`」的提交。等 `sill pack` 与安装器落地后，
-流程是：
+本地 `.sill` 已经可以安装，但目录下载与自动更新还没完成，所以现在不接受「只交一个 `.sill`」的提交。
+等 `sill pack` 和目录下载落地后，流程是：
 
 1. 仓库根目录提供 `widget.json`、`ui/index.html`、`ui/style.css`、`README.md`；
+   `.sill` 只打前三个，`README.md` 留在源码仓库；
 2. `python scripts/validate.py` 与 `docs/testing.md` 全过；
 3. 在 `registry/catalog.json` 增加条目，`docs` 指向仓库内的说明页；
 4. PR 里说明数据来源、权限用途和失败时的表现。
 
-第一条硬规则：**模板不执行 JS、不联网、不写数据；数据只来自 manifest 声明的 provider。**
-第二条：内置组件能做到的事，第三方模板也必须能做到——做不到就是引擎缺能力，不是组件该绕过去。
+硬规则：**模板不执行 JS、不联网、不写数据；数据只来自 manifest 声明的 provider。**
 
 ## 相关
 
 - [规范首页](../README.md)
 - [manifest](../docs/manifest.md) · [template](../docs/template.md) · [runtime](../docs/runtime.md)
-- [安全模型](../docs/security.md) · [验收清单](../docs/testing.md) · [路线图](../docs/roadmap.md)
+- [package](../docs/package.md) · [安全模型](../docs/security.md) · [验收清单](../docs/testing.md) · [路线图](../docs/roadmap.md)

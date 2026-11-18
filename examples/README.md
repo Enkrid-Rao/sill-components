@@ -4,5 +4,12 @@
 |---|---|---|
 | [clock](clock) | template | 时间 + 日期，最小模板组件 |
 
-示例以「安装器落地后可直接加载」为目标，不是当前可安装的 `.sill` 包。
-现在能用它做的，是在 Sill 仓库里跑 `SILL_DEV_WIDGET` 预览，或用 `python scripts/validate.py` 检查契约。
+示例以「能直接打成 `.sill` 安装」为目标。
+
+现在可以用它做的：
+
+- 在 Sill 开发分支里用 `SILL_DEV_WIDGET` 预览；
+- 压成 `.sill`，从设置 → 行为 → 组件 → 安装组件… 安装；
+- 用 `python scripts/validate.py` 检查契约。
+
+正式目录下载还没开放。

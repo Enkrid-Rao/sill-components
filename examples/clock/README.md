@@ -19,14 +19,20 @@ clock/
 
 ## 现在能做什么
 
-宿主还没有安装器，所以它不能从 `.sill` 安装。现在能用的是开发模式：
+Sill 开发分支可以本地安装 `.sill`：
+
+1. 在 `clock/` 里把 `widget.json` 和 `ui/` 压成 zip；
+2. 把扩展名改成 `.sill`；
+3. 设置 → 行为 → 组件 → 安装组件…。
+
+也可以继续用开发模式：
 
 ```powershell
 $env:SILL_DEV_WIDGET = 'D:\Projects\Sill-Components\examples\clock'
 pnpm dev
 ```
 
-（路径指向 Sill 仓库的启动目录。）正式命令 `sill dev` 仍在 roadmap 上。
+（路径指向 Sill 仓库的启动目录。）正式目录下载和 `sill dev` 仍在 roadmap 上。
 
 ## 尺寸
 

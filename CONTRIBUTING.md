@@ -77,7 +77,8 @@ python scripts/validate.py ./my-widget  # 单个组件
 - 组件有 `widget.json`（如果它已经是 `.sill` 包）；
 - 权限是实际使用的最小集；
 - `docs` 指向本仓库内的说明页；
-- `installable` 与事实一致：没有安装通道时必须为 `false`。
+- `installable` 与事实一致：没有目录下载通道时必须为 `false`。
+- 本地 `.sill` 安装不代表目录可下载；两个状态分开写。
 
 内置组件的 `source.ref` 指向 Sill 的发布标签；不要指向 `main`。
 

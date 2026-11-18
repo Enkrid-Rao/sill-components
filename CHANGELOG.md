@@ -12,6 +12,7 @@
 - 只读数据用 `data-sill-text`；v1 不执行 JS、不联网、不写数据；
 - 权限只保留 `data.time/system/media/weather/todo`；
 - 校验器重写：manifest、HTML 白名单、CSS 限制、包大小；
+- 新增 `.sill` 包规范：三个文件、原子安装、卸载、无签名 / 无目录下载；
 - 示例改为 template clock，删除 counter。
 
 ### 删除

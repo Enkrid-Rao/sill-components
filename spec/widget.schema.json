@@ -97,17 +97,8 @@
       }
     },
     "ui": {
-      "type": "string",
-      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*:).+\\.html$",
-      "maxLength": 200,
-      "description": "Relative path to the HTML template, normally ui/index.html."
-    }
-  },
-  "$defs": {
-    "path": {
-      "type": "string",
-      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*:).+$",
-      "maxLength": 200
+      "const": "ui/index.html",
+      "description": "v1 fixed template entry point."
     }
   }
 }
