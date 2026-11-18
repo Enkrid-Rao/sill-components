@@ -1,9 +1,0 @@
-{
-  "type": "vstack",
-  "gap": 6,
-  "children": [
-    { "type": "text", "i18n": { "key": "clock.label" }, "style": "caption" },
-    { "type": "text", "bind": "now.time", "style": "display" },
-    { "type": "text", "bind": "now.dateLabel", "style": "caption" }
-  ]
-}

@@ -31,11 +31,7 @@
         "data.system",
         "data.media",
         "data.weather",
-        "data.todo",
-        "storage",
-        "network",
-        "commands",
-        "settings"
+        "data.todo"
       ]
     },
     "entry": {
@@ -71,7 +67,7 @@
         },
         "author": { "type": "string", "minLength": 1, "maxLength": 80 },
         "license": { "type": "string", "minLength": 1, "maxLength": 40 },
-        "type": { "enum": ["builtin", "declarative", "script"] },
+        "type": { "enum": ["builtin", "template"] },
         "status": { "enum": ["builtin", "verified", "community"] },
         "engine": { "type": "string", "minLength": 1, "maxLength": 80 },
         "runtime": { "type": "string", "minLength": 1, "maxLength": 80 },

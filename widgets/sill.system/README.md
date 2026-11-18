@@ -1,6 +1,6 @@
 # sill.system
 
-CPU、内存、GPU、网络四根条。它不是仪表盘，读数只回答「现在忙不忙」。
+CPU、内存、GPU、网络四根条。读数表示当前负载，不是仪表盘。
 
 ## 显示什么
 
@@ -40,35 +40,15 @@ CPU、内存、GPU、网络四根条。它不是仪表盘，读数只回答「�
 
 ## 实现状态
 
-**内置 React 实现，随 Sill 0.5.1 发布。** 源码：
-[`SystemWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.1/apps/desktop/src/renderer/src/widgets/SystemWidget.tsx)。
+**内置 React 实现，随 Sill 0.5.4 发布。** 源码：
+[`SystemWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.4/apps/desktop/src/renderer/src/widgets/SystemWidget.tsx)。
 
-`installable: false`，等 v0.2 的 IR 引擎。
+`installable: false`，等模板引擎。
 
 ## 迁移到 `.sill`
 
-这是最容易声明式化的内置卡：
-
-```json
-{
-  "type": "vstack",
-  "gap": 10,
-  "children": [
-    { "type": "hstack", "justify": "between", "children": [
-      { "type": "text", "value": "SYSTEM", "style": "caption" },
-      { "type": "text", "bind": "cpu.cores", "style": "caption" }
-    ]},
-    { "type": "bar", "bind": "cpu.usage" },
-    { "type": "bar", "bind": "memory.percent" },
-    { "type": "bar", "bind": "gpu.usage", "tone": "warm" },
-    { "type": "bar", "bind": "network.downBps" }
-  ]
-}
-```
-
-还缺的两件事：`bar` 旁边的百分比文字需要 `round()` 与字符串拼接；网络条需要把 bytes/s
-映射到 0–100，这可以由 provider 先算好，或在 v1.1 加一个 `scale()` 函数。平滑插值属于宿主渲染层，
-不应该要求每个组件自己实现。
+模板 v1 只有文本绑定，不能画进度条 / 环形图；system 仍是 React 内置组件。
+等模板支持样式绑定或更多的展示节点后再迁。
 
 ## 验收
 

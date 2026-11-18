@@ -38,20 +38,15 @@
 
 ## 实现状态
 
-**内置 React 实现，随 Sill 0.5.1 发布。** 源码：
-[`HeroWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.1/apps/desktop/src/renderer/src/widgets/HeroWidget.tsx)。
+**内置 React 实现，随 Sill 0.5.4 发布。** 源码：
+[`HeroWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.4/apps/desktop/src/renderer/src/widgets/HeroWidget.tsx)。
 
 它不是 `.sill` 包，`installable: false`。
 
 ## 迁移到 `.sill`
 
-按 v1 的声明式 IR，这张卡还差两块：
-
-1. **条件图标**：天气图标由 WMO code 决定，IR 的 `image` 需要 `bind + map` 才能表达；
-   v1 的 `image` 已经支持这个形状，但引擎还没实现。
-2. **本地化日期**：`time.now` 已经提供 `dateLabel`，这一块可以直接绑定。
-
-在引擎支持 `image.bind` 之前，hero 只能以脚本组件或内置组件存在。
+模板 v1 只有文本绑定，没有条件图片 / 资源白名单；hero 仍是 React 内置组件。
+等模板支持 `data-sill-if` 和图片资源后再迁。
 
 ## 验收
 

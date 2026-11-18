@@ -1,4 +1,0 @@
-{
-  "type": "list",
-  "itemTemplate": { "type": "text", "bind": "item.name" }
-}

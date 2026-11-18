@@ -5,9 +5,9 @@
   "version": "1.0",
   "author": "x",
   "license": "MIT",
-  "runtime": ">=0.5.1",
+  "runtime": ">=0.5.4",
   "engine": ">=0.1.0",
-  "type": "declarative",
+  "type": "template",
   "permissions": [],
-  "ui": "ui/layout.json"
+  "ui": "ui/index.html"
 }

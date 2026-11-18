@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+.clock__time {
+  color: var(--ink);
+  font-family: var(--serif);
+}

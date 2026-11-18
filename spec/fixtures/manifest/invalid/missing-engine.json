@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "author": "x",
   "license": "MIT",
-  "runtime": ">=0.5.1",
-  "type": "declarative",
+  "runtime": ">=0.5.4",
+  "type": "template",
   "permissions": [],
-  "ui": "ui/layout.json"
+  "ui": "ui/index.html"
 }

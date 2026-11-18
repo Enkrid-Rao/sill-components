@@ -1,13 +1,16 @@
 # 官方组件目录
 
-这里是 Sill 的官方组件目录。它回答两个问题：**有哪些组件**，以及**每个组件要什么权限、长什么样、源码在哪**。
+这里是 Sill 的官方组件目录。主要包括：
+
+- 有哪些组件。
+- 每个组件用什么数据、长什么样、源码在哪。
 
 目录和规范暂时放在同一个仓库里。等出现第三方组件、需要下载与更新服务时，再把索引拆出去；
 在此之前，两份东西放一起更容易保持一致。
 
 ## 现在有什么
 
-五个内置组件，全部随 Sill 0.5.1 一起发布：
+五个内置组件，全部随 Sill 0.5.4 一起发布：
 
 | id | 名称 | 数据 | 跨列 | 文档 |
 |---|---|---|---|---|
@@ -18,12 +21,7 @@
 | `sill.todo` | 待办 | 本地待办 | 1 或整行 | [sill.todo](../widgets/sill.todo/README.md) |
 
 它们目前是**宿主内置实现**，不是 `.sill` 包：`installable` 全是 `false`。
-这不是占位——内置组件已经能在面板里工作，只是还没有被搬到组件引擎上。
-引擎落地后，这份目录会按下面的顺序迁移：
-
-1. 能纯声明式表达的（system、processes）先出 `.sill` 包；
-2. hero 需要条件图标，等 `image.bind + map` 落地；
-3. media、todo 依赖本地状态与逐行动作，走脚本组件或 v1.1 的 IR 状态模型。
+内置组件已经能在面板里工作；模板引擎和安装器还没完成，所以它们现在还不是 `.sill` 包。
 
 **为什么没有把它们的源码复制进来：** 这五个组件和宿主的 CSS、React context、`CardId`
 绑在一起，复制一份到本仓库会立刻漂移，而且没有宿主依赖也编译不了。目录只记录来源、权限与
@@ -43,11 +41,11 @@
   "type": "builtin",
   "status": "builtin",
   "engine": ">=0.1.0",
-  "runtime": ">=0.5.1",
+  "runtime": ">=0.5.4",
   "permissions": ["data.system"],
   "span": 1,
   "installable": false,
-  "source": { "repo": "...", "path": "...", "ref": "v0.5.1" },
+  "source": { "repo": "...", "path": "...", "ref": "v0.5.4" },
   "docs": "widgets/sill.system/README.md"
 }
 ```
@@ -69,7 +67,7 @@
 ## 版本与兼容
 
 - 每个条目有自己的 `version`（组件版本），与 Sill 的版本无关。
-- `runtime` 是宿主版本范围；`engine` 是组件引擎版本范围。两个都满足才允许加载。
+- `runtime` 是宿主版本范围；`engine` 是模板引擎版本范围。两个都满足才允许加载。
 - 目录顶部的 `updated` 是索引变更日期，不是组件发布日期。
 - 内置组件的 `source.ref` 指向 Sill 的发布标签；`ref` 不存在时，条目视为失效。
 
@@ -78,16 +76,16 @@
 现在还没有下载与安装通道，所以不接受「只交一个 `.sill`」的提交。等 `sill pack` 与安装器落地后，
 流程是：
 
-1. 仓库根目录提供 `widget.json`、`ui/`、`README.md` 和 `preview`（可选）；
+1. 仓库根目录提供 `widget.json`、`ui/index.html`、`ui/style.css`、`README.md`；
 2. `python scripts/validate.py` 与 `docs/testing.md` 全过；
 3. 在 `registry/catalog.json` 增加条目，`docs` 指向仓库内的说明页；
 4. PR 里说明数据来源、权限用途和失败时的表现。
 
-第一条硬规则：**没有声明 `network` 域名的组件不能访问网络；没有 `data.*` 权限的组件不能读数据。**
-第二条：内置组件能做到的事，第三方组件也必须能做到——做不到就是引擎缺能力，不是组件该绕过去。
+第一条硬规则：**模板不执行 JS、不联网、不写数据；数据只来自 manifest 声明的 provider。**
+第二条：内置组件能做到的事，第三方模板也必须能做到——做不到就是引擎缺能力，不是组件该绕过去。
 
 ## 相关
 
 - [规范首页](../README.md)
-- [manifest](../docs/manifest.md) · [IR](../docs/ir.md) · [runtime](../docs/runtime.md) · [脚本](../docs/scripts.md)
+- [manifest](../docs/manifest.md) · [template](../docs/template.md) · [runtime](../docs/runtime.md)
 - [安全模型](../docs/security.md) · [验收清单](../docs/testing.md) · [路线图](../docs/roadmap.md)

@@ -45,22 +45,15 @@ Windows API 调用与缓存，v1 不做。
 
 ## 实现状态
 
-**内置 React 实现，随 Sill 0.5.1 发布。** 源码：
-[`MediaWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.1/apps/desktop/src/renderer/src/components/widgets/MediaWidget.tsx)。
+**内置 React 实现，随 Sill 0.5.4 发布。** 源码：
+[`MediaWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.4/apps/desktop/src/renderer/src/components/widgets/MediaWidget.tsx)。
 
 `installable: false`。
 
 ## 迁移到 `.sill`
 
-这张卡是 v1 声明式 IR 的反例：它需要
-
-- 乐观的本地状态（点击后先换图标，再等快照）；
-- 每个按钮不同的命令与参数；
-- 拖动中的连续值（音量）；
-- 播放 / 暂停两套图标的条件切换。
-
-v1 的只读 IR 一个都表达不了。目标是把这张卡做成脚本组件，用 `ctx.data.media()` 拉快照、
-`ctx.mediaCommand()` 发命令、`ctx.storage` 存音量偏好；或者等 v1.1 的状态模型。
+模板 v1 不执行 JS、不接收命令，做不了播放控制和乐观状态；media 仍是 React 内置组件。
+需要命令/状态的组件走后续的受限脚本路线，不混进模板。
 
 ## 验收
 

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "sill.jsonui",
+  "name": "JSON UI",
+  "version": "1.0.0",
+  "author": "x",
+  "license": "MIT",
+  "runtime": ">=0.5.4",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "permissions": [],
+  "ui": "ui/layout.json"
+}

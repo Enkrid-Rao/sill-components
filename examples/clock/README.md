@@ -1,48 +1,42 @@
 # Clock
 
-最小声明式组件：时间 + 日期 + 一行本地化标签，不写 JS。
+最小模板组件：时间 + 日期，不写 JS，不画卡片背景。
 
 ```text
 clock/
 ├─ widget.json
-├─ ui/layout.json
-└─ locales/
-   ├─ en.json
-   └─ zh.json
+└─ ui/
+   ├─ index.html
+   └─ style.css
 ```
 
 ## 它演示什么
 
-- manifest 的最小字段：`id`、`runtime`、`engine`、`type`、`permissions`、`data`、`ui`；
-- 数据绑定：`data[].id = "now"` → IR 里用 `now.time` / `now.dateLabel`；
-- `i18n` 与 `locales`：标签随语言切换；
-- `text` 的两种 token：`caption` 与 `display`。
+- manifest 的最小字段：`id`、`runtime`、`engine`、`type: "template"`、`permissions`、`data`、`ui`；
+- 数据绑定：`data[].id = "now"` → `data-sill-text="now.time"`；
+- 玻璃和 atmosphere 由 `WidgetShell` 的 `.card` 提供，模板只画内容；
+- 主题通过 CSS 变量继承（`--ink`、`--serif`）。
 
 ## 现在能做什么
 
-Sill 0.5.1 还没有 IR 引擎，所以它**不能**直接加载。它能做的是：
+宿主还没有安装器，所以它不能从 `.sill` 安装。现在能用的是开发模式：
 
-```bash
-python scripts/validate.py
+```powershell
+$env:SILL_DEV_WIDGET = 'D:\Projects\Sill-Components\examples\clock'
+pnpm dev
 ```
 
-校验 manifest、IR、locales 与绑定根名。引擎落地后：
-
-```bash
-sill validate .
-sill dev .
-```
+（路径指向 Sill 仓库的启动目录。）正式命令 `sill dev` 仍在 roadmap 上。
 
 ## 尺寸
 
-- 建议 384 × 160。
-- 单跨。最窄要能在 185px 下放下：`display` 时间会缩小到 token 允许的最小字号，
-  日期用 `maxLines: 1` 截断。
-- 中文 `caption` 不会低于 10.5px。
+- 建议 384 × 160，单跨。
+- 最窄要能在 185px 下放下；日期用单行截断。
+- 中文 caption 由宿主 token 保证 ≥10.5px。
 
 ## 验收
 
 - 320 / 384 / 714 / 1180 面板宽下不横向溢出。
-- `zh` / `en` 切换后标签与日期都变，不残留旧语言。
 - 时间每分钟更新，日期跨天更新。
-- 没有 provider 时不抛错，显示 `—`。
+- 没有数据时显示 `—`，不抛错。
+- 主题切换时文字颜色跟随宿主。

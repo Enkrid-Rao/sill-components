@@ -1,7 +1,7 @@
 # 数据 provider
 
-组件不直接读系统，也不自己开进程。宿主把数据采样成快照，按 manifest 的声明交给组件。
-这份文件定义每个 provider 的字段、单位和权限；字段名就是 IR 绑定里的名字。
+组件不直接读系统，也不自己开进程。宿主把数据采样成快照，按 manifest 的声明交给模板。
+这份文件定义每个 provider 的字段、单位和权限；字段名就是 `data-sill-text` 里的名字。
 
 ## 绑定名从哪来
 
@@ -14,17 +14,17 @@
 ]
 ```
 
-IR 里只使用短名：
+模板里只使用短名：
 
-```json
-{ "type": "text", "bind": "now.time" },
-{ "type": "bar", "bind": "cpu.usage" }
+```html
+<div data-sill-text="now.time"></div>
+<div data-sill-text="cpu.usage"></div>
 ```
 
 - 短名在组件内唯一，`[A-Za-z_][A-Za-z0-9_]*`。
 - 未声明的短名不可访问，校验会失败。
 - 同一个 provider 可以被两个短名引用，宿主负责去重与缓存。
-- `bind` 的根只能是 `data[].id`、`settings`，以及列表模板里的 `item`。
+- `data-sill-text` 的根只能是 `data[].id`；v1 没有 `settings` / `item` 作用域。
 
 不要写 `system.cpu.usage`——`system.cpu` 是 provider 名，不是绑定名。
 
@@ -143,12 +143,12 @@ IR 里只使用短名：
 
 ## 文件
 
-`data.files` 不在 v1。文件选择器、路径与读取边界还没有设计好；把真实路径交给第三方脚本
+`data.files` 不在 v1。文件选择器、路径与读取边界还没有设计好；把真实路径交给第三方模板
 风险太高，宁可不发这个权限。等有了 opaque handle + 宿主代读再评估。
 
 ## 宿主快照的对应关系
 
-Sill 0.5.1 的 `PanelSnapshot` 是扁平的：
+Sill 0.5.4 的 `PanelSnapshot` 是扁平的：
 
 ```ts
 { cpu, cores, memPct, memUsed, memTotal, down, up, gpu, gpuMem, gpuTotal,
@@ -157,7 +157,7 @@ Sill 0.5.1 的 `PanelSnapshot` 是扁平的：
 
 provider 层是它的公开版本，字段名不同：
 
-| 0.5.1 字段 | provider |
+| 0.5.4 字段 | provider |
 |---|---|
 | `cpu` | `system.cpu.usage` |
 | `cores` | `system.cpu.cores` |
@@ -173,10 +173,9 @@ provider 层是它的公开版本，字段名不同：
 
 ## 刷新与订阅
 
-- 声明式组件：宿主在 provider 变化时自动重新求值；组件不订阅。
-- 脚本组件：`ctx.onUpdate(payload)` 会带 `changed: string[]`（发生变化的短名），按需拉取。
-- 不允许组件自己 `setInterval` 轮询 provider；>10 Hz 的轮询直接拒绝。
-- provider 没有变化时，宿主不触发重绘。
+- 模板组件：宿主在 provider 变化时自动更新对应的 `data-sill-text` 节点；模板不能订阅。
+- 模板没有 JS，不能自己轮询 provider。
+- provider 没有变化时，宿主不触发更新。
 
 ## 版本
 

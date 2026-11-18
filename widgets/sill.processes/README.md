@@ -41,33 +41,15 @@ GPU 进程排行。
 
 ## 实现状态
 
-**内置 React 实现，随 Sill 0.5.1 发布。** 源码：
-[`ProcessesWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.1/apps/desktop/src/renderer/src/widgets/ProcessesWidget.tsx)。
+**内置 React 实现，随 Sill 0.5.4 发布。** 源码：
+[`ProcessesWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.4/apps/desktop/src/renderer/src/widgets/ProcessesWidget.tsx)。
 
 `installable: false`。
 
 ## 迁移到 `.sill`
 
-声明式版本可以直接用 `list`：
-
-```json
-{
-  "type": "list",
-  "items": "processes.topRam",
-  "limit": 2,
-  "itemTemplate": {
-    "type": "hstack",
-    "justify": "between",
-    "children": [
-      { "type": "text", "bind": "item.name", "style": "body", "maxLines": 1 },
-      { "type": "text", "bind": "item.mb", "style": "mono" }
-    ]
-  }
-}
-```
-
-`mb` 需要格式化成 GB，这要等 `format()` 支持数字单位，或者在 provider 里直接给 `gb`。
-显存行是纯展示，用 `hstack` + `text` 即可。
+模板 v1 没有循环，不能渲染进程列表；processes 仍是 React 内置组件。
+等 `data-sill-repeat` 落地后再迁。
 
 ## 验收
 

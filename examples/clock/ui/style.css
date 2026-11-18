@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.clock {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.clock__label {
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.clock__time {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 56px;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: rgba(250, 255, 252, 0.97);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.clock__date {
+  font-size: 12px;
+  color: var(--ink-dim);
+}

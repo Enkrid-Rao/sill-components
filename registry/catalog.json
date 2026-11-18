@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-16",
+  "updated": "2026-11-18",
   "widgets": [
     {
       "id": "sill.hero",
@@ -19,7 +19,7 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": ["data.time", "data.weather"],
       "size": { "w": 384, "h": 180 },
       "span": 3,
@@ -27,7 +27,7 @@
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill",
         "path": "apps/desktop/src/renderer/src/widgets/HeroWidget.tsx",
-        "ref": "v0.5.1"
+        "ref": "v0.5.4"
       },
       "docs": "widgets/sill.hero/README.md",
       "tags": ["clock", "weather"]
@@ -49,7 +49,7 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": ["data.system"],
       "size": { "w": 384, "h": 196 },
       "span": 1,
@@ -57,7 +57,7 @@
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill",
         "path": "apps/desktop/src/renderer/src/widgets/SystemWidget.tsx",
-        "ref": "v0.5.1"
+        "ref": "v0.5.4"
       },
       "docs": "widgets/sill.system/README.md",
       "tags": ["system", "monitor"]
@@ -79,7 +79,7 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": ["data.system"],
       "size": { "w": 384, "h": 144 },
       "span": 1,
@@ -87,7 +87,7 @@
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill",
         "path": "apps/desktop/src/renderer/src/widgets/ProcessesWidget.tsx",
-        "ref": "v0.5.1"
+        "ref": "v0.5.4"
       },
       "docs": "widgets/sill.processes/README.md",
       "tags": ["system", "processes"]
@@ -109,7 +109,7 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": ["data.media"],
       "size": { "w": 384, "h": 256 },
       "span": 1,
@@ -117,7 +117,7 @@
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill",
         "path": "apps/desktop/src/renderer/src/components/widgets/MediaWidget.tsx",
-        "ref": "v0.5.1"
+        "ref": "v0.5.4"
       },
       "docs": "widgets/sill.media/README.md",
       "tags": ["media", "controls"]
@@ -139,7 +139,7 @@
       "type": "builtin",
       "status": "builtin",
       "engine": ">=0.1.0",
-      "runtime": ">=0.5.1",
+      "runtime": ">=0.5.4",
       "permissions": ["data.todo"],
       "size": { "w": 384, "h": 300 },
       "span": 3,
@@ -147,7 +147,7 @@
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill",
         "path": "apps/desktop/src/renderer/src/components/widgets/TodoWidget.tsx",
-        "ref": "v0.5.1"
+        "ref": "v0.5.4"
       },
       "docs": "widgets/sill.todo/README.md",
       "tags": ["todo", "productivity"]

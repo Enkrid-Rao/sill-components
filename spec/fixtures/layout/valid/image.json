@@ -1,7 +1,0 @@
-{
-  "type": "overlay",
-  "children": [
-    { "type": "image", "src": "assets/cover.jpg", "fit": "cover", "alt": "Cover" },
-    { "type": "text", "value": "—", "style": "display", "align": "center" }
-  ]
-}

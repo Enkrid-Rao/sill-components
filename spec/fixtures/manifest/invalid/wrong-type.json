@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "sill.legacy",
+  "name": "Legacy type",
+  "version": "1.0.0",
+  "author": "x",
+  "license": "MIT",
+  "runtime": ">=0.5.4",
+  "engine": ">=0.1.0",
+  "type": "declarative",
+  "permissions": [],
+  "ui": "ui/layout.json"
+}

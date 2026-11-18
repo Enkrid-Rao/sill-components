@@ -6,16 +6,12 @@
   "version": "1.0.0",
   "author": "raoxi",
   "license": "MIT",
-  "runtime": ">=0.5.1",
+  "runtime": ">=0.5.4",
   "engine": ">=0.1.0",
-  "type": "declarative",
+  "type": "template",
   "size": { "w": 384, "h": 160, "minW": 240, "minH": 96 },
   "span": { "default": 1 },
   "permissions": ["data.time"],
   "data": [{ "id": "now", "source": "time.now" }],
-  "ui": "ui/layout.json",
-  "locales": {
-    "en": "locales/en.json",
-    "zh": "locales/zh.json"
-  }
+  "ui": "ui/index.html"
 }

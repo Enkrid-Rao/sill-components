@@ -44,21 +44,15 @@
 
 ## 实现状态
 
-**内置 React 实现，随 Sill 0.5.1 发布。** 源码：
-[`TodoWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.1/apps/desktop/src/renderer/src/components/widgets/TodoWidget.tsx)。
+**内置 React 实现，随 Sill 0.5.4 发布。** 源码：
+[`TodoWidget.tsx`](https://github.com/Enkrid-Rao/sill/blob/v0.5.4/apps/desktop/src/renderer/src/components/widgets/TodoWidget.tsx)。
 
-`installable: false`。它是最能说明「v1 声明式 IR 还不够」的一张卡。
+`installable: false`。它是 React 内置组件；模板 v1 做不到表单/状态/动画。
 
 ## 迁移到 `.sill`
 
-需要三样现在没有的东西：
-
-1. **本地状态**：`filter`、`draft`、`editingId`、`undo`；
-2. **逐行动作**：`todo.toggle` 要知道点的是哪一行，`args` 需要 `$item.id`；
-3. **动画与时长**：收合、撤销、勾选 ripple，IR 不表达时间线。
-
-所以它要么走脚本组件（v1 就能做），要么等 v1.1 的状态与动作模型。先用脚本；
-等 IR 能表达「过滤器 + 行内动作 + 撤销」之后，再考虑把它搬回来。
+模板 v1 不执行 JS、没有表单和动画，做不了添加/勾选/编辑/撤销；todo 仍是 React 内置组件。
+需要交互的组件走后续的受限脚本路线，不混进模板。
 
 ## 验收
 
