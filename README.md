@@ -133,6 +133,19 @@ my-widget/
 
 ## 开发
 
+在 Sill 仓库里：
+
+```bash
+pnpm sill validate ./my-widget
+pnpm sill pack ./my-widget -o my-widget.sill
+pnpm sill new com.example.clock
+pnpm sill dev ./my-widget
+```
+
+`pnpm sill` 只在 Sill 工作区可用，不是全局命令。CLI 源码在 `packages/cli`。
+
+不用 CLI 时，仍可以跑规范仓库的校验：
+
 ```bash
 python scripts/validate.py ./my-widget
 ```
@@ -152,7 +165,7 @@ pnpm dev
 2. 把扩展名改成 `.sill`；
 3. 设置 → 行为 → 组件 → 安装组件…，确认 id / 版本 / 作者 / 权限后安装。
 
-`SILL_DEV_WIDGET` 和本地 `.sill` 安装只在当前开发分支可用。正式发布、目录下载和 CLI 还没做。
+`SILL_DEV_WIDGET`、`pnpm sill` 和本地 `.sill` 安装只在当前开发分支可用。目录下载和正式发布还没做。
 
 ## 版本
 

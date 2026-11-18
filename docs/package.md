@@ -35,7 +35,13 @@ ui/style.css
 
 ## 打包
 
-在组件目录里：
+在 Sill 工作区里：
+
+```bash
+pnpm sill pack ./my-widget -o clock.sill
+```
+
+不用 CLI 时，在组件目录里：
 
 ```powershell
 Compress-Archive -Path widget.json,ui -DestinationPath clock.zip -Force

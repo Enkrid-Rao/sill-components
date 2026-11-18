@@ -47,12 +47,13 @@
 
 - [x] 本地 `.sill` 安装：临时目录 + 原子 rename
 - [x] 卸载
-- [ ] `sill validate <dir>`
-- [ ] `sill dev <dir>`（热重载 + 错误面板）
-- [ ] `sill pack <dir>`（`.sill` zip）
+- [x] `sill validate <dir>`
+- [x] `sill dev <dir>`（启动现有 dev server，不含错误面板）
+- [x] `sill pack <dir>`（`.sill` zip）
+- [x] `sill new <id>` 模板
 - [x] 安装前权限确认
 - [ ] 版本升级
-- [ ] `sill new <id>` 模板
+- [ ] 全局安装 / 发布 CLI
 
 **完成标准：** 作者从零到本地预览 ≤ 5 分钟；安装 clock 后卡片出现在布局里；卸载无残留。
 
