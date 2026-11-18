@@ -52,7 +52,7 @@
 | `strings` | 否 | 内联本地化文本 |
 | `ui` | 是 | HTML 模板的相对路径 |
 
-v1 没有 `settings` / `locales` 文件 / `assets` / `fonts` / `network`。本地化放 `strings`，模板不执行 JS、不联网，
+v1 没有 `settings` / `locales` 文件 / `network`。本地化放 `strings`；web 组件可带 `ui/assets/**`，template 不执行 JS、不联网，
 这些能力在后续版本单独设计。
 
 ## id

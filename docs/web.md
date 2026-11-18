@@ -21,14 +21,15 @@ my-web/
 └─ ui/
    ├─ index.html
    ├─ style.css
-   └─ main.js
+   ├─ main.js
+   └─ assets/          # optional helper / icons / fonts
 ```
 
 - `type` 为 `web`；
 - `ui` 固定 `ui/index.html`；
 - `size.h` 是 webview 高度；
 - `trust` 可选，默认 `sandboxed`；
-- 不能带其他文件（assets 还没开放）。
+- 可以带 `ui/assets/**`；trusted 组件通过 `sill.ready(({ dir }) => ...)` 拿包目录。
 
 ## manifest
 
@@ -59,7 +60,7 @@ const os = require('node:os')
 
 document.querySelector('#host').textContent = os.hostname()
 
-sill.ready(({ data }) => {
+sill.ready(({ data, dir }) => {
   document.querySelector('#time').textContent = data.now?.time ?? '--:--'
 })
 ```
@@ -100,7 +101,7 @@ Sill 开发分支的安装器支持 `type: "web"`，安装前显示类型 / 信�
 
 ## 限制
 
-- 只有 `ui/main.js`，没有 assets / 自定义协议；
+- sandboxed assets 还没有自定义协议；trusted 可以直接读包目录；
 - 没有 `sill.fetch` / `sill.storage`；
 - 没有目录下载 / 自动更新；
 - Electron `<webview>` 已标记 deprecated，后续换 `WebContentsView`。

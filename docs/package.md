@@ -11,12 +11,13 @@ widget.json
 ui/index.html
 ui/style.css
 ui/main.js        # web only
+ui/assets/**      # web optional
 ```
 
-- template 不能带 JS；web 只能多一个 `ui/main.js`；两者都不能带图片、字体或额外目录；
+- template 不能带 JS；web 可以带 `ui/main.js` 和 `ui/assets/**`；
 - 不能有顶层文件夹（不能是 `clock/widget.json`）；
 - 路径不能包含 `..`、反斜杠、盘符或绝对路径；
-- 压缩包 ≤ 10 MB，单文件 ≤ 1 MB。
+- 压缩包 ≤ 50 MB，单文件 ≤ 20 MB（web）；template 仍应保持很小。
 
 ## manifest 限制
 
@@ -34,7 +35,7 @@ ui/main.js        # web only
 - `span.default` 在 1–3。
 
 template 的 HTML/CSS 还会被检查：不能有 `<script>`、`on*`、`style` 属性、`href` / `src`、
-`@import`、`url()`、`expression()`。web 的 JS 不检查，它本来就能执行任意代码；trusted 需要安装警告。
+`@import`、`url()`、`expression()`。web 的 JS 不检查，它本来就能执行任意代码；trusted 需要安装警告。assets 只允许在 web 的 `ui/assets/**`，用于 helper、图标、字体。
 
 ## 打包
 

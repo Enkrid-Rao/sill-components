@@ -21,7 +21,8 @@ my-widget/
 └─ ui/
    ├─ index.html
    ├─ style.css
-   └─ main.js        # web only
+   ├─ main.js        # web only
+   └─ assets/        # web optional
 ```
 
 - `type` 为 `template` 或 `web`。
@@ -166,7 +167,7 @@ pnpm dev
 
 安装本地 `.sill`：
 
-1. 把 `widget.json`、`ui/index.html`、`ui/style.css` 压成 zip；
+1. 把 `widget.json`、`ui/index.html`、`ui/style.css`；web 再加 `ui/main.js` / `ui/assets/**`，压成 zip；
 2. 把扩展名改成 `.sill`；
 3. 设置 → 行为 → 组件 → 安装组件…，确认 id / 版本 / 作者 / 权限后安装。
 
