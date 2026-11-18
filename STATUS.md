@@ -2,14 +2,14 @@
 
 这份文件是「现在到底有什么」的唯一真值。其他文档描述契约与目标，不重复状态数字。
 
-最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `d65e774`。
+最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `5cb38d5`。
 
 ## 版本
 
 | 项 | 值 | 说明 |
 |---|---|---|
 | 正式宿主 | Sill 0.5.4 | 只有内置组件，没有模板引擎 / 安装器 |
-| 开发宿主 | Sill `main` `d65e774` | 模板渲染、动态布局、本地 `.sill` 安装 |
+| 开发宿主 | Sill `main` `5cb38d5` | 模板渲染、动态布局、本地 `.sill` 安装 |
 | 组件规范 | v0.3 | 本仓库 `main`；最后 tag 是 `v0.1.0` |
 | manifest `schema` | 1 | 未变 |
 | 模板引擎目标版本 | 0.1.0 | 开发分支可用，未打 tag |
@@ -24,7 +24,7 @@
 | 动态布局 id | **开发分支可用** | `normalizeLayout(raw, knownIds)` |
 | 本地 `.sill` 安装 | **开发分支可用** | 设置 → 行为 → 组件 → 安装组件… |
 | 卸载 | **开发分支可用** | 设置里的已安装列表 |
-| CLI（validate / pack / new / dev） | **开发分支可用** | `packages/cli`，`pnpm sill` |`n| Web 组件 | **开发原型** | `type: "web"`，trusted 全 Node / sandboxed 桥 |
+| CLI（validate / pack / new / dev） | **开发分支可用** | `packages/cli`，`pnpm sill` |`n| Web 组件 | **开发分支可用** | `type: "web"`，本地 `.sill`；trusted 全 Node / sandboxed 桥 |
 | 目录下载 / 更新 | **未实现** | 没有下载通道 |
 | 权限确认 | **开发分支可用** | 安装前显示 id / 版本 / 作者 / 权限 |
 | 签名 / 哈希 | **未实现** | 安装时只做静态校验 |
@@ -58,7 +58,7 @@
 - 额外文件 / 路径穿越 / `<script>` / CSS `url()` 四类坏包被拒绝。
 - 模板卡在默认 / Lagoon / 320 宽 / 安装后布局下截图核对过。
 - `examples/processes` 的 repeat / if / i18n 与 `examples/media` 的 action / meter 安装后渲染正常。
-- `pnpm test`：安装器 + provider 13 个测试通过；`verify.yml` 通过。
+- `pnpm test`：安装器 + provider 14 个测试通过；`verify.yml` 通过。
 
 ## 未验证 / 已知缺口
 
@@ -70,7 +70,7 @@
 - 没有格式化函数、图片资源、通用样式绑定。
 - sanitizer 是 v1 白名单，还没有完整安全测试集。
 - 五个内置组件仍是 React 实现，没有迁到模板。
-- web 组件是开发原型：`trusted` 有完整 Node，`sandboxed` 只走桥；还不能 `.sill` 安装。
+- web 组件可以本地 `.sill` 安装；`trusted` 有完整 Node，`sandboxed` 只走桥；还没有 assets / 目录下载。
 
 ## 更新规则
 

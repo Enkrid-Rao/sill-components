@@ -19,22 +19,42 @@
     "ui"
   ],
   "properties": {
-    "schema": { "const": 1 },
+    "schema": {
+      "const": 1
+    },
     "id": {
       "type": "string",
       "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$",
       "minLength": 3,
       "maxLength": 80
     },
-    "name": { "type": "string", "minLength": 1, "maxLength": 24 },
-    "description": { "type": "string", "maxLength": 200 },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 24
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 200
+    },
     "version": {
       "type": "string",
       "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
     },
-    "author": { "type": "string", "minLength": 1, "maxLength": 80 },
-    "license": { "type": "string", "minLength": 1, "maxLength": 40 },
-    "homepage": { "type": "string", "format": "uri" },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
     "runtime": {
       "type": "string",
       "minLength": 1,
@@ -47,30 +67,69 @@
       "maxLength": 80,
       "description": "Template engine range."
     },
-    "type": { "const": "template" },
+    "type": {
+      "enum": [
+        "template",
+        "web"
+      ]
+    },
     "size": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "w": { "type": "integer", "minimum": 160, "maximum": 1180 },
-        "h": { "type": "integer", "minimum": 48, "maximum": 2200 },
-        "minW": { "type": "integer", "minimum": 160, "maximum": 1110 },
-        "minH": { "type": "integer", "minimum": 48, "maximum": 2200 }
+        "w": {
+          "type": "integer",
+          "minimum": 160,
+          "maximum": 1180
+        },
+        "h": {
+          "type": "integer",
+          "minimum": 48,
+          "maximum": 2200
+        },
+        "minW": {
+          "type": "integer",
+          "minimum": 160,
+          "maximum": 1110
+        },
+        "minH": {
+          "type": "integer",
+          "minimum": 48,
+          "maximum": 2200
+        }
       }
     },
     "span": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["default"],
+      "required": [
+        "default"
+      ],
       "properties": {
-        "default": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "default": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
         "byColumns": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "1": { "type": "integer", "minimum": 1, "maximum": 1 },
-            "2": { "type": "integer", "minimum": 1, "maximum": 2 },
-            "3": { "type": "integer", "minimum": 1, "maximum": 3 }
+            "1": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1
+            },
+            "2": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2
+            },
+            "3": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            }
           }
         }
       }
@@ -79,7 +138,15 @@
       "type": "array",
       "uniqueItems": true,
       "items": {
-        "enum": ["data.time", "data.system", "data.media", "data.weather", "data.todo", "action.media", "action.todo"]
+        "enum": [
+          "data.time",
+          "data.system",
+          "data.media",
+          "data.weather",
+          "data.todo",
+          "action.media",
+          "action.todo"
+        ]
       }
     },
     "data": {
@@ -88,11 +155,23 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "source"],
+        "required": [
+          "id",
+          "source"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,31}$" },
-          "source": { "type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:\\.[a-zA-Z][a-zA-Z0-9]*)+$" },
-          "description": { "type": "string", "maxLength": 120 }
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,31}$"
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:\\.[a-zA-Z][a-zA-Z0-9]*)+$"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 120
+          }
         }
       }
     },
@@ -100,20 +179,35 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "en": { "$ref": "#/$defs/strings" },
-        "zh": { "$ref": "#/$defs/strings" }
+        "en": {
+          "$ref": "#/$defs/strings"
+        },
+        "zh": {
+          "$ref": "#/$defs/strings"
+        }
       }
     },
     "ui": {
       "const": "ui/index.html",
       "description": "v1 fixed template entry point."
+    },
+    "trust": {
+      "enum": [
+        "sandboxed",
+        "trusted"
+      ],
+      "description": "web only: sandboxed bridge or trusted full Node."
     }
   },
   "$defs": {
     "strings": {
       "type": "object",
       "maxProperties": 100,
-      "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 160 }
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      }
     }
   }
 }

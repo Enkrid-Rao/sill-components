@@ -20,16 +20,18 @@ my-widget/
 ├─ widget.json
 └─ ui/
    ├─ index.html
-   └─ style.css
+   ├─ style.css
+   └─ main.js        # web only
 ```
 
-- `type` 固定 `template`。
-- 不执行 JS。
-- HTML 清洗后放进 Shadow DOM；CSS 只在 Shadow DOM 内生效。
-- 数据用 `data-sill-text` 绑定。
+- `type` 为 `template` 或 `web`。
+- template 不执行 JS；web 在 webview 里执行 JS。
+- `trust: "trusted"` 的 web 有完整 Node；默认 `sandboxed` 只走桥。
+- template 的 HTML 清洗后放进 Shadow DOM；web 是独立 guest。
 - 组件不要给卡片铺背景。
 
-完整规则见 [docs/template.md](docs/template.md)。
+template 规则见 [docs/template.md](docs/template.md)。
+web 规则见 [docs/web.md](docs/web.md)。
 
 ## Manifest
 
@@ -91,12 +93,13 @@ my-widget/
 - `weather.current`
 - `todo.list`
 
-字段、单位、可空性见 [docs/providers.md](docs/providers.md)。模板不能自己读文件、注册表、进程或网络。
+字段、单位、可空性见 [docs/providers.md](docs/providers.md)。template 不能自己读文件、注册表、进程或网络；
+web 组件由 `trust` 决定能力。
 
 ## 约束
 
-1. 不执行 JS：没有 `<script>`、`on*`、`href`、`src`。
-2. 不能联网。需要数据时在 manifest 里声明 provider。
+1. template 不执行 JS：没有 `<script>`、`on*`、`href`、`src`。
+2. template / sandboxed web 不能联网；trusted web 可以。
 3. 不能主动把窗口抢到前台。
 4. 中文小字不低于 10.5px；正文 13.5–14px。
 5. 卡片内容宽约 185–1110px；320–1180 是面板宽。
@@ -120,7 +123,8 @@ my-widget/
 |---|---|
 | [STATUS.md](STATUS.md) | 已实现 / 未实现 |
 | [CHANGELOG.md](CHANGELOG.md) | 版本变更 |
-| [docs/template.md](docs/template.md) | 模板结构、HTML/CSS 规则、绑定、token |
+| [docs/template.md](docs/template.md) | template 结构、HTML/CSS 规则、绑定、token |
+| [docs/web.md](docs/web.md) | web 组件、trusted Node、沙箱、桥 |
 | [docs/manifest.md](docs/manifest.md) | `widget.json` 字段、校验、权限 |
 | [docs/runtime.md](docs/runtime.md) | 渲染、尺寸、主题、性能 |
 | [docs/package.md](docs/package.md) | `.sill` 包结构、安装、卸载 |

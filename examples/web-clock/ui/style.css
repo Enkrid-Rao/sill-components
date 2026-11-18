@@ -1,0 +1,29 @@
+html,
+body {
+  background: transparent;
+}
+
+.webclock {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--ink);
+}
+
+.webclock__label {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.17em;
+}
+
+.webclock__host {
+  color: var(--ink-dim);
+  font-size: 12px;
+}
+
+.webclock__time {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-style: italic;
+  line-height: 0.95;
+}

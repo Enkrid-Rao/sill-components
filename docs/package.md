@@ -4,18 +4,19 @@
 
 ## 包结构
 
-压缩包根目录只能是这三个文件：
+压缩包根目录：template 是三个文件，web 再加 `ui/main.js`：
 
 ```text
 widget.json
 ui/index.html
 ui/style.css
+ui/main.js        # web only
 ```
 
-- 不能带 `README.md`、图片、字体、JS 或额外目录；
+- template 不能带 JS；web 只能多一个 `ui/main.js`；两者都不能带图片、字体或额外目录；
 - 不能有顶层文件夹（不能是 `clock/widget.json`）；
 - 路径不能包含 `..`、反斜杠、盘符或绝对路径；
-- 压缩包 ≤ 10 MB，单文件 ≤ 512 KB。
+- 压缩包 ≤ 10 MB，单文件 ≤ 1 MB。
 
 ## manifest 限制
 
@@ -24,15 +25,16 @@ ui/style.css
 - `schema` 必须为 `1`；
 - `id` 至少两段，小写，全局唯一；
 - `version` 是 semver；
-- `type` 是 `template`；
+- `type` 是 `template` 或 `web`；
+- web 的 `trust` 是 `sandboxed` 或 `trusted`；
 - `license`、`runtime`、`engine` 不能为空；
 - `permissions` 只能是 `data.time` / `data.system` / `data.media` / `data.weather` / `data.todo` /
   `action.media` / `action.todo`；
 - `ui` 必须是 `ui/index.html`；
 - `span.default` 在 1–3。
 
-模板 HTML/CSS 还会被检查：不能有 `<script>`、`on*`、`style` 属性、`href` / `src`、
-`@import`、`url()`、`expression()`。
+template 的 HTML/CSS 还会被检查：不能有 `<script>`、`on*`、`style` 属性、`href` / `src`、
+`@import`、`url()`、`expression()`。web 的 JS 不检查，它本来就能执行任意代码；trusted 需要安装警告。
 
 ## 打包
 
@@ -81,11 +83,11 @@ v1 同一个 `id` 只允许一个版本：
 
 ## 权限
 
-安装前会显示 id、名称、版本、作者、权限和一句提醒，确认后才写入。v1 没有签名 / 哈希，
-模板只能读 manifest 声明的 provider，不能写、不能联网、不能执行 JS。安装第三方 `.sill`
-仍然等于信任作者，和安装任何本地程序一样。
+安装前会显示 id、名称、版本、作者、类型、信任级别、权限和提醒，确认后才写入。v1 没有签名 / 哈希。
+template 只能读 manifest 声明的 provider；web 的 `trust: "trusted"` 拥有完整 Node，安装时显示完全信任警告。
+安装第三方 `.sill` 仍然等于信任作者，和安装任何本地程序一样。
 
-后续会补：签名 / 哈希、目录下载、`sill pack` / `sill dev`。
+后续会补：签名 / 哈希、目录下载、自动更新。
 
 ## 失败时
 

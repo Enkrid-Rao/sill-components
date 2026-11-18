@@ -5,24 +5,46 @@
   "description": "registry/catalog.json — the official index an installer reads. It is not a widget package.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "updated", "widgets"],
+  "required": [
+    "schema",
+    "updated",
+    "widgets"
+  ],
   "properties": {
-    "schema": { "const": 1 },
-    "updated": { "type": "string", "format": "date" },
+    "schema": {
+      "const": 1
+    },
+    "updated": {
+      "type": "string",
+      "format": "date"
+    },
     "widgets": {
       "type": "array",
       "maxItems": 500,
-      "items": { "$ref": "#/$defs/entry" }
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
     }
   },
   "$defs": {
     "localized": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["en", "zh"],
+      "required": [
+        "en",
+        "zh"
+      ],
       "properties": {
-        "en": { "type": "string", "minLength": 1, "maxLength": 160 },
-        "zh": { "type": "string", "minLength": 1, "maxLength": 80 }
+        "en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "zh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
       }
     },
     "permission": {
@@ -60,42 +82,105 @@
           "minLength": 3,
           "maxLength": 80
         },
-        "name": { "$ref": "#/$defs/localized" },
-        "summary": { "$ref": "#/$defs/localized" },
-        "description": { "$ref": "#/$defs/localized" },
+        "name": {
+          "$ref": "#/$defs/localized"
+        },
+        "summary": {
+          "$ref": "#/$defs/localized"
+        },
+        "description": {
+          "$ref": "#/$defs/localized"
+        },
         "version": {
           "type": "string",
           "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
         },
-        "author": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "license": { "type": "string", "minLength": 1, "maxLength": 40 },
-        "type": { "enum": ["builtin", "template"] },
-        "status": { "enum": ["builtin", "verified", "community"] },
-        "engine": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "runtime": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "type": {
+          "enum": [
+            "builtin",
+            "template",
+            "web"
+          ]
+        },
+        "status": {
+          "enum": [
+            "builtin",
+            "verified",
+            "community"
+          ]
+        },
+        "engine": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "runtime": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
         "permissions": {
           "type": "array",
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/permission" }
+          "items": {
+            "$ref": "#/$defs/permission"
+          }
         },
         "size": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "w": { "type": "integer", "minimum": 160, "maximum": 1180 },
-            "h": { "type": "integer", "minimum": 48, "maximum": 2200 }
+            "w": {
+              "type": "integer",
+              "minimum": 160,
+              "maximum": 1180
+            },
+            "h": {
+              "type": "integer",
+              "minimum": 48,
+              "maximum": 2200
+            }
           }
         },
-        "span": { "type": "integer", "minimum": 1, "maximum": 3 },
-        "installable": { "type": "boolean" },
+        "span": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "installable": {
+          "type": "boolean"
+        },
         "source": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["repo"],
+          "required": [
+            "repo"
+          ],
           "properties": {
-            "repo": { "type": "string", "format": "uri" },
-            "path": { "type": "string", "minLength": 1, "maxLength": 200 },
-            "ref": { "type": "string", "minLength": 1, "maxLength": 60 }
+            "repo": {
+              "type": "string",
+              "format": "uri"
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "ref": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60
+            }
           }
         },
         "preview": {
@@ -112,7 +197,10 @@
           "type": "array",
           "maxItems": 6,
           "uniqueItems": true,
-          "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,20}$" }
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{0,20}$"
+          }
         }
       }
     }

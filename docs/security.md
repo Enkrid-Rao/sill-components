@@ -23,11 +23,11 @@
 Renderer（React 宿主）
   WidgetShell / .card / Shadow DOM 模板
         │ 只读文本 / 条件 / 列表
-模板内容（无 JS、无网络）
+template（无 JS、无网络） / web guest（按 trust）
 ```
 
 - 模板不接触 Electron IPC；
-- 模板不执行 JS；
+- template 不执行 JS；web 在独立 guest 里跑 JS，trusted 拥有完整 Node。
 - 模板不能读文件、不能发网络请求；
 - 模板只拿到 manifest 声明的 provider 数据。
 
@@ -83,7 +83,8 @@ class id role aria-* data-sill-*
 
 - 拒绝 `..`、绝对路径、Windows 盘符、UNC、反斜杠、符号链接逃逸。
 - `.sill` 限制：压缩包 ≤ 10 MB、单文件 ≤ 512 KB、只允许 3 个文件；超过拒绝安装。
-- 只允许 `widget.json`、`ui/index.html`、`ui/style.css`；其他文件直接拒绝。
+- template 只允许 `widget.json`、`ui/index.html`、`ui/style.css`；
+- web 额外允许 `ui/main.js`；其他文件直接拒绝。
 - 安装使用临时目录 + 原子 rename；失败不留下半个包。
 - 组件目录名由 `id@version` 生成，不信任压缩包内目录名。
 - 路径相对于宿主的 `userData`；不要假设一定是 `%APPDATA%`，便携版会改到 exe 旁。
@@ -97,13 +98,14 @@ class id role aria-* data-sill-*
 - 卸载删除组件目录，并把 id 从布局移除；不碰用户数据。
 - 目录里的 `verified` 只代表按规范检查过，不代表作者可信。
 
-## 8. 后续：JS 组件
+## 8. JS 组件
 
-任意 JS 不放进模板，也不放进宿主 DOM。未来如果需要脚本组件，必须单独设计：
+JS 不放进 template，也不放进宿主 DOM。`type: "web"` 的 JS 在独立 webview 里：
 
-- 独立 iframe / WebContentsView 沙箱；
-- CSP、MessagePort、权限代理；
-- 不能因为“想要动态效果”就取消模板的白名单。
+- `trust: "sandboxed"`：CSP、preload 桥、权限动作，无 Node / 文件 / 网络；
+- `trust: "trusted"`：完整 Node，和 Rainmeter 插件同级权限；安装时显示完全信任警告；
+- 主进程 `will-attach-webview` 只接受 data URL，并根据 host 设置的 partition 决定信任级别；
+- 不能因为组件想读系统就把它塞进宿主 renderer。
 
 ## 9. 审计与报告（计划）
 

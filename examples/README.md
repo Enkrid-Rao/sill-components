@@ -3,7 +3,7 @@
 | 示例 | 类型 | 说明 |
 |---|---|---|
 | [clock](clock) | template | 时间 + 日期，最小模板组件 |
-| [processes](processes) | template | repeat / if / i18n，读 topRam |
+| [processes](processes) | template | repeat / if / i18n，读 topRam |`n| [web-clock](web-clock) | web / trusted | 完整 Node + JS |
 
 示例以「能直接打成 `.sill` 安装」为目标。
 

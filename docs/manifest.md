@@ -76,13 +76,23 @@ v1 没有 `settings` / `locales` 文件 / `assets` / `fonts` / `network`。本�
   `SILL_DEV_WIDGET` 预览文件夹。
 - 两个范围都是 semver range；不满足时拒绝加载，不降级。
 
-## type
+## type 与 trust
 
 | 值 | 说明 |
 |---|---|
-| `template` | HTML/CSS 模板，宿主渲染进 `.card` 的 Shadow DOM |
+| `template` | HTML/CSS，宿主渲染进 `.card` 的 Shadow DOM |
+| `web` | HTML/CSS/JS，透明 webview guest |
 
-v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混进模板格式。
+web 的 `trust`：
+
+| 值 | 能力 |
+|---|---|
+| `sandboxed`（默认） | `window.sill` 桥；无 Node / 文件 / 网络 |
+| `trusted` | 完整 Node、`child_process`、native addon、Windows API |
+
+- template 没有 `trust`，永远无 JS。
+- trusted 安装时必须显示完全信任警告，不能进 sandboxed 市场。
+- `declarative` / `script` 已移除。
 
 ## size 与 span
 
@@ -99,7 +109,7 @@ v1 没有 `declarative` / `script`。任意 JS 组件以后单独设计，不混
 
 ## permissions
 
-模板只能**只读**数据；权限在安装时展示，运行时由宿主强制。
+template 只能**只读**数据；权限在安装时展示，运行时由宿主强制。web 的 Node 能力由 `trust` 决定。
 
 | 权限 | 允许 |
 |---|---|

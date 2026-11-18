@@ -239,6 +239,17 @@ def css_problems(css: str) -> list[str]:
 
 
 def check_template(widget_dir: Path, manifest: dict, html_path: Path) -> None:
+    if manifest.get("type") == "web":
+        js_path = html_path.parent / "main.js"
+        if not js_path.is_file():
+            error(html_path.parent, "missing ui/main.js for web component")
+            return
+        if html_path.stat().st_size > 1024 * 1024:
+            error(html_path, "web HTML is larger than 1 MB")
+        if js_path.stat().st_size > 1024 * 1024:
+            error(js_path, "web JS is larger than 1 MB")
+        return
+
     css_path = html_path.parent / "style.css"
     if not css_path.is_file():
         error(html_path.parent, "missing ui/style.css")
