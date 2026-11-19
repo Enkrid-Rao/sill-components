@@ -12,6 +12,8 @@
 - 新增组件私有存储：`<userData>/widget-data/<id>.json`；
 - 新增包内资源协议 `sill-asset://<id>/ui/...`，`<img src="assets/x.png">` 与 `url(bg.png)` 自动改写；
 - 新增 Skins 目录：`<userData>/skins/<名字>/` 丢进去即用、保存即刷新，无需打包安装；
+- 安装版注册当前用户级 `.sill` 关联，双击 / 右键 → Install with Sill 走同一套确认流程；
+  绿色版可在设置里手动注册 / 取消；
 - template 现在也允许 `ui/main.js` 与 `ui/assets/**`；
 - 数据更新改为增量（只改绑定节点），CSS 过渡跨采样继续；
 - 安全模型改为 Rainmeter 式信任模型（见 [docs/security.md](docs/security.md)）。
