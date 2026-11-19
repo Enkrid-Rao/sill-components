@@ -33,7 +33,9 @@ clock/
 
 ## 2. 三分钟做出第一个组件（不用任何工具）
 
-1. 打开 Sill → 设置 → 组件 → **打开组件文件夹**（默认 `%APPDATA%\Sill\skins\`，便携版是 `Sill-data\skins\`）。
+1. 打开 Sill → 设置 → 组件 → **新建组件…**：它在组件文件夹里生成一个能跑的脚手架并直接打开。
+   也可以点 **打开组件文件夹**（默认 `%APPDATA%\Sill\skins\`，便携版是 `Sill-data\skins\`）
+   自己建：
 2. 在里面新建一个文件夹，比如 `hello/`，写三个文件：
 
 `hello/widget.json`
