@@ -10,9 +10,9 @@ Sill 的组件规范与官方组件目录。这个仓库主要说明：
 
 ## 状态
 
-Sill 0.5.4 有内置六张卡。开发版 `0.6.0-dev.2` 组件平台已可用：模板同页运行（可选
-`ui/main.js`）、Skins 目录热重载、`sill-asset://` 资源、`sill.storage` 组件存储、
-本地 `.sill` 安装。正式 0.5.4 没有这些。已实现部分见 [STATUS.md](STATUS.md)。
+Sill **0.6.0** 起组件平台进入稳定版：模板同页运行（可选 `ui/main.js`）、Skins 目录热重载、
+`sill-asset://` 资源、`sill.storage` 组件存储、组件设置、`.sill` / URL / 目录安装与更新。
+官方组件见 [widgets/](widgets/) 与 [registry/](registry/)。
 
 ## 组件格式
 

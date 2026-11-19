@@ -72,7 +72,7 @@ v1 没有 `settings` / `locales` 文件 / `network`。本地化放 `strings`；t
 
 - `version` 是组件自己的 semver，允许 prerelease 与 build metadata。
 - `runtime` / `engine` 是**可选元数据**：现在不做加载期强制，不填也能安装。
-- 0.5.4 正式版没有模板引擎；开发版可以直接安装本地 `.sill`，也可以用 Skins 目录预览文件夹。
+- Sill 0.6.0 起可以直接安装本地 / URL `.sill`，也可以用 Skins 目录预览文件夹。
 
 ## type 与 trust
 
@@ -204,4 +204,5 @@ provider 是**只读**数据；`permissions` 用于安装提示与目录展示�
 - 新增可选字段不升 `schema`，但必须提高 `engine` 的最低版本；旧宿主会拒绝未知字段，
   安装器应提示「需要更新 Sill」，而不是静默忽略。
 - 组件版本遵循 semver；宿主只按 `id` 识别组件，不按路径。
+
 

@@ -1,6 +1,6 @@
 # `.sill` 包与安装
 
-`.sill` 就是改了扩展名的 zip。Sill 0.6 开发版支持从本地文件安装，还没有目录下载和签名。
+`.sill` 就是改了扩展名的 zip。Sill 0.6.0 支持本地 / URL / 目录安装与更新；签名仍未做。
 比安装更快的是 Skins 目录：把组件文件夹放进 `<userData>/skins/` 即可，保存即刷新。
 
 ## 包结构
@@ -121,7 +121,7 @@ Rename-Item clock.zip clock.sill
 
 确认过的 id 记在 `<userData>/trust.json`；同 id 能力不升时不再询问。见 [security.md](security.md)。
 
-后续会补：签名 / 哈希、信任分级（静态组件免提示）、目录下载、自动更新。
+后续会补：签名 / 哈希、自动安装更新。
 
 ## 失败时
 
@@ -139,4 +139,5 @@ Rename-Item clock.zip clock.sill
 | `缺少 ui/index.html` | 入口文件不在包里 |
 | `widget.json 字段不合法` | 缺 `schema`/`id`/`name`/`version`/`type`/`ui`，或类型不对 |
 | `这个组件已经安装` | 同 id 已存在 |
+
 

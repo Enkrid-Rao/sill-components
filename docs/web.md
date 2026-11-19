@@ -102,5 +102,5 @@ sill.settings.get().then((values) => { ... })
 ## 限制
 
 - 没有 `sill.fetch`（用浏览器 `fetch`；需要绕 CORS 时再讨论宿主代理）；
-- 没有目录下载 / 自动更新；
+- 没有自动安装更新；URL / 目录安装与更新提示已可用；
 - Electron `<webview>` 已标记 deprecated，后续换 `WebContentsView`。
