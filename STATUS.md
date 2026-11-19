@@ -30,6 +30,7 @@
 | 包内资源 | **开发版可用** | `sill-asset://<id>/ui/...`，相对路径自动改写 |
 | 动态布局 id | **开发版可用** | `normalizeLayout(raw, knownIds)`；新组件自动补 box |
 | 本地 `.sill` 安装 | **开发版可用** | 设置 → 组件 → 从 .sill 文件安装… / 双击 |
+| 官方可安装组件 | **开发版可用** | `sill.lyrics` 源码 + 打包产物在仓库里，目录 `installable + download` 指向 raw |
 | URL 安装 / 组件目录 | **开发版可用** | https 直链下载安装；`catalog.json` 只读，`installable + download` 的条目可直接装 |
 | 卸载 | **开发版可用** | 设置里的已安装列表 |
 | CLI（new / validate / pack / dev） | **已发布 0.3.1** | `npm i -g @heavenlydemon/sill-cli`；源码在 `packages/cli` |
@@ -96,6 +97,7 @@
 - 状态变化时先改这份文件，再改相关文档。
 - 不要在其他文档里写「已实现 / 计划中」的独立版本号；引用本文件。
 - 打 tag 前确认「已验证」一节没有过期项。
+
 
 
 

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "widgets": [
     {
       "id": "sill.hero",
@@ -246,6 +246,48 @@
       "tags": [
         "todo",
         "productivity"
+      ]
+    },
+    {
+      "id": "sill.lyrics",
+      "name": {
+        "en": "Lyrics",
+        "zh": "歌词"
+      },
+      "summary": {
+        "en": "Synced lyrics for the track that is playing.",
+        "zh": "跟随当前播放歌曲的同步歌词。"
+      },
+      "description": {
+        "en": "Looks up LRCLIB by title and artist, shows the current line and the next one, and follows playback. The offset can be tuned in settings.",
+        "zh": "按歌名 / 歌手向 LRCLIB 查询，显示当前行与下一行并跟随播放；可在设置里校正偏移。"
+      },
+      "version": "1.0.0",
+      "author": "Sill",
+      "license": "MIT",
+      "type": "template",
+      "status": "verified",
+      "engine": ">=0.1.0",
+      "runtime": ">=0.6.0",
+      "permissions": [
+        "data.media"
+      ],
+      "size": {
+        "w": 384,
+        "h": 180
+      },
+      "span": 1,
+      "installable": true,
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.0.0.sill",
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill-components",
+        "path": "widgets/sill.lyrics",
+        "ref": "main"
+      },
+      "docs": "widgets/sill.lyrics/README.md",
+      "tags": [
+        "media",
+        "lyrics"
       ]
     }
   ]

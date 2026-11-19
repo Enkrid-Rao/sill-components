@@ -136,8 +136,13 @@ web 规则见 [docs/web.md](docs/web.md)。
 | `sill.shelf` | 收纳 | builtin | 快捷方式 | 否 |
 | `sill.media` | 媒体 | builtin | SMTC、音量 | 否 |
 | `sill.todo` | 待办 | builtin | 待办 | 否 |
+| [`sill.lyrics`](widgets/sill.lyrics/README.md) | 歌词 | template | 正在播放、LRCLIB | **是** |
 
-它们随 Sill 0.5.4 发布，是宿主内置实现，不是 `.sill` 包。目录见 [registry/README.md](registry/README.md)。
+`hero / media / shelf / todo` 仍是宿主内置实现；`system` / `processes` 已改成随应用发布的模板包。
+`lyrics` 是第一个从本仓库分发的可安装官方组件：源码在 `widgets/sill.lyrics/`，打包产物在
+`registry/packages/`，目录条目用 `installable: true` + `download` 指向 raw 直链。
+
+目录见 [registry/README.md](registry/README.md)。
 
 ## 文档
 
@@ -196,7 +201,7 @@ pnpm dev
 2. 把扩展名改成 `.sill`；
 3. 设置 → 组件 → 从 .sill 文件安装…，或者直接双击。
 
-目录下载和签名还没做。
+也可以从 https 直链安装，或从 `registry/catalog.json` 的组件目录里点安装；签名还没做。
 
 ## 版本
 

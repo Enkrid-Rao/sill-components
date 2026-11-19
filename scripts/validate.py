@@ -297,6 +297,12 @@ def check_examples() -> None:
         check_manifest(manifest)
 
 
+def check_widgets() -> None:
+    """官方组件（widgets/<id>/）一旦带 widget.json，就按完整包规则校验。"""
+    for manifest in sorted((ROOT / "widgets").glob("*/widget.json")):
+        check_manifest(manifest)
+
+
 # ---------- catalog ----------
 
 
@@ -325,6 +331,12 @@ def check_catalog() -> None:
             parsed = urlparse(source["repo"])
             if parsed.scheme not in ("https", "http") or not parsed.netloc:
                 error(path, f"source.repo `{source['repo']}` is not an http(s) URL")
+        download = entry.get("download")
+        repo_prefix = "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/"
+        if download and download.startswith(repo_prefix):
+            target = file_under(ROOT, download[len(repo_prefix) :])
+            if target is None or not target.is_file():
+                error(path, f"download `{download}` does not exist in this repo")
         if entry["type"] == "builtin" and entry.get("installable") is True:
             error(path, f"builtin `{entry['id']}` cannot be installable before a package exists")
         if entry["type"] == "template" and entry.get("installable") is not True:
@@ -418,6 +430,7 @@ def main() -> int:
         for target in targets:
             check_target(target)
     else:
+        check_widgets()
         check_examples()
         check_catalog()
         check_fixtures()
@@ -428,7 +441,7 @@ def main() -> int:
         for line in ERRORS:
             print(f"  {line}", file=sys.stderr)
         return 1
-    scope = ", ".join(targets) if targets else "examples, catalog, fixtures"
+    scope = ", ".join(targets) if targets else "widgets, examples, catalog, fixtures"
     print(f"validate: ok ({CHECKED} JSON files; {scope})")
     return 0
 

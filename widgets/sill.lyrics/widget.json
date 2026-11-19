@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "id": "sill.lyrics",
+  "name": "Lyrics",
+  "version": "1.0.0",
+  "author": "Sill",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "span": { "default": 1 },
+  "size": { "w": 384, "h": 180 },
+  "permissions": ["data.media"],
+  "data": [{ "id": "media", "source": "media.nowPlaying" }],
+  "settings": [
+    {
+      "key": "offset",
+      "type": "number",
+      "label": { "en": "Lyric offset", "zh": "歌词偏移" },
+      "description": {
+        "en": "Seconds. Positive values show lyrics later.",
+        "zh": "秒。正数表示歌词延后显示。"
+      },
+      "min": -10,
+      "max": 10,
+      "default": 0
+    }
+  ],
+  "strings": {
+    "en": { "title": "LYRICS", "empty": "No lyrics found", "idle": "Nothing playing" },
+    "zh": { "title": "歌词", "empty": "没有找到歌词", "idle": "没有在播放" }
+  },
+  "ui": "ui/index.html"
+}

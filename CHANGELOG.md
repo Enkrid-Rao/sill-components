@@ -31,6 +31,12 @@
 - web 的隔离模式补齐 `sill.storage` 与 `https:` 网络，每个组件独立 partition；
   `trust: "trusted"` 仍是唯一的 Node 插件通道。
 
+### 官方组件
+
+- 新增首个可安装官方模板 `sill.lyrics`（同步歌词，LRCLIB + 偏移设置），源码在 `widgets/sill.lyrics/`；
+- 新增 `registry/packages/` 存放打包产物，目录条目 `download` 指向 raw 直链，validate 会检查文件存在；
+- 官方组件目录 `widgets/<id>/` 纳入 validate（manifest / 模板 / 文件预算）。
+
 ### 内置组件
 
 - system / processes 改为随应用发布的模板包（esources/builtin-widgets/），与第三方模板同一路径；
@@ -80,6 +86,7 @@
 ## v0.1.0 — 2026-11
 
 首个规范版本：manifest / IR / runtime / script / security / testing / roadmap。
+
 
 
 

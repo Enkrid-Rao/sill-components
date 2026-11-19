@@ -1,7 +1,7 @@
 # 组件
 
-这里放每个组件的说明页。索引数据在 [`registry/catalog.json`](../registry/catalog.json)，
-每个条目的 `docs` 指回本目录。
+这里放官方组件的说明页；可安装组件的源码也在本目录，索引数据在
+[`registry/catalog.json`](../registry/catalog.json)。
 
 | id | 说明 | 类型 | 可安装 |
 |---|---|---|---|
@@ -11,16 +11,26 @@
 | [sill.media](sill.media/README.md) | 正在播放与音量 | builtin | 否 |
 | [sill.shelf](sill.shelf/README.md) | 快捷方式收纳 | builtin | 否 |
 | [sill.todo](sill.todo/README.md) | 本地待办 | builtin | 否 |
+| [sill.lyrics](sill.lyrics/README.md) | 同步歌词 | template | **是** |
 
-五个随 Sill 0.5.4 发布；`sill.shelf` 在开发分支，下一版发布。六个都还是宿主内置实现。`installable: false` 是准确的：
-它们没有 `.sill` 包，也不应该被安装器当成可下载组件。
+## 内置与可安装
 
-## 什么时候会有可安装的组件
+- `sill.hero` / `sill.media` / `sill.shelf` / `sill.todo` 仍是宿主内置实现，随应用发布，
+  `installable: false` 是准确的；
+- `sill.system` / `sill.processes` 已改成模板包，随应用发布在 `resources/builtin-widgets/`，
+  不走目录下载，所以目录里仍是 `installable: false`；
+- `sill.lyrics` 是第一个可安装的官方模板：源码在这个目录，打包产物在
+  [`registry/packages/`](../registry/packages/)，目录条目 `installable: true` + `download` 指向
+  本仓库的 raw 直链。
 
-本地 `.sill` 安装已经可用，目录下载还没做。从最简单的开始：
+## 发布一个可安装的官方组件
 
-1. `sill.clock` 这类只读文本卡先出 `.sill`；
-2. system / processes 可以开始用 `data-sill-if` / `data-sill-repeat` 做只读版；
-3. media / todo 需要命令和状态，走后续的受限脚本路线，不塞进模板。
+1. 在 `widgets/<id>/` 写 `widget.json` + `ui/**`（可选 `README.md`）；
+2. `python scripts/validate.py widgets/<id>`；
+3. `sill pack widgets/<id> -o registry/packages/<id>-<version>.sill`；
+4. 在 `registry/catalog.json` 增加条目：`type: "template"`、`installable: true`、
+   `download` 指向 `https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/...`、
+   `docs` 指回 `widgets/<id>/README.md`；
+5. `python scripts/validate.py` —— 会校验 manifest、模板、目录条目，并检查 `download` 文件确实存在。
 
-在这之前，新增内置组件的流程仍然是改 Sill 的 `registry.tsx`，不是往这个目录放包。
+发布新版本时升 `version`、重新 pack，并把 `download` 指向新文件名（旧包保留还是删除都可以）。

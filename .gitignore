@@ -7,3 +7,4 @@ __pycache__/
 *.sill
 .DS_Store
 Thumbs.db
+!registry/packages/*.sill
