@@ -51,6 +51,24 @@
 }
 ```
 
+可安装的条目要多一个 `download`：指向 `.sill` 的 **https** 直链，并把 `installable` 设为 `true`。
+Sill 的「设置 → 组件 → 组件目录」会读它，用户点安装后走和本地 `.sill` 相同的下载、能力档位提示与
+`trust.json` 记忆流程。
+
+```json
+{
+  "id": "com.you.clock",
+  "version": "1.0.0",
+  "type": "template",
+  "status": "community",
+  "installable": true,
+  "download": "https://github.com/you/sill-clock/releases/download/v1.0.0/clock-1.0.0.sill"
+}
+```
+
+`download` 必须是 https；Sill 只下载 `.sill`（zip），上限 50 MB，下载后按包内容重新校验，
+不信任目录里的字段。目录本身也可以用 `SILL_CATALOG_URL` 指向自建索引（仅开发/镜像用）。
+
 字段定义见 [`spec/catalog.schema.json`](../spec/catalog.schema.json)。`python scripts/validate.py`
 会检查索引、文档路径、id 唯一性和权限枚举。
 

@@ -30,11 +30,12 @@
 | 包内资源 | **开发版可用** | `sill-asset://<id>/ui/...`，相对路径自动改写 |
 | 动态布局 id | **开发版可用** | `normalizeLayout(raw, knownIds)`；新组件自动补 box |
 | 本地 `.sill` 安装 | **开发版可用** | 设置 → 组件 → 从 .sill 文件安装… / 双击 |
+| URL 安装 / 组件目录 | **开发版可用** | https 直链下载安装；`catalog.json` 只读，`installable + download` 的条目可直接装 |
 | 卸载 | **开发版可用** | 设置里的已安装列表 |
 | CLI（new / validate / pack / dev） | **已发布 0.3.1** | `npm i -g @heavenlydemon/sill-cli`；源码在 `packages/cli` |
 | Web 组件 | **开发版可用** | `type: "web"`；trusted 全 Node；sandboxed（隔离）走桥 + `sill.storage`，独立 partition |
 | 组件升级 | **开发版可用** | 同 id 新版本覆盖旧目录，布局槽位保留 |
-| 目录下载 / 更新 | **未实现** | 没有下载通道 |
+| 组件自动更新 | **未实现** | 目录与 URL 安装已通，自动检查更新未做 |
 | 权限确认 | **开发版可用** | 按能力档位提示（static / script / isolated / node），确认记入 `trust.json` |
 | 签名 / 哈希 | **未实现** | 安装时只做静态校验 |
 | 第三方组件分发 | **未开放** | 只能本地安装，不能从目录下载 |
@@ -73,15 +74,17 @@
 - 热重载作用域：只改一个组件时，只有它重新执行（boot 计数 2 / 1）。
 - 自由布局：`boxes:{}` 的 free 布局自动补种，数据晚到的卡片自动长高。
 - 网络（临时放开 CSP 验证）：`fetch` 与远程图片在 `https:` 下可用；包内模块可 `import()`。
-- `pnpm test`：安装器 + provider + 动作 + `.sill` 参数 + 信任档位 + 组件设置 38 个测试通过；`verify.yml` 通过。
+- `pnpm test`：安装器 + provider + 动作 + `.sill` 参数 + 信任档位 + 组件设置 46 个测试通过；`verify.yml` 通过。
 - 信任分级：主进程按包内容计算 static / script / isolated / node；`trust.json` 记住确认结果；
   设置里的组件列表显示档位（Playwright 核对）。
 - 组件设置：`settings` 声明解析、默认值/范围/select 校验单测覆盖；宿主表单选择 `°F` 后
   `widget-settings/<id>.json` 更新，组件的 `sill.settings.onChange` 收到新值（实测）。
+- URL 安装 / 组件目录：本地 HTTP 源（开发模式）实测，URL 与目录条目各装了一个静态组件；
+  下载后按包内容重新校验，仍走能力档位与 `trust.json`。
 
 ## 未验证 / 已知缺口
 
-- 没有目录下载、自动更新。
+- 没有组件自动更新；组件目录是只读 JSON，托管与审核流水线还没搭。
 - 安装时没有签名、哈希校验。
 - 同一个 id 只保留一个版本；升级覆盖旧目录（布局槽位保留），没有版本回滚提示。
 - 动作只有 `media.*` / `todo.toggle`；更多能力用 `main.js` + `sill.host`。
@@ -92,5 +95,6 @@
 - 状态变化时先改这份文件，再改相关文档。
 - 不要在其他文档里写「已实现 / 计划中」的独立版本号；引用本文件。
 - 打 tag 前确认「已验证」一节没有过期项。
+
 
 

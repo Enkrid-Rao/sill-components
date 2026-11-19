@@ -25,6 +25,7 @@
 - 设置里显示每个组件的能力档位（静态 / 脚本 / 隔离 / 完整 Node）；
 - 新增组件设置：`widget.json` 的 `settings` 由宿主渲染表单（text / number / switch / select），
   值存 `widget-settings/<id>.json`，组件用 `sill.settings` 读取、模板可用 `onChange`；
+- 新增从 https 直链安装 .sill；组件目录（catalog.json）只读，`installable + download` 的条目可直接安装
 - 升级改为覆盖式（upgrade-in-place）：同 id 新版本替换旧目录，布局槽位保留；
 - web 的隔离模式补齐 `sill.storage` 与 `https:` 网络，每个组件独立 partition；
   `trust: "trusted"` 仍是唯一的 Node 插件通道。
@@ -73,4 +74,5 @@
 ## v0.1.0 — 2026-11
 
 首个规范版本：manifest / IR / runtime / script / security / testing / roadmap。
+
 

@@ -160,6 +160,13 @@
         "installable": {
           "type": "boolean"
         },
+        "download": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://",
+          "maxLength": 500,
+          "description": "Direct .sill URL; required when installable is true."
+        },
         "source": {
           "type": "object",
           "additionalProperties": false,
