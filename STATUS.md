@@ -33,7 +33,7 @@
 | CLI（new / validate / pack / dev） | **源码可用，未发布** | `packages/cli` 0.3.0；npm 上仍是 0.2.2 |
 | Web 组件 | **开发版可用** | `type: "web"`；trusted 全 Node，sandboxed 只走桥 |
 | 目录下载 / 更新 | **未实现** | 没有下载通道 |
-| 权限确认 | **开发分支可用** | 安装前显示 id / 版本 / 作者 / 权限 |
+| 权限确认 | **开发版可用** | 按能力档位提示（static / script / isolated / node），确认记入 `trust.json` |
 | 签名 / 哈希 | **未实现** | 安装时只做静态校验 |
 | 第三方组件分发 | **未开放** | 只能本地安装，不能从目录下载 |
 
@@ -71,7 +71,9 @@
 - 热重载作用域：只改一个组件时，只有它重新执行（boot 计数 2 / 1）。
 - 自由布局：`boxes:{}` 的 free 布局自动补种，数据晚到的卡片自动长高。
 - 网络（临时放开 CSP 验证）：`fetch` 与远程图片在 `https:` 下可用；包内模块可 `import()`。
-- `pnpm test`：安装器 + provider + 动作 + `.sill` 参数 19 个测试通过；`verify.yml` 通过。
+- `pnpm test`：安装器 + provider + 动作 + `.sill` 参数 + 信任档位 31 个测试通过；`verify.yml` 通过。
+- 信任分级：主进程按包内容计算 static / script / isolated / node；`trust.json` 记住确认结果；
+  设置里的组件列表显示档位（Playwright 核对）。
 
 ## 未验证 / 已知缺口
 
@@ -79,7 +81,6 @@
 - CLI 0.3.0 还没发到 npm；npm 上的 0.2.2 会拒绝 `template + ui/main.js` / `ui/assets/**`。
 - 安装时没有签名、哈希校验。
 - 同一个 id 只能装一个版本；升级要先卸载，布局位置不保留。
-- 信任分级未实现：所有 `.sill` 共用同一个确认框，静态组件也会提示，确认结果不记忆。
 - 动作只有 `media.*` / `todo.toggle`；更多能力用 `main.js` + `sill.host`。
 - 六个内置组件仍是 React 实现，没有迁到模板。
 - `web` + `sandboxed` 能力很少（无 storage / fetch），定位待定：改成隔离模式并补 API，或删掉。

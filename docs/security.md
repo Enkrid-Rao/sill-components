@@ -12,7 +12,7 @@ Sill 的组件模型参考 Rainmeter：**组件是本地可信代码，安装或
 | `.ini` + 可选 Lua | `ui/index.html` + `ui/style.css` + 可选 `ui/main.js` |
 | `@Resources` 相对路径 | `ui/assets/**`，改写为 `sill-asset://<id>/ui/...` |
 | 插件 DLL | `type: "web"` + `trust: "trusted"`（完整 Node） |
-| 没有权限弹窗 | 没有权限弹窗；`permissions` 只是目录/安装提示的元数据 |
+| 安装时按能力提示一次 | 安装时按 `static / script / isolated / node` 分档提示；`trust.json` 记住确认，能力不变不再问 |
 
 ## 2. 边界
 

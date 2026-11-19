@@ -102,13 +102,18 @@ v1 同一个 `id` 只允许一个版本：
 
 ## 权限与信任
 
-安装前会显示 id、名称、版本、作者、类型、权限和提醒，确认后才写入。v1 没有签名 / 哈希。
+安装前会显示 id、名称、版本、作者、能力档位和读取的数据，确认后才写入。v1 没有签名 / 哈希。
 
-- `template` 与宿主同页运行，`main.js` / `on*` 能访问全部宿主 IPC；
-- `web` + `trust: "trusted"` 拥有完整 Node；
-- `web` + `trust: "sandboxed"` 只走桥。
+能力档位由包内容算出，不由作者声明：
 
-`permissions` 只用于提示，不构成运行时边界。见 [security.md](security.md)。
+| 档位 | 判定 | 提示 |
+|---|---|---|
+| `static` | template 且没有 `main.js` / `on*` / `<script>` | 不弹窗，直接装 |
+| `script` | template 且会执行代码 | 警告：权限与 Sill 相同 |
+| `isolated` | web，无 Node | 说明只走组件桥 |
+| `node` | web + `trust: "trusted"` | 完整 Node，需要勾选确认 |
+
+确认过的 id 记在 `<userData>/trust.json`；同 id 能力不升时不再询问。见 [security.md](security.md)。
 
 后续会补：签名 / 哈希、信任分级（静态组件免提示）、目录下载、自动更新。
 

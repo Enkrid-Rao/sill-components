@@ -18,6 +18,12 @@
 - 数据更新改为增量（只改绑定节点），CSS 过渡跨采样继续；
 - 安全模型改为 Rainmeter 式信任模型（见 [docs/security.md](docs/security.md)）。
 
+### 分发与信任
+
+- 安装提示按包内容算出的能力档位（static / script / isolated / node）：纯静态组件直接安装；
+- `<userData>/trust.json` 记住确认结果，同一组件能力不变时不再询问，能力升级才重新提示；
+- 设置里显示每个组件的能力档位（静态 / 脚本 / 隔离 / 完整 Node）。
+
 ### 开发者体验
 
 - 新增权威文档 [docs/authoring.md](docs/authoring.md)：文件结构、API、token、数据源、配方、
