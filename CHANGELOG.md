@@ -31,6 +31,11 @@
 - web 的隔离模式补齐 `sill.storage` 与 `https:` 网络，每个组件独立 partition；
   `trust: "trusted"` 仍是唯一的 Node 插件通道。
 
+### 内置组件
+
+- system / processes 改为随应用发布的模板包（esources/builtin-widgets/），与第三方模板同一路径；
+- 后台每 6 小时检查目录并对比已安装版本，有更新时面板设置按钮显示小圆点（不自动安装）。
+
 ### 开发者体验
 
 - 新增权威文档 [docs/authoring.md](docs/authoring.md)：文件结构、API、token、数据源、配方、
@@ -75,6 +80,7 @@
 ## v0.1.0 — 2026-11
 
 首个规范版本：manifest / IR / runtime / script / security / testing / roadmap。
+
 
 
 
