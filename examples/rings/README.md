@@ -29,7 +29,7 @@ GPU 读不到时 `gpu.usage` 为 `null`：`--sill-value` 不设置，环是空�
 sill pack . -o rings.sill
 ```
 
-设置 → 行为 → 组件 → 安装组件。
+设置 → 组件 → 安装组件。
 
 ## 这个例子依赖的宿主版本
 

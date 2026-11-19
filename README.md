@@ -174,7 +174,7 @@ pnpm dev
 
 1. 把 `widget.json`、`ui/index.html`、`ui/style.css`；web 再加 `ui/main.js` / `ui/assets/**`，压成 zip；
 2. 把扩展名改成 `.sill`；
-3. 设置 → 行为 → 组件 → 安装组件…，确认 id / 版本 / 作者 / 权限后安装。
+3. 设置 → 组件 → 安装组件…，确认 id / 版本 / 作者 / 权限后安装。
 
 `SILL_DEV_WIDGET`、`pnpm sill` 和本地 `.sill` 安装只在当前开发分支可用。目录下载和正式发布还没做。
 

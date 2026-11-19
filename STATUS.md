@@ -26,7 +26,7 @@
 | 组件存储 | **开发分支可用** | `<userData>/widget-data/<id>.json` |
 | 包内资源 | **开发分支可用** | `sill-asset://<id>/ui/...`，相对路径自动改写 |
 | 动态布局 id | **开发分支可用** | `normalizeLayout(raw, knownIds)` |
-| 本地 `.sill` 安装 | **开发分支可用** | 设置 → 行为 → 组件 → 安装组件… |
+| 本地 `.sill` 安装 | **开发分支可用** | 设置 → 组件 → 安装组件… |
 | 卸载 | **开发分支可用** | 设置里的已安装列表 |
 | CLI（validate / pack / new / dev） | **开发分支可用** | `packages/cli`，`pnpm sill` |
 | Web 组件 | **开发分支可用** | `type: "web"`，本地 `.sill`；trusted 全 Node / sandboxed 桥 |

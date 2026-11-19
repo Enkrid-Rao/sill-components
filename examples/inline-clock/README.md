@@ -22,4 +22,4 @@
 sill pack . -o inline-clock.sill
 ```
 
-设置 → 行为 → 组件 → 安装组件…；或直接把整个文件夹丢进 Skins 目录。
+设置 → 组件 → 安装组件…；或直接把整个文件夹丢进 Skins 目录。
