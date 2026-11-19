@@ -10,12 +10,7 @@
     "id",
     "name",
     "version",
-    "author",
-    "license",
-    "runtime",
-    "engine",
     "type",
-    "permissions",
     "ui"
   ],
   "properties": {
@@ -24,14 +19,14 @@
     },
     "id": {
       "type": "string",
-      "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$",
-      "minLength": 3,
-      "maxLength": 80
+      "pattern": "^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?$",
+      "minLength": 2,
+      "maxLength": 64
     },
     "name": {
       "type": "string",
       "minLength": 1,
-      "maxLength": 24
+      "maxLength": 80
     },
     "description": {
       "type": "string",
@@ -138,16 +133,10 @@
       "type": "array",
       "uniqueItems": true,
       "items": {
-        "enum": [
-          "data.time",
-          "data.system",
-          "data.media",
-          "data.weather",
-          "data.todo",
-          "action.media",
-          "action.todo"
-        ]
-      }
+        "type": "string",
+        "maxLength": 64
+      },
+      "description": "Metadata for the install prompt; not enforced at runtime."
     },
     "data": {
       "type": "array",

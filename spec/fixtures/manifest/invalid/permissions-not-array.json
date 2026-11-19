@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "id": "sill.storage",
-  "name": "Storage permission",
+  "id": "sill.perms",
+  "name": "Permissions not array",
   "version": "1.0.0",
   "author": "x",
   "license": "MIT",
   "runtime": ">=0.5.4",
   "engine": ">=0.1.0",
   "type": "template",
-  "permissions": ["storage"],
+  "permissions": "data.time",
   "ui": "ui/index.html"
 }

@@ -166,13 +166,13 @@ class TemplateHtml(HTMLParser):
 def path_problems(path: str, data_map: dict[str, str], has_repeat: bool) -> list[str]:
     clean = path[1:] if path.startswith("!") else path
     parts = clean.split(".")
-    if len(parts) < 2:
-        return [f"binding `{path}` needs a provider field"]
     root = parts[0]
     if root == "item" and has_repeat:
         return []
     if root not in data_map:
         return [f"binding root `{root}` is not declared in data"]
+    if len(parts) == 1:
+        return []
     provider = PROVIDERS.get(data_map[root])
     if provider is None:
         return [f"unknown provider `{data_map[root]}`"]
@@ -206,12 +206,10 @@ def check_template(widget_dir: Path, manifest: dict, html_path: Path) -> None:
         return
 
     css_path = html_path.parent / "style.css"
-    if not css_path.is_file():
-        error(html_path.parent, "missing ui/style.css")
-        return
+    # style.css 是可选的：可以直接把样式写在 index.html 的 <style> 里。
     if html_path.stat().st_size > 512 * 1024:
         error(html_path, "template HTML is larger than 512 KB")
-    if css_path.stat().st_size > 512 * 1024:
+    if css_path.is_file() and css_path.stat().st_size > 512 * 1024:
         error(css_path, "template CSS is larger than 512 KB")
 
     data_map = {item["id"]: item["source"] for item in manifest.get("data", [])}
@@ -237,7 +235,9 @@ def check_manifest(path: Path) -> None:
         error(path, "widget.json must not start with a BOM")
 
     for field in ("runtime", "engine"):
-        check_range(path, field, data[field])
+        # 可选元数据：写了才检查格式。
+        if field in data:
+            check_range(path, field, data[field])
 
     data_map: dict[str, str] = {}
     for item in data.get("data", []):
@@ -246,13 +246,8 @@ def check_manifest(path: Path) -> None:
         if key in data_map:
             error(path, f"duplicate data id `{key}`")
         data_map[key] = source
-        provider = PROVIDERS.get(source)
-        if provider is None:
+        if PROVIDERS.get(source) is None:
             error(path, f"unknown provider `{source}`")
-            continue
-        needed = provider.get("permission")
-        if needed and needed not in data.get("permissions", []):
-            error(path, f"provider `{source}` needs permission `{needed}`")
 
     ui = file_under(widget_dir, data["ui"])
     if ui is None:
@@ -270,11 +265,20 @@ def check_manifest(path: Path) -> None:
     package_files = [
         item for item in widget_dir.rglob("*") if item.is_file() and ".git" not in item.parts
     ]
-    if len(package_files) > 200:
-        error(path, "package exceeds the 200 file budget")
+    # 与宿主安装器一致：根目录只放元数据，其余文件都在 ui/ 下。
+    root_allowed = {"widget.json", "README.md", "LICENSE", "LICENSE.txt", "NOTICE"}
+    for item in package_files:
+        relative = item.relative_to(widget_dir).as_posix()
+        if relative in root_allowed or relative.startswith("ui/"):
+            continue
+        if relative.endswith(".sill"):
+            continue
+        error(path, f"file `{relative}` is not allowed (root metadata + ui/** only)")
+    if len(package_files) > 500:
+        error(path, "package exceeds the 500 file budget")
     total = sum(item.stat().st_size for item in package_files)
-    if total > 10 * 1024 * 1024:
-        error(path, "package exceeds the 10 MB budget")
+    if total > 50 * 1024 * 1024:
+        error(path, "package exceeds the 50 MB budget")
 
     check_template(widget_dir, data, ui)
 

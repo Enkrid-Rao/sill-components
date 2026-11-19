@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "id": "sill.noengine",
-  "name": "No engine",
+  "id": "sill.notype",
+  "name": "No type",
   "version": "1.0.0",
   "author": "x",
   "license": "MIT",
   "runtime": ">=0.5.4",
-  "type": "template",
+  "engine": ">=0.1.0",
   "permissions": [],
   "ui": "ui/index.html"
 }
