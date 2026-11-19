@@ -31,7 +31,8 @@
 | 本地 `.sill` 安装 | **开发版可用** | 设置 → 组件 → 从 .sill 文件安装… / 双击 |
 | 卸载 | **开发版可用** | 设置里的已安装列表 |
 | CLI（new / validate / pack / dev） | **已发布 0.3.0** | `npm i -g @heavenlydemon/sill-cli`；源码在 `packages/cli` |
-| Web 组件 | **开发版可用** | `type: "web"`；trusted 全 Node，sandboxed 只走桥 |
+| Web 组件 | **开发版可用** | `type: "web"`；trusted 全 Node；sandboxed（隔离）走桥 + `sill.storage`，独立 partition |
+| 组件升级 | **开发版可用** | 同 id 新版本覆盖旧目录，布局槽位保留 |
 | 目录下载 / 更新 | **未实现** | 没有下载通道 |
 | 权限确认 | **开发版可用** | 按能力档位提示（static / script / isolated / node），确认记入 `trust.json` |
 | 签名 / 哈希 | **未实现** | 安装时只做静态校验 |
@@ -79,10 +80,9 @@
 
 - 没有目录下载、自动更新。
 - 安装时没有签名、哈希校验。
-- 同一个 id 只能装一个版本；升级要先卸载，布局位置不保留。
+- 同一个 id 只保留一个版本；升级覆盖旧目录（布局槽位保留），没有版本回滚提示。
 - 动作只有 `media.*` / `todo.toggle`；更多能力用 `main.js` + `sill.host`。
 - 六个内置组件仍是 React 实现，没有迁到模板。
-- `web` + `sandboxed` 能力很少（无 storage / fetch），定位待定：改成隔离模式并补 API，或删掉。
 
 ## 更新规则
 

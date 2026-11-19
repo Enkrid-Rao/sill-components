@@ -23,13 +23,14 @@ Sill 的组件模型参考 Rainmeter：**组件是本地可信代码，安装或
 Renderer（React 宿主）
   WidgetShell / .card / Shadow DOM
         ├─ template：同页 HTML/CSS + 可选 main.js（可信）
-        └─ web guest：sandboxed 桥 / trusted 完整 Node
+        └─ web guest：隔离（无 Node）/ trusted 完整 Node
 ```
 
 - template 与宿主同页：`on*`、`ui/main.js` 都能访问 `window.sill`；
 - `ui/main.js` 是宿主页面里的一段脚本，不是沙箱；
 - `type: "web"` 才拥有独立 guest；`trust: "trusted"` 有完整 Node；
-- `sandboxed` web 仍然保留（给未来的市场），但不是写组件的默认路径。
+- web 的隔离模式（默认，无 Node）：桥 + `sill.storage` + `https:` 网络，每个组件独立
+  `sill-widget-<id>` partition；它拿不到宿主 DOM，也不需要为系统能力单独开接口。
 
 ## 3. 组件能做什么
 

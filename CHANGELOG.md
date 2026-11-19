@@ -22,7 +22,10 @@
 
 - 安装提示按包内容算出的能力档位（static / script / isolated / node）：纯静态组件直接安装；
 - `<userData>/trust.json` 记住确认结果，同一组件能力不变时不再询问，能力升级才重新提示；
-- 设置里显示每个组件的能力档位（静态 / 脚本 / 隔离 / 完整 Node）。
+- 设置里显示每个组件的能力档位（静态 / 脚本 / 隔离 / 完整 Node）；
+- 升级改为覆盖式（upgrade-in-place）：同 id 新版本替换旧目录，布局槽位保留；
+- web 的隔离模式补齐 `sill.storage` 与 `https:` 网络，每个组件独立 partition；
+  `trust: "trusted"` 仍是唯一的 Node 插件通道。
 
 ### 开发者体验
 
