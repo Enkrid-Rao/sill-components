@@ -68,6 +68,7 @@ Sill 的「设置 → 组件 → 组件目录」会读它，用户点安装后�
 
 `download` 必须是 https；Sill 只下载 `.sill`（zip），上限 50 MB，下载后按包内容重新校验，
 不信任目录里的字段。目录本身也可以用 `SILL_CATALOG_URL` 指向自建索引（仅开发/镜像用）。
+目录里的 `version` 也是更新来源：比本地新时，Sill 的「组件更新」会列出 `vA → vB`。
 
 字段定义见 [`spec/catalog.schema.json`](../spec/catalog.schema.json)。`python scripts/validate.py`
 会检查索引、文档路径、id 唯一性和权限枚举。
