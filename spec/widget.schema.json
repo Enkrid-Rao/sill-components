@@ -176,6 +176,77 @@
         }
       }
     },
+    "settings": {
+      "type": "array",
+      "maxItems": 16,
+      "description": "Declared component settings; the host renders the form and stores values in widget-settings/<id>.json.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "type"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,31}$"
+          },
+          "type": {
+            "enum": [
+              "text",
+              "number",
+              "switch",
+              "select"
+            ]
+          },
+          "label": {
+            "$ref": "#/$defs/settingText"
+          },
+          "description": {
+            "$ref": "#/$defs/settingText"
+          },
+          "default": {
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ]
+          },
+          "placeholder": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "min": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "options": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value"
+              ],
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                },
+                "label": {
+                  "$ref": "#/$defs/settingText"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "ui": {
       "const": "ui/index.html",
       "description": "v1 fixed template entry point."
@@ -189,6 +260,22 @@
     }
   },
   "$defs": {
+    "settingText": {
+      "oneOf": [
+        {
+          "type": "string",
+          "maxLength": 80
+        },
+        {
+          "type": "object",
+          "maxProperties": 8,
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 80
+          }
+        }
+      ]
+    },
     "strings": {
       "type": "object",
       "maxProperties": 100,

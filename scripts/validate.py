@@ -249,6 +249,15 @@ def check_manifest(path: Path) -> None:
         if PROVIDERS.get(source) is None:
             error(path, f"unknown provider `{source}`")
 
+    settings_keys: set[str] = set()
+    for field in data.get("settings", []):
+        key = field["key"]
+        if key in settings_keys:
+            error(path, f"duplicate setting key `{key}`")
+        settings_keys.add(key)
+        if field["type"] == "select" and not field.get("options"):
+            error(path, f"setting `{key}` is a select without options")
+
     ui = file_under(widget_dir, data["ui"])
     if ui is None:
         error(path, "ui must stay inside the package")

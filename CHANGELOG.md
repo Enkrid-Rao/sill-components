@@ -23,6 +23,8 @@
 - 安装提示按包内容算出的能力档位（static / script / isolated / node）：纯静态组件直接安装；
 - `<userData>/trust.json` 记住确认结果，同一组件能力不变时不再询问，能力升级才重新提示；
 - 设置里显示每个组件的能力档位（静态 / 脚本 / 隔离 / 完整 Node）；
+- 新增组件设置：`widget.json` 的 `settings` 由宿主渲染表单（text / number / switch / select），
+  值存 `widget-settings/<id>.json`，组件用 `sill.settings` 读取、模板可用 `onChange`；
 - 升级改为覆盖式（upgrade-in-place）：同 id 新版本替换旧目录，布局槽位保留；
 - web 的隔离模式补齐 `sill.storage` 与 `https:` 网络，每个组件独立 partition；
   `trust: "trusted"` 仍是唯一的 Node 插件通道。
@@ -38,7 +40,7 @@
 - `ui/main.js` 新增 `sill.onDispose`，同步异常在卡内显示错误条；
 - 热重载只重建内容变化的组件（payload 按内容比较）；
 - CSP 放开 `https:`（fetch / 图片 / 字体 / 音视频）与 `sill-asset:` 模块，组件可以联网、拆多文件；
-- CLI 0.3.0：`sill new` 生成完整脚手架（index/style/main/README/sill.d.ts），
+- CLI 0.3.1：`sill new` 生成完整脚手架（index/style/main/README/sill.d.ts），
   `validate` / `pack` 与新规则对齐。
 
 ## v0.3 — 未发布
@@ -71,3 +73,4 @@
 ## v0.1.0 — 2026-11
 
 首个规范版本：manifest / IR / runtime / script / security / testing / roadmap。
+

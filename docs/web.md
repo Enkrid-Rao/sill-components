@@ -75,6 +75,7 @@ sill.onData(({ data, language }) => { ... })
 sill.command('media.playpause')
 sill.storage.get().then((saved) => { ... })
 sill.storage.patch({ lastPlayed: Date.now() })
+sill.settings.get().then((values) => { ... })
 ```
 
 - 宿主把 manifest `data[].id` 解析成 `data`；

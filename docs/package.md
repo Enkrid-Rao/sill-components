@@ -39,6 +39,7 @@ ui/
 - `span.default` 如果写了，必须在 1–3（不写按 1）；
 - `author` / `license` / `runtime` / `engine` 可选（分别缺省 `unknown` / `UNLICENSED` / 元数据）；
 - `permissions` 可选，是给安装提示看的元数据，不做运行时拦截；
+- `settings` 可选：组件设置声明，宿主渲染表单，值存 `<userData>/widget-settings/<id>.json`；
 - `data[].source` 必须是已知 provider（见 [providers.md](providers.md)）。
 
 template 的 HTML/CSS **不做标签/属性审查**：`<script>` 由 `innerHTML` 规则保证不执行，
@@ -52,7 +53,7 @@ template 的 HTML/CSS **不做标签/属性审查**：`<script>` 由 `innerHTML`
 pnpm sill pack ./my-widget -o clock.sill
 ```
 
-全局 CLI（0.3.0+）：
+全局 CLI（0.3.1+）：
 
 ```bash
 npm i -g @heavenlydemon/sill-cli
@@ -133,3 +134,4 @@ Rename-Item clock.zip clock.sill
 | `缺少 ui/index.html` | 入口文件不在包里 |
 | `widget.json 字段不合法` | 缺 `schema`/`id`/`name`/`version`/`type`/`ui`，或类型不对 |
 | `这个组件已经安装` | 同 id 已存在 |
+

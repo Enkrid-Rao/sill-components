@@ -167,7 +167,7 @@ web 规则见 [docs/web.md](docs/web.md)。
 CLI（可选）：
 
 ```bash
-npm i -g @heavenlydemon/sill-cli   # 0.3.0（已发布）
+npm i -g @heavenlydemon/sill-cli   # 0.3.1（已发布）
 sill new clock
 sill validate ./clock
 sill pack ./clock -o clock.sill
@@ -208,5 +208,6 @@ pnpm dev
 ## 许可
 
 本仓库规范、目录和示例采用 MIT。组件作者可在 `widget.json` 的 `license` 字段另行声明。
+
 
 

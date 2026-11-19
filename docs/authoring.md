@@ -295,6 +295,50 @@ sill.onData(({ tokens }) => {
 - 卡片重载 = 旧实例销毁、新实例执行，全局状态请放 `sill.storage`；
 - `<script>` 写在 `index.html` 里不会执行，JS 一律放 `main.js`。
 
+### 组件设置（宿主渲染表单）
+
+在 `widget.json` 里声明 `settings`，宿主会在「设置 → 组件」里为它渲染表单，值存到
+`<userData>/widget-settings/<id>.json`，组件不用自己写设置 UI：
+
+```json
+"settings": [
+  { "key": "city", "type": "text", "label": { "en": "City", "zh": "城市" }, "default": "Shenzhen" },
+  { "key": "unit", "type": "select", "label": "Unit",
+    "options": [{ "value": "c", "label": "°C" }, { "value": "f", "label": "°F" }], "default": "c" },
+  { "key": "seconds", "type": "switch", "label": "Show seconds", "default": true },
+  { "key": "refresh", "type": "number", "label": "Refresh", "min": 1, "max": 60, "default": 5 }
+]
+```
+
+| 字段 | 说明 |
+|---|---|
+| `key` | 必填，标识符（`[A-Za-z_][A-Za-z0-9_]{0,31}`） |
+| `type` | 必填：`text` / `number` / `switch` / `select` |
+| `label` / `description` | 纯文本或 `{ "en": "...", "zh": "..." }` |
+| `default` | 默认值；不填按类型给空值 |
+| `placeholder` | text / number 的占位文案 |
+| `min` / `max` | number 的范围 |
+| `options` | select 必填：`[{ "value": "c", "label": "°C" }]` |
+
+最多 16 项；写错的项会被忽略，不会阻塞安装。宿主会按类型校验（数字夹范围、select 只接受
+声明过的值），组件读到的永远是合法值。
+
+```js
+const settings = await sill.settings.get()
+sill.settings.onChange((values) => {
+  // 用户在设置里改了；模板里有 onChange，web guest 只有 get / set
+})
+await sill.settings.set({ city: 'Tokyo' })
+```
+
+模板的 `main.js` 也可以在启动时读一次：
+
+```js
+sill.settings.get().then((values) => {
+  if (values.seconds === false) root.querySelector('.seconds')?.remove()
+})
+```
+
 最小示例（带清理）：
 
 ```js

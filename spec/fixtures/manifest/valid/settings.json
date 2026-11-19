@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "sill.settings-demo",
+  "name": "Settings demo",
+  "version": "1.0.0",
+  "type": "template",
+  "ui": "ui/index.html",
+  "settings": [
+    {
+      "key": "city",
+      "type": "text",
+      "label": {
+        "en": "City",
+        "zh": "城市"
+      },
+      "default": "Shenzhen"
+    },
+    {
+      "key": "unit",
+      "type": "select",
+      "label": {
+        "en": "Unit",
+        "zh": "单位"
+      },
+      "options": [
+        {
+          "value": "c",
+          "label": "°C"
+        },
+        {
+          "value": "f",
+          "label": "°F"
+        }
+      ],
+      "default": "c"
+    },
+    {
+      "key": "seconds",
+      "type": "switch",
+      "label": "Show seconds",
+      "default": true
+    },
+    {
+      "key": "refresh",
+      "type": "number",
+      "label": "Refresh",
+      "min": 1,
+      "max": 60,
+      "default": 5
+    }
+  ]
+}
