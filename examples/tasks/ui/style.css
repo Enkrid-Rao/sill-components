@@ -1,0 +1,142 @@
+:host {
+  display: block;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.tasks__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tasks__title {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.tasks__mode {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink-dim);
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.tasks__mode:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ink);
+}
+
+.tasks__meter {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tasks__fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.35s var(--ease-out, ease-out);
+}
+
+.tasks__count {
+  color: var(--ink-faint);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.tasks__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  border-radius: 7px;
+  padding: 4px 5px;
+}
+
+.task:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.task__check {
+  position: relative;
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.task[data-done] .task__check {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.task[data-done] .task__check::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--accent);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(42deg);
+}
+
+.task__text {
+  overflow: hidden;
+  min-width: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task[data-done] .task__text {
+  color: var(--ink-faint);
+  text-decoration: line-through;
+}
+
+.tasks__empty {
+  padding: 10px 4px;
+  color: var(--ink-faint);
+  font-size: 11px;
+  text-align: center;
+}
+
+.tasks.is-compact {
+  gap: 4px;
+}
+
+.tasks.is-compact .task {
+  padding: 1px 5px;
+}
+
+.tasks.is-compact .tasks__meter,
+.tasks.is-compact .tasks__count {
+  display: none;
+}

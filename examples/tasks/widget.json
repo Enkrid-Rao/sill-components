@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "sill.showcase.tasks",
+  "name": "Tasks",
+  "description": "Checkable todo list with host.state, repeat rows and private storage.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "size": { "w": 320, "h": 190, "minW": 240, "minH": 120 },
+  "span": { "default": 1 },
+  "permissions": ["data.todo", "action.todo"],
+  "data": [{ "id": "state", "source": "host.state" }],
+  "strings": {
+    "en": { "title": "TASKS", "empty": "All clear" },
+    "zh": { "title": "待办", "empty": "都完成了" }
+  },
+  "ui": "ui/index.html"
+}

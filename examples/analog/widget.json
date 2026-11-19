@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "sill.showcase.analog",
+  "name": "Analog Clock",
+  "description": "An SVG clock face driven by inline ui/main.js and time.now.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "size": { "w": 300, "h": 196, "minW": 240, "minH": 160 },
+  "span": { "default": 1 },
+  "permissions": ["data.time"],
+  "data": [{ "id": "now", "source": "time.now" }],
+  "strings": {
+    "en": { "title": "LOCAL TIME" },
+    "zh": { "title": "本地时间" }
+  },
+  "ui": "ui/index.html"
+}

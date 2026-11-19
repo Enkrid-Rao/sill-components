@@ -1,0 +1,143 @@
+:host {
+  display: block;
+}
+
+.wave {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.wave__art {
+  position: relative;
+  flex: 0 0 auto;
+  width: 76px;
+  height: 76px;
+}
+
+.wave__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.wave__pulse {
+  position: absolute;
+  inset: -5px;
+  border-radius: 16px;
+  background-image: url(assets/glow.svg);
+  background-size: cover;
+  opacity: 0.7;
+  animation: wave-spin 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes wave-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.wave__body {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wave__label {
+  color: var(--ink-faint);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.wave__title {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wave__artist,
+.wave__status,
+.wave__empty {
+  overflow: hidden;
+  color: var(--ink-dim);
+  font-size: 10.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wave__status {
+  color: var(--ink-faint);
+  font-size: 9.5px;
+}
+
+.wave__empty {
+  padding-top: 8px;
+  color: var(--ink-faint);
+}
+
+.wave__bar {
+  height: 3px;
+  margin-top: 6px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.wave__fill {
+  width: calc(var(--sill-value, 0) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.4s var(--ease-out, ease-out);
+}
+
+.wave__controls {
+  display: flex;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.wave__button {
+  display: grid;
+  width: 27px;
+  height: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
+  padding: 0;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wave__button:hover {
+  background: rgba(255, 255, 255, 0.11);
+  color: var(--ink);
+}
+
+.wave__button--main {
+  border-color: var(--accent-soft);
+  background: var(--accent-soft);
+  color: var(--accent-pale);
+}
+
+.wave__button--mute {
+  margin-left: auto;
+  font-size: 11px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave__pulse {
+    animation: none;
+  }
+}

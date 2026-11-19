@@ -1,0 +1,56 @@
+<div class="halo">
+  <div class="halo__grain" aria-hidden="true"></div>
+
+  <div class="halo__head">
+    <span class="halo__title" data-sill-i18n="title">SYSTEM HALO</span>
+    <span class="halo__cores">
+      <span data-sill-text="cpu.cores">—</span>
+      <span data-sill-i18n="cores">cores</span>
+    </span>
+  </div>
+
+  <div class="halo__dials">
+    <div class="halo__dial halo__dial--cpu">
+      <div class="halo__dialInner">
+        <svg viewBox="0 0 80 80" class="halo__svg" aria-hidden="true">
+          <circle class="halo__track" cx="40" cy="40" r="34" pathLength="100" />
+          <circle class="halo__value" cx="40" cy="40" r="34" pathLength="100" data-sill-meter="cpu.usage" />
+        </svg>
+        <span class="halo__num" data-sill-text="cpu.usage">—</span>
+      </div>
+      <span class="halo__label" data-sill-i18n="cpu">CPU</span>
+    </div>
+
+    <div class="halo__dial halo__dial--mem">
+      <div class="halo__dialInner">
+        <svg viewBox="0 0 80 80" class="halo__svg" aria-hidden="true">
+          <circle class="halo__track" cx="40" cy="40" r="34" pathLength="100" />
+          <circle class="halo__value" cx="40" cy="40" r="34" pathLength="100" data-sill-meter="mem.percent" />
+        </svg>
+        <span class="halo__num" data-sill-text="mem.percent">—</span>
+      </div>
+      <span class="halo__label" data-sill-i18n="mem">MEM</span>
+    </div>
+
+    <div class="halo__dial halo__dial--gpu">
+      <div class="halo__dialInner">
+        <svg viewBox="0 0 80 80" class="halo__svg" aria-hidden="true">
+          <circle class="halo__track" cx="40" cy="40" r="34" pathLength="100" />
+          <circle class="halo__value" cx="40" cy="40" r="34" pathLength="100" data-sill-meter="gpu.usage" />
+        </svg>
+        <span class="halo__num" data-sill-text="gpu.usage">—</span>
+      </div>
+      <span class="halo__label" data-sill-i18n="gpu">GPU</span>
+    </div>
+  </div>
+
+  <div class="halo__foot">
+    <span class="halo__footLabel" data-sill-i18n="memory">MEMORY</span>
+    <span class="halo__footValue">
+      <span data-sill-text="mem.usedGb">—</span>
+      <span class="halo__slash">/</span>
+      <span data-sill-text="mem.totalGb">—</span>
+      <span class="halo__unit">GB</span>
+    </span>
+  </div>
+</div>

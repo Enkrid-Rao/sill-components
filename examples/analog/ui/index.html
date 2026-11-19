@@ -1,0 +1,23 @@
+<div class="analog">
+  <div class="analog__head">
+    <span class="analog__title" data-sill-i18n="title">LOCAL TIME</span>
+    <span class="analog__tz" id="tz"></span>
+  </div>
+
+  <div class="analog__face">
+    <svg viewBox="0 0 120 120" class="analog__svg" id="analog-svg" aria-hidden="true">
+      <circle class="analog__rim" cx="60" cy="60" r="55" />
+      <circle class="analog__inner" cx="60" cy="60" r="49" />
+      <g class="analog__ticks" id="ticks"></g>
+      <line class="analog__hand analog__hand--hour" id="hour" x1="60" y1="66" x2="60" y2="32" />
+      <line class="analog__hand analog__hand--min" id="min" x1="60" y1="68" x2="60" y2="19" />
+      <line class="analog__hand analog__hand--sec" id="sec" x1="60" y1="72" x2="60" y2="13" />
+      <circle class="analog__pin" cx="60" cy="60" r="3" />
+    </svg>
+  </div>
+
+  <div class="analog__foot">
+    <span class="analog__date" data-sill-text="now.dateLabel"></span>
+    <span class="analog__time" data-sill-text="now.time"></span>
+  </div>
+</div>

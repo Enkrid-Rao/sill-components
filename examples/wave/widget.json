@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "sill.showcase.wave",
+  "name": "Wave",
+  "description": "Media card with packaged artwork, progress meter and transport actions.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "size": { "w": 320, "h": 128, "minW": 240, "minH": 96 },
+  "span": { "default": 1 },
+  "permissions": ["data.media", "action.media"],
+  "data": [{ "id": "media", "source": "media.nowPlaying" }],
+  "strings": {
+    "en": { "label": "NOW PLAYING", "empty": "Nothing playing", "mute": "mute" },
+    "zh": { "label": "正在播放", "empty": "当前没有播放", "mute": "静音" }
+  },
+  "ui": "ui/index.html"
+}

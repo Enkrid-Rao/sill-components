@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "id": "sill.showcase.halo",
+  "name": "Halo",
+  "description": "Three glowing SVG arcs for CPU, memory and GPU, with a packaged grain texture.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "size": { "w": 320, "h": 158, "minW": 260, "minH": 120 },
+  "span": { "default": 1 },
+  "permissions": ["data.system"],
+  "data": [
+    { "id": "cpu", "source": "system.cpu" },
+    { "id": "mem", "source": "system.memory" },
+    { "id": "gpu", "source": "system.gpu" }
+  ],
+  "strings": {
+    "en": {
+      "title": "SYSTEM HALO",
+      "cpu": "CPU",
+      "mem": "MEM",
+      "gpu": "GPU",
+      "cores": "cores",
+      "memory": "MEMORY"
+    },
+    "zh": {
+      "title": "系统光环",
+      "cpu": "处理器",
+      "mem": "内存",
+      "gpu": "显卡",
+      "cores": "核",
+      "memory": "内存占用"
+    }
+  },
+  "ui": "ui/index.html"
+}

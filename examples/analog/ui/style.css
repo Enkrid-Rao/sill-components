@@ -1,0 +1,104 @@
+:host {
+  display: block;
+}
+
+.analog {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.analog__head,
+.analog__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.analog__title {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.analog__tz {
+  max-width: 55%;
+  overflow: hidden;
+  color: var(--ink-faint);
+  font-size: 9.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.analog__face {
+  display: grid;
+  place-items: center;
+}
+
+.analog__svg {
+  width: 132px;
+  height: 132px;
+}
+
+.analog__rim {
+  fill: rgba(255, 255, 255, 0.015);
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+}
+
+.analog__inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 1;
+}
+
+.analog__tick {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+}
+
+.analog__tick--major {
+  stroke: var(--ink-soft);
+  stroke-width: 1.7;
+}
+
+.analog__hand {
+  stroke-linecap: round;
+  transform-origin: 60px 60px;
+}
+
+.analog__hand--hour {
+  stroke: var(--ink-soft);
+  stroke-width: 4;
+}
+
+.analog__hand--min {
+  stroke: var(--ink);
+  stroke-width: 2.6;
+}
+
+.analog__hand--sec {
+  stroke: var(--accent);
+  stroke-width: 1.4;
+}
+
+.analog__pin {
+  fill: var(--accent-pale);
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 0.8;
+}
+
+.analog__date {
+  color: var(--ink-dim);
+  font-size: 11px;
+}
+
+.analog__time {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  font-variant-numeric: tabular-nums;
+}

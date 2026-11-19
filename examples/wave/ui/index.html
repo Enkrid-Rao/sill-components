@@ -1,0 +1,25 @@
+<div class="wave">
+  <div class="wave__art">
+    <img class="wave__img" src="assets/vinyl.svg" alt="" />
+    <div class="wave__pulse" data-sill-if="media.active" aria-hidden="true"></div>
+  </div>
+
+  <div class="wave__body">
+    <div class="wave__label" data-sill-i18n="label">NOW PLAYING</div>
+    <div class="wave__title" data-sill-text="media.title">—</div>
+    <div class="wave__artist" data-sill-text="media.artist">—</div>
+    <div class="wave__status" data-sill-text="media.status">—</div>
+    <div class="wave__empty" data-sill-if="!media.active" data-sill-i18n="empty">Nothing playing</div>
+
+    <div class="wave__bar">
+      <div class="wave__fill" data-sill-meter="media.progress"></div>
+    </div>
+
+    <div class="wave__controls">
+      <button class="wave__button" type="button" data-sill-action="media.prev" aria-label="previous">‹</button>
+      <button class="wave__button wave__button--main" type="button" data-sill-action="media.playpause" aria-label="play or pause">▶</button>
+      <button class="wave__button" type="button" data-sill-action="media.next" aria-label="next">›</button>
+      <button class="wave__button wave__button--mute" type="button" data-sill-action="media.mute" aria-label="mute">♪</button>
+    </div>
+  </div>
+</div>

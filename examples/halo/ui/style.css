@@ -1,0 +1,142 @@
+:host {
+  display: block;
+}
+
+.halo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  isolation: isolate;
+}
+
+/* 包内资源：宿主把 assets/grain.svg 改写成 sill-asset://<id>/ui/assets/grain.svg */
+.halo__grain {
+  position: absolute;
+  z-index: -1;
+  inset: -8px;
+  background-image: url(assets/grain.svg);
+  background-repeat: repeat;
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.halo__head,
+.halo__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.halo__title,
+.halo__footLabel {
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.halo__cores {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.halo__dials {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.halo__dial {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.halo__dialInner {
+  position: relative;
+  display: grid;
+  width: 100%;
+  place-items: center;
+}
+
+.halo__dialInner > * {
+  grid-area: 1 / 1;
+}
+
+.halo__svg {
+  width: 100%;
+  max-width: 78px;
+  aspect-ratio: 1;
+  overflow: visible;
+  transform: rotate(-90deg);
+}
+
+.halo__track,
+.halo__value {
+  fill: none;
+  stroke-width: 6;
+}
+
+.halo__track {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.halo__value {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--sill-value, 0));
+  filter: drop-shadow(0 0 4px var(--accent-glow));
+  transition: stroke-dashoffset 0.55s var(--ease-out, ease-out);
+}
+
+.halo__dial--mem .halo__value {
+  stroke: var(--accent-2);
+}
+
+.halo__dial--gpu .halo__value {
+  stroke: var(--accent-pale);
+}
+
+.halo__num {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.halo__label {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.halo__footValue {
+  color: var(--ink-dim);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.halo__slash {
+  padding: 0 3px;
+  color: var(--ink-faint);
+}
+
+.halo__unit {
+  padding-left: 2px;
+  color: var(--ink-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo__value {
+    transition: none;
+  }
+}
