@@ -14,7 +14,7 @@
 | manifest `schema` | 1 | 未变；必填字段收窄到 6 个 |
 | 模板引擎目标版本 | 0.1.0 | 开发版可用，未打 tag |
 | 目录 `schema` | 1 | `registry/catalog.json` |
-| CLI | 源码 0.3.0 / npm 0.2.2 | npm 上的 0.2.x 不认识新包结构，需重新发布 |
+| CLI | 0.3.0（npm `@heavenlydemon/sill-cli`） | 与新包结构一致 |
 
 ## 分层状态
 
@@ -30,7 +30,7 @@
 | 动态布局 id | **开发版可用** | `normalizeLayout(raw, knownIds)`；新组件自动补 box |
 | 本地 `.sill` 安装 | **开发版可用** | 设置 → 组件 → 从 .sill 文件安装… / 双击 |
 | 卸载 | **开发版可用** | 设置里的已安装列表 |
-| CLI（new / validate / pack / dev） | **源码可用，未发布** | `packages/cli` 0.3.0；npm 上仍是 0.2.2 |
+| CLI（new / validate / pack / dev） | **已发布 0.3.0** | `npm i -g @heavenlydemon/sill-cli`；源码在 `packages/cli` |
 | Web 组件 | **开发版可用** | `type: "web"`；trusted 全 Node，sandboxed 只走桥 |
 | 目录下载 / 更新 | **未实现** | 没有下载通道 |
 | 权限确认 | **开发版可用** | 按能力档位提示（static / script / isolated / node），确认记入 `trust.json` |
@@ -78,7 +78,6 @@
 ## 未验证 / 已知缺口
 
 - 没有目录下载、自动更新。
-- CLI 0.3.0 还没发到 npm；npm 上的 0.2.2 会拒绝 `template + ui/main.js` / `ui/assets/**`。
 - 安装时没有签名、哈希校验。
 - 同一个 id 只能装一个版本；升级要先卸载，布局位置不保留。
 - 动作只有 `media.*` / `todo.toggle`；更多能力用 `main.js` + `sill.host`。
@@ -90,3 +89,4 @@
 - 状态变化时先改这份文件，再改相关文档。
 - 不要在其他文档里写「已实现 / 计划中」的独立版本号；引用本文件。
 - 打 tag 前确认「已验证」一节没有过期项。
+
