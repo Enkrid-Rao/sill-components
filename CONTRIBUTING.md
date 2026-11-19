@@ -35,7 +35,7 @@
    - `spec/fixtures/manifest/valid` 与 `invalid` 里至少各一条
    - 至少一个 example
 4. 如果改了模板绑定 / 指令，同时更新：
-   - `docs/template.md`
+   - `docs/authoring.md`
    - `docs/runtime.md`
    - `scripts/validate.py`
    - `spec/fixtures/template/valid` 与 `invalid`
@@ -98,3 +98,4 @@ python scripts/validate.py ./my-widget  # 单个组件
 ## 许可
 
 提交即同意以 MIT 许可贡献到本仓库。
+

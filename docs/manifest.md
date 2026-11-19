@@ -35,46 +35,44 @@
 | 字段 | 必需 | 说明 |
 |---|---|---|
 | `schema` | 是 | 固定 `1` |
-| `id` | 是 | 反向域名，全局唯一，至少两段 |
-| `name` | 是 | 展示名，1–24 字 |
+| `id` | 是 | 全局唯一，2–64 字符，小写字母/数字/`.`/`-`/`_`；`clock` 或 `com.you.clock` 都可以 |
+| `name` | 是 | 展示名，超过 40 字符截断 |
 | `description` | 否 | 简短描述，安装器与目录展示 |
-| `version` | 是 | 组件版本，semver |
-| `author` | 是 | 作者名或组织 |
-| `license` | 是 | SPDX 标识；无许可证不能发布 |
+| `version` | 是 | 组件版本，semver（允许 `-beta` / `+build`） |
+| `author` | 否 | 作者名或组织，缺省 `unknown` |
+| `license` | 否 | SPDX 标识，缺省 `UNLICENSED` |
 | `homepage` | 否 | 组件主页 / 源码 |
-| `runtime` | 是 | **宿主应用**版本范围 |
-| `engine` | 是 | **模板引擎**版本范围 |
+| `runtime` | 否 | **宿主应用**版本范围（元数据） |
+| `engine` | 否 | **模板引擎**版本范围（元数据） |
 | `type` | 是 | `template` 或 `web` |
-| `size` | 否 | 建议尺寸（逻辑 px），不影响宿主布局 |
-| `span` | 否 | 默认跨列 |
-| `permissions` | 是 | 只读数据权限 |
+| `size` | 否 | 建议尺寸（逻辑 px）；`h` 用于 web 组件高度 |
+| `span` | 否 | 默认跨列，缺省 1 |
+| `permissions` | 否 | 安装提示用的元数据，不做运行时拦截 |
 | `data` | 否 | 绑定名 → provider |
 | `strings` | 否 | 内联本地化文本 |
-| `ui` | 是 | HTML 模板的相对路径 |
+| `ui` | 是 | 固定 `ui/index.html` |
 
 v1 没有 `settings` / `locales` 文件 / `network`。本地化放 `strings`；template 和 web 都可以带
-`ui/assets/**` 与可选 `ui/main.js`，template 的脚本在宿主页面内执行。
+任意 `ui/**` 文件与可选 `ui/main.js`，template 的脚本在宿主页面内执行。
 
 ## id
 
-- 至少两段，反向域名：`sill.clock`、`com.example.weather`。
-- 只允许小写字母、数字、`.`、`-`；每段不以 `-` 开头或结尾，不能有空段。
-- 宿主按 `id` 去重；同一 `id` 的不同版本共享存储（未来），安装目录分开。
-- `sill` 单段不合法；`a..b`、`a-.b` 也不合法。
+- 2–64 字符，小写字母、数字、`.`、`-`、`_`；首尾必须是字母或数字。
+- 单段（`clock`）和多段（`com.example.weather`）都合法；单段适合本地组件。
+- 宿主按 `id` 去重；同一 `id` 不能同时装两个版本。
+- `..`、大写字母、空格、斜杠都不合法。
 
 ## version / runtime / engine
 
 ```json
 "version": "1.0.0",
-"runtime": ">=0.5.4",
+"runtime": ">=0.6.0",
 "engine": ">=0.1.0"
 ```
 
 - `version` 是组件自己的 semver，允许 prerelease 与 build metadata。
-- `runtime` 是宿主应用范围；`engine` 是模板引擎范围。**两个都满足才加载。**
-- 0.5.4 正式版没有模板引擎；开发分支可以直接安装本地 `.sill`，也可以用
-  `SILL_DEV_WIDGET` 预览文件夹。
-- 两个范围都是 semver range；不满足时拒绝加载，不降级。
+- `runtime` / `engine` 是**可选元数据**：现在不做加载期强制，不填也能安装。
+- 0.5.4 正式版没有模板引擎；开发版可以直接安装本地 `.sill`，也可以用 Skins 目录预览文件夹。
 
 ## type 与 trust
 
@@ -178,7 +176,7 @@ provider 是**只读**数据；`permissions` 用于安装提示与目录展示�
 8. `permissions` 覆盖 `data[].source` 所需的权限。
 9. `data[].id` 不重复；`source` 是已知 provider。
 10. `span.byColumns` 不超过对应列数。
-11. 模板绑定路径合法、包预算在限内；HTML / CSS 内容不做审查（见 [template.md](template.md)）。
+11. 模板绑定路径合法、包预算在限内；HTML / CSS 内容不做审查（见 [authoring.md](authoring.md)）。
 12. 包大小、文件数在上限内。
 
 失败时安装器不写入任何文件。`validate` 的错误应带 `文件:路径`，便于编辑器与 CI 消费。
@@ -206,3 +204,4 @@ provider 是**只读**数据；`permissions` 用于安装提示与目录展示�
 - 新增可选字段不升 `schema`，但必须提高 `engine` 的最低版本；旧宿主会拒绝未知字段，
   安装器应提示「需要更新 Sill」，而不是静默忽略。
 - 组件版本遵循 semver；宿主只按 `id` 识别组件，不按路径。
+

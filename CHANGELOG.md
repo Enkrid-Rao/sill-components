@@ -18,6 +18,20 @@
 - 数据更新改为增量（只改绑定节点），CSS 过渡跨采样继续；
 - 安全模型改为 Rainmeter 式信任模型（见 [docs/security.md](docs/security.md)）。
 
+### 开发者体验
+
+- 新增权威文档 [docs/authoring.md](docs/authoring.md)：文件结构、API、token、数据源、配方、
+  常见坑、给 AI 的检查清单；
+- manifest 放宽：`author` / `license` / `runtime` / `engine` / `permissions` / `span` 改为可选；
+  `id` 支持单段（`clock`）；`version` 支持 `+build`；
+- 包结构放宽为「根目录元数据 + `ui/**` 任意文件」，可以拆 `lib/`、`data/`、`fonts/`；
+  `ui/style.css` 不再必需，`ui/index.html` 成为唯一必需入口；
+- `ui/main.js` 新增 `sill.onDispose`，同步异常在卡内显示错误条；
+- 热重载只重建内容变化的组件（payload 按内容比较）；
+- CSP 放开 `https:`（fetch / 图片 / 字体 / 音视频）与 `sill-asset:` 模块，组件可以联网、拆多文件；
+- CLI 0.3.0：`sill new` 生成完整脚手架（index/style/main/README/sill.d.ts），
+  `validate` / `pack` 与新规则对齐。
+
 ## v0.3 — 未发布
 
 这一版把组件模型从 JSON IR / iframe 换成 **template**。

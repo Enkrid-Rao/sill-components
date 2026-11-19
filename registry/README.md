@@ -88,5 +88,6 @@
 ## 相关
 
 - [规范首页](../README.md)
-- [manifest](../docs/manifest.md) · [template](../docs/template.md) · [runtime](../docs/runtime.md)
+- [manifest](../docs/manifest.md) · [authoring](../docs/authoring.md) · [runtime](../docs/runtime.md)
 - [package](../docs/package.md) · [安全模型](../docs/security.md) · [验收清单](../docs/testing.md) · [路线图](../docs/roadmap.md)
+

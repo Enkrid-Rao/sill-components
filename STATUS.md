@@ -2,34 +2,36 @@
 
 这份文件是「现在到底有什么」的唯一真值。其他文档描述契约与目标，不重复状态数字。
 
-最后核对：2026-11-18，对照 Sill `0.5.4` 与开发分支 `5d6aba8`。
+最后核对：2026-11-19，对照 Sill `0.5.4` 与开发版 `0.6.0-dev.2`（`2a320f4`）。
 
 ## 版本
 
 | 项 | 值 | 说明 |
 |---|---|---|
 | 正式宿主 | Sill 0.5.4 | 只有内置组件，没有模板引擎 / 安装器 |
-| 开发宿主 | Sill `main` `5d6aba8` | 模板渲染、动态布局、本地 `.sill` 安装 |
-| 组件规范 | v0.3 | 本仓库 `main`；最后 tag 是 `v0.1.0` |
-| manifest `schema` | 1 | 未变 |
-| 模板引擎目标版本 | 0.1.0 | 开发分支可用，未打 tag |
+| 开发宿主 | Sill `0.6.0-dev.2` | 模板 + 内联 JS、Skins、资源协议、组件存储、本地 `.sill` |
+| 组件规范 | v0.4 | 本仓库 `main`；最后 tag 是 `v0.1.0` |
+| manifest `schema` | 1 | 未变；必填字段收窄到 6 个 |
+| 模板引擎目标版本 | 0.1.0 | 开发版可用，未打 tag |
 | 目录 `schema` | 1 | `registry/catalog.json` |
+| CLI | 源码 0.3.0 / npm 0.2.2 | npm 上的 0.2.x 不认识新包结构，需重新发布 |
 
 ## 分层状态
 
 | 层 | 状态 | 证据 / 位置 |
 |---|---|---|
 | manifest 校验 | 规范完成；Sill 开发分支安装器已接入基础校验 | `spec/widget.schema.json`、`scripts/validate.py`、Sill `main/widgets/package.ts` |
-| 模板渲染 | **开发分支可用** | Sill `TemplateWidget` + Shadow DOM |
-| 内联 JS | **开发分支可用** | `ui/main.js` 同页执行，`sill.data / onData / command / storage` |
-| Skins 目录 | **开发分支可用** | `<userData>/skins/<名字>/`，保存即刷新 |
-| 组件存储 | **开发分支可用** | `<userData>/widget-data/<id>.json` |
-| 包内资源 | **开发分支可用** | `sill-asset://<id>/ui/...`，相对路径自动改写 |
-| 动态布局 id | **开发分支可用** | `normalizeLayout(raw, knownIds)` |
-| 本地 `.sill` 安装 | **开发分支可用** | 设置 → 组件 → 安装组件… |
-| 卸载 | **开发分支可用** | 设置里的已安装列表 |
-| CLI（validate / pack / new / dev） | **开发分支可用** | `packages/cli`，`pnpm sill` |
-| Web 组件 | **开发分支可用** | `type: "web"`，本地 `.sill`；trusted 全 Node / sandboxed 桥 |
+| 模板渲染 | **开发版可用** | Sill `TemplateWidget` + Shadow DOM，无标签白名单 |
+| 内联 JS | **开发版可用** | `ui/main.js` 同页执行，`sill.data / onData / onDispose / command / storage / host` |
+| 权威文档 | **已完成** | [docs/authoring.md](docs/authoring.md) |
+| Skins 目录 | **开发版可用** | `<userData>/skins/<名字>/`，保存即重载该组件 |
+| 组件存储 | **开发版可用** | `<userData>/widget-data/<id>.json` |
+| 包内资源 | **开发版可用** | `sill-asset://<id>/ui/...`，相对路径自动改写 |
+| 动态布局 id | **开发版可用** | `normalizeLayout(raw, knownIds)`；新组件自动补 box |
+| 本地 `.sill` 安装 | **开发版可用** | 设置 → 组件 → 从 .sill 文件安装… / 双击 |
+| 卸载 | **开发版可用** | 设置里的已安装列表 |
+| CLI（new / validate / pack / dev） | **源码可用，未发布** | `packages/cli` 0.3.0；npm 上仍是 0.2.2 |
+| Web 组件 | **开发版可用** | `type: "web"`；trusted 全 Node，sandboxed 只走桥 |
 | 目录下载 / 更新 | **未实现** | 没有下载通道 |
 | 权限确认 | **开发分支可用** | 安装前显示 id / 版本 / 作者 / 权限 |
 | 签名 / 哈希 | **未实现** | 安装时只做静态校验 |
@@ -61,26 +63,26 @@
 
 ## 已验证
 
-- `examples/clock` 通过 manifest schema 与模板校验。
-- `registry/catalog.json` 通过 catalog schema，六个 `docs` 路径存在。
-- `python scripts/validate.py` 本地通过，GitHub Actions 通过。
-- Sill 开发分支的 `.sill` 安装、加载、卸载通过程序化测试。
-- 额外文件 / 路径穿越 / `<script>` / CSS `url()` 四类坏包被拒绝。
-- 模板卡在默认 / Lagoon / 320 宽 / 安装后布局下截图核对过。
-- `examples/processes` 的 repeat / if / i18n 与 `examples/media` 的 action / meter 安装后渲染正常。
-- `pnpm test`：安装器 + provider 14 个测试通过；`verify.yml` 通过。
+- `python scripts/validate.py` 本地通过；`examples/` 十个示例、catalog、fixtures 全部通过。
+- CLI 0.3.0：`sill new` 生成的脚手架通过 `validate` 与 `pack`；`pack` 产物只含合法文件。
+- Sill 开发版：`.sill` 安装、加载、卸载通过程序化测试；额外文件 / 路径穿越 / 缺 `ui/index.html`
+  被拒绝；`ui/**` 任意文件可安装。
+- 模板渲染：脚手架卡片在面板里正常显示；错误 `main.js` 显示卡内错误条。
+- 热重载作用域：只改一个组件时，只有它重新执行（boot 计数 2 / 1）。
+- 自由布局：`boxes:{}` 的 free 布局自动补种，数据晚到的卡片自动长高。
+- 网络（临时放开 CSP 验证）：`fetch` 与远程图片在 `https:` 下可用；包内模块可 `import()`。
+- `pnpm test`：安装器 + provider + 动作 + `.sill` 参数 19 个测试通过；`verify.yml` 通过。
 
 ## 未验证 / 已知缺口
 
 - 没有目录下载、自动更新。
-- CLI 只在 Sill 工作区可用，没有发布成全局 `sill`。
+- CLI 0.3.0 还没发到 npm；npm 上的 0.2.2 会拒绝 `template + ui/main.js` / `ui/assets/**`。
 - 安装时没有签名、哈希校验。
-- 同一个 id 只能装一个版本；升级要先卸载。
-- 动作只有 `media.*` / `todo.toggle`，需要对应 `action.*` 权限；
-- 没有格式化函数、图片资源、通用样式绑定。
-- 模板不做 HTML/CSS 审查，同页运行的可信代码；恶意模板不在防护范围内。
+- 同一个 id 只能装一个版本；升级要先卸载，布局位置不保留。
+- 信任分级未实现：所有 `.sill` 共用同一个确认框，静态组件也会提示，确认结果不记忆。
+- 动作只有 `media.*` / `todo.toggle`；更多能力用 `main.js` + `sill.host`。
 - 六个内置组件仍是 React 实现，没有迁到模板。
-- web 组件可以本地 `.sill` 安装；`trusted` 有完整 Node，`sandboxed` 只走桥；还没有 assets / 目录下载。
+- `web` + `sandboxed` 能力很少（无 storage / fetch），定位待定：改成隔离模式并补 API，或删掉。
 
 ## 更新规则
 
