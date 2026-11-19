@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+.clock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clock__title {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.clock__time {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 46px;
+  line-height: 0.95;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.clock__foot {
+  margin-top: 2px;
+}
+
+.clock__btn {
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: var(--accent-soft);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.clock__btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}

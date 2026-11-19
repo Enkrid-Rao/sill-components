@@ -3,10 +3,14 @@
 
 Checks:
   1. every JSON parses;
-  2. examples are valid manifests + sanitized templates + CSS;
+  2. examples are valid manifests + templates + CSS;
   3. registry/catalog.json is valid and its docs exist;
   4. spec/fixtures valid/ passes and invalid/ fails;
   5. relative Markdown links exist.
+
+Template HTML/CSS is not reviewed: the host renders it with innerHTML, so author
+markup (SVG, inline style, images) is allowed and scripts stay inert. The validator
+only checks bindings, budgets and manifest wiring.
 
 No network access. Python 3.10+.
 """
@@ -38,27 +42,6 @@ SCHEMAS = {
 
 RANGE_TOKEN_RE = re.compile(r"^(>=|<=|>|<|=|\^|~)?\s*v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)$")
 
-ALLOWED_TAGS = {
-    "div",
-    "span",
-    "p",
-    "section",
-    "ul",
-    "ol",
-    "li",
-    "strong",
-    "em",
-    "small",
-    "b",
-    "i",
-    "br",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "button",
-}
-ALLOWED_ATTRS = {"class", "id", "role", "type"}
 ACTIONS = {"media.playpause", "media.next", "media.prev", "media.mute", "todo.toggle"}
 
 
@@ -146,21 +129,8 @@ class TemplateHtml(HTMLParser):
         self._tag(tag, attrs)
 
     def _tag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        tag = tag.lower()
-        if tag not in ALLOWED_TAGS:
-            self.problems.append(f"tag <{tag}> is not allowed")
         for name, value in attrs:
             attribute = name.lower()
-            if attribute.startswith("on"):
-                self.problems.append(f"event attribute `{attribute}` is not allowed")
-            elif attribute in {"style", "href", "src"}:
-                self.problems.append(f"attribute `{attribute}` is not allowed")
-            elif not (
-                attribute in ALLOWED_ATTRS
-                or attribute.startswith("aria-")
-                or attribute.startswith("data-sill-")
-            ):
-                self.problems.append(f"attribute `{attribute}` is not allowed")
             if attribute == "data-sill-text":
                 if value:
                     self.bindings.append(value)
@@ -223,21 +193,6 @@ def template_problems(html: str, data_map: dict[str, str]) -> tuple[list[str], l
     return problems, parser.bindings
 
 
-def css_problems(css: str) -> list[str]:
-    problems: list[str] = []
-    if re.search(r"@import", css, re.I):
-        problems.append("@import is not allowed")
-    if re.search(r"url\s*\(", css, re.I):
-        problems.append("url() is not allowed")
-    if re.search(r"expression\s*\(", css, re.I):
-        problems.append("expression() is not allowed")
-    if re.search(r"javascript\s*:", css, re.I):
-        problems.append("javascript: is not allowed")
-    if re.search(r"behavior\s*:", css, re.I):
-        problems.append("behavior: is not allowed")
-    return problems
-
-
 def check_template(widget_dir: Path, manifest: dict, html_path: Path) -> None:
     if manifest.get("type") == "web":
         js_path = html_path.parent / "main.js"
@@ -269,13 +224,6 @@ def check_template(widget_dir: Path, manifest: dict, html_path: Path) -> None:
             error(html_path, f"action `{action}` needs permission `action.media`")
         if action.startswith("todo.") and "action.todo" not in manifest.get("permissions", []):
             error(html_path, f"action `{action}` needs permission `action.todo`")
-    css = css_path.read_text(encoding="utf-8")
-    for problem in css_problems(css):
-        error(css_path, problem)
-
-    js_files = list(html_path.parent.glob("*.js"))
-    if js_files:
-        error(js_files[0], "template v1 must not ship JavaScript; use data-sill-text")
 
 
 def check_manifest(path: Path) -> None:
@@ -393,16 +341,10 @@ def check_fixtures() -> None:
         problems, _ = template_problems(path.read_text(encoding="utf-8"), data_map)
         for problem in problems:
             error(path, problem)
-    for path in sorted((template_dir / "valid").glob("*.css")):
-        for problem in css_problems(path.read_text(encoding="utf-8")):
-            error(path, problem)
     for path in sorted((template_dir / "invalid").glob("*.html")):
         problems, _ = template_problems(path.read_text(encoding="utf-8"), data_map)
         if not problems:
             error(path, "invalid template fixture unexpectedly passes")
-    for path in sorted((template_dir / "invalid").glob("*.css")):
-        if not css_problems(path.read_text(encoding="utf-8")):
-            error(path, "invalid CSS fixture unexpectedly passes")
 
 
 # ---------- JSON / links ----------

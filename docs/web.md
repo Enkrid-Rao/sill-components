@@ -1,7 +1,10 @@
 # Web 组件
 
-`type: "web"` 是带 JavaScript 的组件，跑在独立 webview 里。玻璃和 atmosphere 由宿主 `.card`
+`type: "web"` 是带独立 webview 的组件，跑在自己的 guest 里。玻璃和 atmosphere 由宿主 `.card`
 提供，guest 透明。
+
+大多数卡片不需要它：`type: "template"` 也支持 `ui/main.js`，同页执行、没有独立进程、
+没有固定高度。只有需要独立渲染进程、完整 Node 或强隔离时才用 `web`。
 
 ## 两种信任级别
 
@@ -27,7 +30,7 @@ my-web/
 
 - `type` 为 `web`；
 - `ui` 固定 `ui/index.html`；
-- `size.h` 是 webview 高度；
+- `size.h` 是 webview 的初始高度；guest 会按内容上报高度，宿主据此自适应。
 - `trust` 可选，默认 `sandboxed`；
 - 可以带 `ui/assets/**`；trusted 组件通过 `sill.ready(({ dir }) => ...)` 拿包目录。
 

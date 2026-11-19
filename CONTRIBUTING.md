@@ -7,13 +7,13 @@
 
 - 规范歧义、字段缺口、示例错误
 - 新的 template 示例
-- 白名单 / sanitizer / CSS 限制的改进
+- 绑定、增量更新、布局适配的改进
 - 官方目录条目的补充：来源、权限、尺寸、失败表现
 - 文档排版、中文翻译、错别字
 
 ## 不要提什么
 
-- 在模板里加 `<script>` / `on*` / 外部 URL
+- 在模板里依赖 `<script>`（宿主不执行它，需要 JS 就用 `type: "web"`）
 - 在模板里铺整张卡片的背景（玻璃由 `.card` 提供）
 - 绕过权限模型的“便利接口”
 - 把旧 `declarative` / `script` 的 IR 写回来
@@ -34,9 +34,9 @@
    - `docs/manifest.md`
    - `spec/fixtures/manifest/valid` 与 `invalid` 里至少各一条
    - 至少一个 example
-4. 如果改了模板白名单 / 绑定，同时更新：
+4. 如果改了模板绑定 / 指令，同时更新：
    - `docs/template.md`
-   - `docs/security.md`
+   - `docs/runtime.md`
    - `scripts/validate.py`
    - `spec/fixtures/template/valid` 与 `invalid`
 5. 如果改了 provider，同时更新：
@@ -57,7 +57,7 @@ python scripts/validate.py ./my-widget  # 单个组件
 - 解析仓库内的 JSON；
 - 用 Draft 2020-12 + format checker 校验 manifest / catalog；
 - 检查 examples 的 `widget.json`、`ui/index.html`、`ui/style.css`、绑定、权限、大小；
-- 检查 HTML 白名单 / 属性、CSS 的 `@import` / `url()`；
+- 检查绑定路径与 provider 字段；
 - 跑 `spec/fixtures/*/valid` 与 `invalid` 的正反用例；
 - 检查 `registry/catalog.json` 的 id 唯一性与 `docs` 文件存在；
 - 检查 Markdown 相对链接。
@@ -66,7 +66,7 @@ python scripts/validate.py ./my-widget  # 单个组件
 
 - `spec/fixtures/manifest/valid|invalid`：schema 正反用例；
 - `spec/fixtures/catalog/valid|invalid`：目录 schema 正反用例；
-- `spec/fixtures/template/valid|invalid`：HTML/CSS 白名单正反用例。
+- `spec/fixtures/template/valid|invalid`：绑定与标签自由度的正反用例。
 
 新增规则时先加 fixture，再改 schema / 校验器 / 文档。
 
@@ -85,7 +85,7 @@ python scripts/validate.py ./my-widget  # 单个组件
 ## 文档风格
 
 - 中文为主，术语保留英文（manifest / template / provider / Shadow DOM）。
-- 先写范围，再写字段；「v1 不执行 JS」这类边界要写在标题附近。
+- 先写范围，再写字段；「模板不执行 `<script>`」这类边界要写在标题附近。
 - 每个字段说明「必需 / 可选、类型、边界、失败行为」。
 - 代码块给最小可复制示例，不写伪代码占位。
 - 状态与兼容版本只写在 `STATUS.md`。

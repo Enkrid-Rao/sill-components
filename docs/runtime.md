@@ -1,7 +1,7 @@
 # Runtime contract
 
-模板组件运行在宿主 renderer 里，但**不执行 JS**。宿主读取模板、清洗、挂到 Shadow DOM，
-再用声明的 provider 数据填 `data-sill-text`。
+模板组件运行在宿主 renderer 里：HTML/CSS 挂到 Shadow DOM，`ui/main.js`（可选）作为宿主页面脚本
+执行一次，之后靠 `sill.onData` 接收更新。`<script>` 标签仍然不会执行（innerHTML 规则）。
 
 **当前状态：** Sill 开发分支已有模板渲染、动态布局和本地 `.sill` 安装；正式 0.5.4 没有这些。
 CLI、目录下载和权限确认还没完成。这份文档是运行契约。
@@ -9,16 +9,15 @@ CLI、目录下载和权限确认还没完成。这份文档是运行契约。
 ## 1. 生命周期
 
 ```text
-validate → load → sanitize → mount → update → dispose
+validate → load → mount → update → dispose
 ```
 
 | 阶段 | 做什么 | 失败时 |
 |---|---|---|
-| `validate` | 校验 manifest、权限、路径、大小、模板白名单 | 不加载，安装器不写文件 |
+| `validate` | 校验 manifest、权限、路径、大小、绑定 | 不加载，安装器不写文件 |
 | `load` | 读取 `ui/index.html` 与 `ui/style.css` | 卡片显示错误占位 |
-| `sanitize` | 清洗 HTML/CSS，挂到 Shadow DOM | 卡片显示错误占位 |
-| `mount` | 在 `WidgetShell` 的 `.card` 内建立 shadow root | 只影响当前卡片 |
-| `update` | 数据、语言、主题、尺寸变化 | 保留上一帧，记录错误 |
+| `mount` | 在 `.card` 内建立 shadow root，写入 HTML/CSS，执行一次 `ui/main.js` | 只影响当前卡片 |
+| `update` | 只更新绑定的文本、CSS 变量和可见性 | 保留上一帧，记录错误 |
 | `dispose` | 卸载时清空 shadow root、解绑监听 | 记录泄漏警告 |
 
 模板没有 `show` / `hide` 回调；它只描述静态内容，宿主负责显示/隐藏。
@@ -49,17 +48,18 @@ WidgetShell
 - 缺失 / null / 求值失败显示 `—`；
 - v1 有文本、i18n、`data-sill-if`、`data-sill-repeat`、`data-sill-action`、`data-sill-meter`；
   没有表达式函数和写操作（动作走白名单命令）。
-- 数据 / 语言变化时宿主重建 shadow root 再求值；不保留模板内部状态。
+- 数据 / 语言变化时只更新绑定节点，不重建 shadow root；模板内部的 CSS 过渡可以继续。
 
 ## 4. 环境
 
 | 值 | 模板里怎么拿 |
 |---|---|
-| `language` | `data-sill-i18n`，文本来自 manifest `strings` |
-| 数据 | `data-sill-text` / `data-sill-if` / `data-sill-repeat` |
-| 主题 | CSS 变量：`--ink` / `--accent` / `--sans` / `--serif` |
+| `language` | `data-sill-i18n`，或 `sill.onData(({ language }) => …)` |
+| 数据 | `data-sill-text` / `data-sill-if` / `data-sill-repeat`，或 `sill.data()` |
+| 主题 | CSS 变量；JS 用 `sill.onData(({ tokens }) => …)` |
 | 尺寸 | 卡片内容宽度；用 CSS 响应式，不假设固定宽度 |
 | 列数 | 宿主决定；模板只关心自己的内容宽度 |
+| 存储 | `sill.storage.get / set / patch`，落在 `<userData>/widget-data/<id>.json` |
 
 ## 5. 尺寸与列
 
@@ -118,13 +118,13 @@ WidgetShell
 | 数据更新 | < 4 ms | 只改绑定节点 |
 | DOM 节点 | < 500 | 超过建议拆组件 |
 | 常驻内存 | < 4 MB | 共享宿主 renderer |
-| 定时器 | 0 | 模板不能自建轮询 |
+| 定时器 | 0 | `main.js` 自己负责清理，不要无脑 `setInterval` |
 
 ## 9. 可访问性
 
-- 模板只能使用白名单标签，不提供表单控件 / 链接；
+- 模板可以使用任意 HTML / CSS 标签，包括 `<svg>`、`<img>` 和内联样式；
+- `<script>` 不执行；需要 JS 写 `ui/main.js`（同页执行）；
 - 纯展示内容仍需保证文字对比度；
-- 图标用文字或 CSS 形状表达，不用 `<img>`；
 - 中文最小字号 10.5px；正文 13.5–14px；
 - 后续加 `data-sill-action` 时再补键盘与焦点规则。
 

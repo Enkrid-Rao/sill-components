@@ -1,23 +1,24 @@
 # `.sill` 包与安装
 
-`.sill` 就是改了扩展名的 zip。Sill 开发分支支持从本地文件安装，还没有目录下载、签名和 CLI。
+`.sill` 就是改了扩展名的 zip。Sill 开发分支支持从本地文件安装，还没有目录下载和签名。
+比安装更快的是 Skins 目录：把组件文件夹放进 `<userData>/skins/` 即可，保存即刷新。
 
 ## 包结构
 
-压缩包根目录：template 是三个文件，web 再加 `ui/main.js`：
+压缩包根目录：`widget.json` + `ui/index.html` + `ui/style.css`，可选 `ui/main.js` 与 `ui/assets/**`：
 
 ```text
 widget.json
 ui/index.html
 ui/style.css
-ui/main.js        # web only
-ui/assets/**      # web optional
+ui/main.js        # optional（template / web）
+ui/assets/**      # optional（template / web）
 ```
 
-- template 不能带 JS；web 可以带 `ui/main.js` 和 `ui/assets/**`；
+- template 与 web 都可以带 `ui/main.js` 和 `ui/assets/**`；web 必须有 `ui/main.js`；
 - 不能有顶层文件夹（不能是 `clock/widget.json`）；
 - 路径不能包含 `..`、反斜杠、盘符或绝对路径；
-- 压缩包 ≤ 50 MB，单文件 ≤ 20 MB（web）；template 仍应保持很小。
+- 压缩包 ≤ 50 MB，单文件 ≤ 20 MB；template 仍应保持很小。
 
 ## manifest 限制
 

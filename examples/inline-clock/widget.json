@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "com.example.inlineclock",
+  "name": "Inline Clock",
+  "description": "Template with inline ui/main.js and private storage.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "size": { "w": 240, "h": 150 },
+  "span": { "default": 1 },
+  "permissions": ["data.time"],
+  "data": [{ "id": "now", "source": "time.now" }],
+  "strings": { "en": { "title": "INLINE CLOCK", "count": "clicks" }, "zh": { "title": "内联时钟", "count": "次数" } },
+  "ui": "ui/index.html"
+}

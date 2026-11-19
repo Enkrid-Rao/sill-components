@@ -19,9 +19,9 @@ python scripts/validate.py
 - [x] `ui` / `style.css` 存在，路径不逃出包根
 - [x] `permissions` 覆盖 `data[].source`
 - [x] `data[].id` 不重复；provider 字段存在
-- [x] HTML 只用白名单标签 / 属性
-- [x] 没有 `<script>`、`on*`、`style` 属性、`href` / `src`
-- [x] CSS 没有 `@import`、`url()`、`expression`
+- [x] 绑定根在 `data` 里声明，字段在 provider 里存在
+- [x] 标签 / 属性不受限（`svg`、`style`、`on*` 都允许）
+- [x] 模板不依赖 `<script>`（浏览器不执行，需要 JS 用 `type: web`）
 - [x] 没有 `ui/*.js`
 - [x] 包大小 / 文件数在上限内
 - [x] `registry/catalog.json` 的 id 唯一、`docs` 存在

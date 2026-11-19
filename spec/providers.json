@@ -17,6 +17,26 @@
         "minute": "number 0-59"
       }
     },
+    "host.state": {
+      "refresh": "same cadence as the panel snapshot",
+      "shape": "object",
+      "fields": {
+        "iso": "string ISO 8601 with local offset",
+        "epoch": "number seconds",
+        "tz": "string IANA zone",
+        "time": "string HH:mm",
+        "date": "string YYYY-MM-DD",
+        "dateLabel": "string localized date",
+        "weekday": "number 0-6, Monday=0",
+        "hour": "number 0-23",
+        "minute": "number 0-59",
+        "language": "string en | zh",
+        "snapshot": "object PanelSnapshot: cpu, cores, memPct, memUsed, memTotal, down, up, gpu, gpuMem, gpuTotal, procs",
+        "todos": "array { id, text, done }",
+        "media": "object now playing: active, title, artist, album, status, position, duration, volume, muted",
+        "weather": "object current weather: temp, high, low, code, condition, cityName"
+      }
+    },
     "system.cpu": {
       "permission": "data.system",
       "refresh": "1/2/3/5 s, set by the user",

@@ -22,7 +22,7 @@
 - [x] 模板格式：`widget.json` + `ui/index.html` + `ui/style.css`
 - [x] 模板直接渲染进 `.card` 的 Shadow DOM
 - [x] 玻璃 / atmosphere 复用卡片本体，不模拟
-- [x] HTML 白名单、CSS 限制、`data-sill-text`
+- [x] `data-sill-text`（v0.6 起不再限制标签，早期白名单已移除）
 - [x] 校验器与 fixtures 切到 template
 - [x] 模板示例 clock
 - [ ] 与 Sill 主仓库的模板引擎接口对齐评审
@@ -35,11 +35,11 @@
 在 Sill 主仓库实现：
 
 - [x] 动态卡片 id，模板卡进入 `layout.json`
-- [x] manifest 基础校验 + HTML/CSS sanitizer
+- [x] manifest 基础校验（HTML/CSS sanitizer 已在 v0.6 移除）
 - [x] Shadow DOM 渲染、绑定更新
 - [x] 语言 / 主题 / 尺寸变化
 - [ ] 统一的错误占位与开发者错误信息
-- [ ] 单元测试：白名单、绑定、缺失数据
+- [ ] 单元测试：绑定、缺失数据、增量更新
 
 **完成标准：** 模板卡可以安装、拖拽、跨列、隐藏、重启保持。
 
@@ -61,10 +61,13 @@
 
 - [x] `data-sill-i18n`
 - [x] `data-sill-if` / `data-sill-repeat`
-- [x] `data-sill-action`（media / todo）`n- [ ] `data-sill-action` 扩展到 panel / 启动程序
-- [ ] 只读 `storage`（可选，需重新评估权限）
-- [ ] 资源白名单（图片 / 字体，走自定义协议）
-- [ ] 更严格的 sanitizer 测试集
+- [x] `data-sill-action`（media / todo）
+- [ ] `data-sill-action` 扩展到 panel / 启动程序
+- [x] 组件私有存储（`sill.storage`，读写 JSON）
+- [x] 包内资源寻址（`sill-asset://`，相对路径自动改写）
+- [x] 内联 JS（`ui/main.js`，同页执行）
+- [x] Skins 目录（丢文件夹即用）
+- [ ] 增量绑定的回归测试
 
 **完成标准：** 天气、媒体、待办这类卡能用模板写，不再依赖内置 React。
 

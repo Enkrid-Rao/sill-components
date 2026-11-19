@@ -44,7 +44,7 @@
 | `homepage` | 否 | 组件主页 / 源码 |
 | `runtime` | 是 | **宿主应用**版本范围 |
 | `engine` | 是 | **模板引擎**版本范围 |
-| `type` | 是 | 固定 `template` |
+| `type` | 是 | `template` 或 `web` |
 | `size` | 否 | 建议尺寸（逻辑 px），不影响宿主布局 |
 | `span` | 否 | 默认跨列 |
 | `permissions` | 是 | 只读数据权限 |
@@ -52,8 +52,8 @@
 | `strings` | 否 | 内联本地化文本 |
 | `ui` | 是 | HTML 模板的相对路径 |
 
-v1 没有 `settings` / `locales` 文件 / `network`。本地化放 `strings`；web 组件可带 `ui/assets/**`，template 不执行 JS、不联网，
-这些能力在后续版本单独设计。
+v1 没有 `settings` / `locales` 文件 / `network`。本地化放 `strings`；template 和 web 都可以带
+`ui/assets/**` 与可选 `ui/main.js`，template 的脚本在宿主页面内执行。
 
 ## id
 
@@ -80,7 +80,7 @@ v1 没有 `settings` / `locales` 文件 / `network`。本地化放 `strings`；w
 
 | 值 | 说明 |
 |---|---|
-| `template` | HTML/CSS，宿主渲染进 `.card` 的 Shadow DOM |
+| `template` | HTML/CSS + 可选 `ui/main.js`，宿主渲染进 `.card` 的 Shadow DOM |
 | `web` | HTML/CSS/JS，透明 webview guest |
 
 web 的 `trust`：
@@ -90,7 +90,7 @@ web 的 `trust`：
 | `sandboxed`（默认） | `window.sill` 桥；无 Node / 文件 / 网络 |
 | `trusted` | 完整 Node、`child_process`、native addon、Windows API |
 
-- template 没有 `trust`，永远无 JS。
+- template 没有 `trust`：它和宿主同页运行，`ui/main.js` 与宿主同权限。
 - trusted 安装时必须显示完全信任警告，不能进 sandboxed 市场。
 - `declarative` / `script` 已移除。
 
@@ -109,7 +109,8 @@ web 的 `trust`：
 
 ## permissions
 
-template 只能**只读**数据；权限在安装时展示，运行时由宿主强制。web 的 Node 能力由 `trust` 决定。
+provider 是**只读**数据；`permissions` 用于安装提示与目录展示。template 与宿主同页，
+不再做运行时门禁；web 的 Node 能力由 `trust` 决定。
 
 | 权限 | 允许 |
 |---|---|
@@ -161,7 +162,7 @@ template 只能**只读**数据；权限在安装时展示，运行时由宿主�
 - 必须是包根下的相对路径，v1 固定 `ui/index.html`；
 - 同目录必须有 `style.css`；
 - 不接受 `..`、绝对路径、反斜杠、盘符、UNC；
-- 模板不能带 `ui/*.js`。
+- 可选 `ui/main.js`（template 同页执行；web 必需）；其他 js 不会被加载。
 
 ## 校验规则
 
@@ -171,13 +172,13 @@ template 只能**只读**数据；权限在安装时展示，运行时由宿主�
 2. `schema` 精确等于 `1`。
 3. `id` 至少两段、格式合法；全局唯一。
 4. `version` 是合法 semver；`runtime` / `engine` 是合法 range。
-5. `type` 精确等于 `template`；`ui` 固定为 `ui/index.html`。
+5. `type` 是 `template` 或 `web`；`ui` 固定为 `ui/index.html`。
 6. `ui` 是包内相对路径，不逃出包根，不含反斜杠、盘符、UNC、`..`。
 7. `ui` 指向的文件存在；同目录 `style.css` 存在。
 8. `permissions` 覆盖 `data[].source` 所需的权限。
 9. `data[].id` 不重复；`source` 是已知 provider。
 10. `span.byColumns` 不超过对应列数。
-11. 模板 HTML / CSS 通过白名单检查（见 [template.md](template.md)）。
+11. 模板绑定路径合法、包预算在限内；HTML / CSS 内容不做审查（见 [template.md](template.md)）。
 12. 包大小、文件数在上限内。
 
 失败时安装器不写入任何文件。`validate` 的错误应带 `文件:路径`，便于编辑器与 CI 消费。

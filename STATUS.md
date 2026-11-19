@@ -21,6 +21,10 @@
 |---|---|---|
 | manifest 校验 | 规范完成；Sill 开发分支安装器已接入基础校验 | `spec/widget.schema.json`、`scripts/validate.py`、Sill `main/widgets/package.ts` |
 | 模板渲染 | **开发分支可用** | Sill `TemplateWidget` + Shadow DOM |
+| 内联 JS | **开发分支可用** | `ui/main.js` 同页执行，`sill.data / onData / command / storage` |
+| Skins 目录 | **开发分支可用** | `<userData>/skins/<名字>/`，保存即刷新 |
+| 组件存储 | **开发分支可用** | `<userData>/widget-data/<id>.json` |
+| 包内资源 | **开发分支可用** | `sill-asset://<id>/ui/...`，相对路径自动改写 |
 | 动态布局 id | **开发分支可用** | `normalizeLayout(raw, knownIds)` |
 | 本地 `.sill` 安装 | **开发分支可用** | 设置 → 行为 → 组件 → 安装组件… |
 | 卸载 | **开发分支可用** | 设置里的已安装列表 |
@@ -34,10 +38,15 @@
 ## 当前能力
 
 - 组件是 `widget.json` + `ui/index.html` + `ui/style.css`；
-- 宿主清洗 HTML/CSS 后挂到 Shadow DOM，放在 `WidgetShell` 的 `.card` 里；
+- 宿主把 HTML/CSS 原样挂到 Shadow DOM，放在 `WidgetShell` 的 `.card` 里；
+- 可选 `ui/main.js` 在宿主页面内执行一次，拿 `sill.data / onData / command / storage`；
 - 玻璃、圆角、atmosphere 由 `.card` / `.rail__atmo` 提供，模板只画内容；
-- v1 不执行 JS、不联网、不写数据；支持 `data-sill-text` / `i18n` / `if` / `repeat` / `action` / `meter`；
+- `<script>` 标签不执行（innerHTML 规则）；模板内容不做标签审查；
+  支持 `data-sill-text` / `i18n` / `if` / `repeat` / `action` / `meter`；
+- 包内资源走 `sill-asset://<id>/ui/...`，相对路径由宿主改写；
+- `Skins` 目录：`<userData>/skins/<名字>/` 放进去即用，保存即刷新，不需要打包或安装；
 - 本地 `.sill` 可以安装、隐藏、拖拽、跨列、卸载；
+- 组件私有存储：`<userData>/widget-data/<id>.json`；
 - `pnpm sill validate/pack/new/dev` 可以在 Sill 工作区使用；
 - 安装路径 `<userData>/components/<id>@<version>/`，原子写入。
 
@@ -69,7 +78,7 @@
 - 同一个 id 只能装一个版本；升级要先卸载。
 - 动作只有 `media.*` / `todo.toggle`，需要对应 `action.*` 权限；
 - 没有格式化函数、图片资源、通用样式绑定。
-- sanitizer 是 v1 白名单，还没有完整安全测试集。
+- 模板不做 HTML/CSS 审查，同页运行的可信代码；恶意模板不在防护范围内。
 - 六个内置组件仍是 React 实现，没有迁到模板。
 - web 组件可以本地 `.sill` 安装；`trusted` 有完整 Node，`sandboxed` 只走桥；还没有 assets / 目录下载。
 

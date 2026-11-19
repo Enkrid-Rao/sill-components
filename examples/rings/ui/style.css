@@ -1,0 +1,114 @@
+:host {
+  display: block;
+}
+
+.rings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rings__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.rings__title {
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.rings__cores {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.rings__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ring {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.ring__dial {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+/* SVG 和读数占同一格，数字才叠在环中心 */
+.ring__dial > * {
+  grid-area: 1 / 1;
+}
+
+.ring__svg {
+  width: 100%;
+  max-width: 76px;
+  aspect-ratio: 1;
+  /* 起点转到 12 点方向，读数从左往右长 */
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.ring__track,
+.ring__value {
+  fill: none;
+  stroke-width: 5;
+}
+
+.ring__track {
+  stroke: rgba(255, 255, 255, 0.09);
+}
+
+.ring__value {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  /* pathLength=100 让周长归一化：直接拿 0–100 的读数当 dash 长度 */
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--sill-value, 0));
+  transition: stroke-dashoffset 0.5s var(--ease-out, ease-out);
+}
+
+.ring--warm .ring__value {
+  stroke: var(--accent-2);
+}
+
+.ring--pale .ring__value {
+  stroke: var(--accent-pale);
+}
+
+.ring__num {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.ring__label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring__value {
+    transition: none;
+  }
+}

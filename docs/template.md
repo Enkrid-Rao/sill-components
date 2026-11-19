@@ -1,7 +1,7 @@
 # Template 组件
 
-v1 的第三方组件是一个 **HTML/CSS 模板**，由宿主清洗后挂到 Shadow DOM 里，
-放在 `WidgetShell` 的 `.card` 中。它不执行 JS，也不拥有自己的窗口。
+模板组件是 **HTML / CSS + 可选 JS**，由宿主挂到 Shadow DOM 里，放在 `WidgetShell` 的 `.card` 中。
+它不拥有自己的窗口；`ui/main.js` 直接在宿主页面里执行，和 Rainmeter 的 Lua 一样是可信本地代码。
 
 **为什么不是 iframe：** Sill 的玻璃在 `.card` 上，atmosphere 在 `.rail__atmo`。
 iframe 会切断这条链，透明窗口里的 iframe 只能得到白底，再复制一层“仿玻璃”必然不一致。
@@ -13,14 +13,17 @@ iframe 会切断这条链，透明窗口里的 iframe 只能得到白底，再�
 my-widget/
 ├─ widget.json
 └─ ui/
-   ├─ index.html   # 内容结构；不写 <script>
-   └─ style.css    # 内容样式
+   ├─ index.html   # 内容结构
+   ├─ style.css    # 内容样式
+   ├─ main.js      # 可选：宿主页面内执行
+   └─ assets/      # 可选：图片 / 字体
 ```
 
 - `widget.json` 的 `ui` 在 v1 固定为 `ui/index.html`；
 - `style.css` 固定放在 HTML 同目录；
-- 不打包 JS；`ui/*.js` 会被校验拒绝；
-- 没有 `assets/`、`locales/`、`settings/`；这些是后续版本。
+- `main.js` 可选；没有它就是纯静态卡；
+- `assets/**` 通过 `sill-asset://<id>/ui/...` 访问；`<img src="assets/x.png">` 和
+  `url(bg.png)` 会被宿主自动改写，直接可用。
 
 ## 渲染
 
@@ -31,35 +34,48 @@ WidgetShell
             └─ 内容
 ```
 
-- HTML 在清洗后写入 Shadow DOM；
+- HTML、CSS 原样写入 Shadow DOM（不做标签审查）；
 - CSS 只在 Shadow DOM 内生效；
 - 宿主在 shadow host 上设置 `display:block; color:var(--ink); font-family:var(--sans)`；
 - 模板不要给 `:host` / 根节点铺背景；背景由 `.card` 负责；
 - atmosphere 在卡片背后，模板不需要复制渐变。
 
-## HTML 白名单
+## HTML / CSS
 
-允许的标签：
+模板里可以写任意 HTML 与 CSS：`<svg>`、`<img>`、内联 `style`、`on*` 属性、`@keyframes`、
+`conic-gradient`、`mask` 都可以。宿主不清洗标签，也不维护白名单。
 
-```text
-div span p section ul ol li strong em small b i br h1 h2 h3 h4 button
+- `on*` 会执行，作用域是宿主页面；
+- `<script>` 标签通过 `innerHTML` 插入，浏览器不会执行——要 JS 就写 `ui/main.js`；
+- `src` / `href` / CSS `url()` 的相对路径会被改写为 `sill-asset://<id>/ui/...`；
+- 样式写在 `ui/style.css`，只在当前 Shadow DOM 内生效。
+
+## 内联 JS
+
+`ui/main.js` 在宿主页面里执行，宿主注入两个参数：
+
+```js
+sill.onData(({ data, language, tokens }) => {
+  const cpu = data.cpu?.usage ?? 0
+  root.querySelector('.ring__value').style.setProperty('--value', cpu)
+})
 ```
 
-允许的属性：
+| API | 说明 |
+|---|---|
+| `sill.data()` | 当前数据对象（与 `data-sill-text` 同源） |
+| `sill.onData(cb)` | 每次快照 / 语言变化时回调，`cb({ data, language, tokens })` |
+| `sill.command(action, arg?)` | 触发白名单动作，如 `media.playpause`、`todo.toggle` |
+| `sill.storage.get()` | 读组件私有 JSON |
+| `sill.storage.set(value)` | 覆盖写入 |
+| `sill.storage.patch(partial)` | 合并写入 |
+| `sill.host` | 宿主 preload API（读设置、待办等） |
+| `sill.id` | 组件 id |
+| `root` | 这张卡的 shadow root |
 
-```text
-class id role type aria-* data-sill-*
-```
-
-不允许：
-
-- `<script>` / `<style>` / `<link>` / `<iframe>` / `<img>` / `<svg>`；
-- `on*` 事件属性；
-- `style` 属性、`href`、`src`；
-- 自定义标签、表单控件、媒体元素。
-
-未知标签会被整段移除；未知属性会被删掉。正式版还要补 URL / 资源白名单和更严格的
-sanitizer 测试。
+- 脚本只执行一次；数据更新走 `onData`，不会重新执行；
+- 组件存储落在 `<userData>/widget-data/<id>.json`，不进 `.sill` 包；
+- 抛错会进宿主控制台，不影响其他卡片。
 
 ## 数据绑定
 
@@ -84,8 +100,8 @@ sanitizer 测试。
 ```
 
 - `data-sill-if` 只接受路径，`!` 取反；没有 `==`、函数或表达式；
-- 假值（`false` / `0` / `''` / `null` / `undefined`）会移除节点，真值保留；
-- 每次数据变化会重建 shadow root，再重新求值。
+- 假值（`false` / `0` / `''` / `null` / `undefined`）隐藏节点（`hidden`），真值恢复显示；
+- 数据变化只更新绑定的文本、CSS 变量和可见性，不重建 DOM——CSS 过渡可以跨采样继续。
 
 列表：
 
@@ -110,7 +126,7 @@ sanitizer 测试。
 - 字段必须在 [providers.md](providers.md) 中定义；
 - 不允许任意 JS 表达式、函数调用或写操作。
 
-还没做：格式化函数、图片 / 资源绑定。
+还没做：格式化函数、`data-sill-style` 这类通用样式绑定。
 
 ## 动作
 
@@ -151,9 +167,11 @@ Shadow DOM 会继承宿主的 CSS 自定义属性，模板直接用：
 | token | 用途 |
 |---|---|
 | `--ink` / `--ink-soft` / `--ink-dim` / `--ink-faint` | 文字层级 |
-| `--accent` / `--accent-pale` / `--accent-soft` | 强调色 |
+| `--accent` / `--accent-pale` / `--accent-soft` / `--accent-glow` | 强调色 |
+| `--accent-2` | 第二强调色（暖色） |
+| `--accent-h` | 强调色相，想自己用 `hsl()` 时用 |
 | `--sans` / `--serif` | 字体栈 |
-| `--radius` | 面板圆角；卡片内部圆角按 18px |
+| `--radius` / `--radius-card` | 面板圆角 / 卡片内圆角 |
 
 不要硬编码玻璃色、不要用 `--atmo-*` 复刻 atmosphere、不要用 `backdrop-filter`。
 
@@ -169,4 +187,4 @@ Shadow DOM 会继承宿主的 CSS 自定义属性，模板直接用：
 
 - 模板格式随 `engine` 版本走；
 - 新字段 / 新指令只增不改；破坏性变化升 `engine` 主版本；
-- 旧宿主遇到未知标签 / 属性会清洗掉，不会执行。
+- 宿主不再清洗标签，旧模板可以原样加载。

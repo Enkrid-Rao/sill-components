@@ -48,6 +48,26 @@
 `dateLabel` 会随 `language` 重新采样；切语言时组件不需要自己格式化日期。
 时间格式化由宿主完成；v1 没有 `format()` 函数，模板只负责取字段。
 
+## 整份宿主状态
+
+`host.state` · 无额外权限 · 跟随面板快照
+
+一次拿到时间、语言、系统快照、待办、媒体和天气。存在的理由很实际：宿主每加一个字段
+（比如硬盘温度、电池），组件不应该等一次宿主升级才能读到。
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `iso` / `epoch` / `tz` / `time` / `date` / `dateLabel` / `weekday` / `hour` / `minute` | — | 与 `time.now` 相同 |
+| `language` | string | `en` / `zh` |
+| `snapshot` | object | `PanelSnapshot` 原样：`cpu`、`cores`、`memPct`、`memUsed`、`memTotal`、`down`、`up`、`gpu`、`gpuMem`、`gpuTotal`、`procs` |
+| `todos` | array | `{ id, text, done }` |
+| `media` | object | 与 `media.nowPlaying` 相同 |
+| `weather` | object | 与 `weather.current` 相同 |
+
+`host.state` 是便利入口，字段名沿用宿主快照（`state.snapshot.cpu`），和分项 provider
+（`cpu.usage`）不一样。要长期稳定的契约，仍用分项 provider；想少写声明、跟着宿主走，用
+`host.state`。
+
 ## 系统
 
 全部需要 `data.system`。刷新间隔由设置里的监测频率决定（1 / 2 / 3 / 5 秒），宿主推送。

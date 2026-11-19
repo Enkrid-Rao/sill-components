@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4 — 未发布
+
+把「模板」从静态白名单卡升级成 Rainmeter 式可信组件：去掉白名单、加内联 JS、组件存储、包内资源与 Skins 目录。
+
+### 变更
+
+- 删除 HTML/CSS 标签白名单与 sanitizer：`svg` / `img` / 内联 `style` / `on*` / `url()` 全部放开；
+- `<script>` 标签仍不执行（innerHTML 规则）；`ui/main.js` 作为宿主页面脚本执行一次；
+- 新增内联 JS API：`sill.data / onData / command / storage / host`，以及 `root`（shadow root）；
+- 新增组件私有存储：`<userData>/widget-data/<id>.json`；
+- 新增包内资源协议 `sill-asset://<id>/ui/...`，`<img src="assets/x.png">` 与 `url(bg.png)` 自动改写；
+- 新增 Skins 目录：`<userData>/skins/<名字>/` 丢进去即用、保存即刷新，无需打包安装；
+- template 现在也允许 `ui/main.js` 与 `ui/assets/**`；
+- 数据更新改为增量（只改绑定节点），CSS 过渡跨采样继续；
+- 安全模型改为 Rainmeter 式信任模型（见 [docs/security.md](docs/security.md)）。
+
 ## v0.3 — 未发布
 
 这一版把组件模型从 JSON IR / iframe 换成 **template**。

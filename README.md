@@ -21,14 +21,15 @@ my-widget/
 └─ ui/
    ├─ index.html
    ├─ style.css
-   ├─ main.js        # web only
-   └─ assets/        # web optional
+   ├─ main.js        # optional（template / web 都可以有）
+   └─ assets/        # optional
 ```
 
 - `type` 为 `template` 或 `web`。
-- template 不执行 JS；web 在 webview 里执行 JS。
-- `trust: "trusted"` 的 web 有完整 Node；默认 `sandboxed` 只走桥。
-- template 的 HTML 清洗后放进 Shadow DOM；web 是独立 guest。
+- template 挂在宿主页面的 Shadow DOM 里；`ui/main.js` 可选，同页执行（Rainmeter 的 Lua 式）。
+- web 在独立 webview 里执行 JS；`trust: "trusted"` 有完整 Node，默认 `sandboxed` 只走桥。
+- template 的 HTML 原样放进 Shadow DOM（不做标签审查）。
+- 图片 / 字体放 `ui/assets/`，用相对路径引用，宿主会改写到 `sill-asset://`。
 - 组件不要给卡片铺背景。
 
 template 规则见 [docs/template.md](docs/template.md)。
@@ -99,7 +100,7 @@ web 组件由 `trust` 决定能力。
 
 ## 约束
 
-1. template 不执行 JS：没有 `<script>`、`on*`、`href`、`src`。
+1. `<script>` 标签不执行（`innerHTML` 规则）；要 JS 写 `ui/main.js`。其余 HTML/CSS 不限，`on*`、`style`、`svg`、`img` 都可以。
 2. template / sandboxed web 不能联网；trusted web 可以。
 3. 不能主动把窗口抢到前台。
 4. 中文小字不低于 10.5px；正文 13.5–14px。
@@ -131,7 +132,7 @@ web 组件由 `trust` 决定能力。
 | [docs/runtime.md](docs/runtime.md) | 渲染、尺寸、主题、性能 |
 | [docs/package.md](docs/package.md) | `.sill` 包结构、安装、卸载 |
 | [docs/providers.md](docs/providers.md) | provider 字段与权限 |
-| [docs/security.md](docs/security.md) | 白名单、Shadow DOM、包边界 |
+| [docs/security.md](docs/security.md) | 信任模型、Shadow DOM、包边界 |
 | [docs/testing.md](docs/testing.md) | 验收清单 |
 | [docs/roadmap.md](docs/roadmap.md) | 后续计划 |
 | [spec/widget.schema.json](spec/widget.schema.json) | manifest schema |
@@ -164,6 +165,10 @@ python scripts/validate.py ./my-widget
 $env:SILL_DEV_WIDGET = 'D:\Projects\Sill\examples\dev-widget'
 pnpm dev
 ```
+
+更快的方式：把组件文件夹直接放进 Skins 目录（Windows 是 `%APPDATA%\Sill\skins\`，
+便携版在 `Sill-data\skins\`），保存即刷新，不需要打包或安装。设置 → 通用 → 组件文件夹
+可以直接打开它。
 
 安装本地 `.sill`：
 

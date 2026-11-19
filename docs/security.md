@@ -1,122 +1,73 @@
-# Security model
+# 信任模型
 
-模板组件的默认假设：**模板内容不可信**。它由第三方编写，可能包含脚本、外链、
-过深嵌套或超大文本。宿主不执行模板里的代码。
+Sill 的组件模型参考 Rainmeter：**组件是本地可信代码，安装或放进 Skins 目录就是授权**。
+宿主不做运行时权限强制，也不试图把恶意组件关进笼子——那会让每个正常组件都付出代价。
 
-## 1. 资产
+## 1. 和 Rainmeter 的对应
 
-要保护的东西：
-
-- 用户的文件系统、剪贴板、浏览器会话、其他应用数据。
-- Sill 的设置、待办、天气地区、布局。
-- 面板的窗口句柄、置顶层、热键。
-- 其他组件的数据与存储。
-
-模板不应该获得任何一项的默认访问权。
+| Rainmeter | Sill |
+|---|---|
+| `Skins/<名字>/` 文件夹 | `<userData>/skins/<名字>/`，放进去自动刷新 |
+| `.rmskin` 安装包 | `.sill`（zip），安装到 `<userData>/components/<id>@<version>/` |
+| `.ini` + 可选 Lua | `ui/index.html` + `ui/style.css` + 可选 `ui/main.js` |
+| `@Resources` 相对路径 | `ui/assets/**`，改写为 `sill-asset://<id>/ui/...` |
+| 插件 DLL | `type: "web"` + `trust: "trusted"`（完整 Node） |
+| 没有权限弹窗 | 没有权限弹窗；`permissions` 只是目录/安装提示的元数据 |
 
 ## 2. 边界
 
 ```text
 主进程（Node / Electron）
-  settings / todo / weather / provider 快照
-        │ 受控 IPC
+  settings / todo / weather / provider 快照 / 组件存储
+        │ IPC
 Renderer（React 宿主）
-  WidgetShell / .card / Shadow DOM 模板
-        │ 只读文本 / 条件 / 列表
-template（无 JS、无网络） / web guest（按 trust）
+  WidgetShell / .card / Shadow DOM
+        ├─ template：同页 HTML/CSS + 可选 main.js（可信）
+        └─ web guest：sandboxed 桥 / trusted 完整 Node
 ```
 
-- 模板不接触 Electron IPC；
-- template 不执行 JS；web 在独立 guest 里跑 JS，trusted 拥有完整 Node。
-- 模板不能读文件、不能发网络请求；
-- 模板只拿到 manifest 声明的 provider 数据。
+- template 与宿主同页：`on*`、`ui/main.js` 都能访问 `window.sill`；
+- `ui/main.js` 是宿主页面里的一段脚本，不是沙箱；
+- `type: "web"` 才拥有独立 guest；`trust: "trusted"` 有完整 Node；
+- `sandboxed` web 仍然保留（给未来的市场），但不是写组件的默认路径。
 
-## 3. HTML 白名单
+## 3. 组件能做什么
 
-允许标签：
+- 读宿主提供的所有数据（`host.state` 直接给整份快照）；
+- 读写自己的私有 JSON（`sill.storage` → `<userData>/widget-data/<id>.json`）；
+- 通过 `sill.host` 调宿主 preload API；
+- 访问自己包内的图片 / 字体（`sill-asset://`）；
+- template 的 `on*` 与 `main.js` 可以访问页面全局对象。
 
-```text
-div span p section ul ol li strong em small b i br h1 h2 h3 h4
-```
+不在防护范围内的：恶意组件读取用户文件、发网络请求、改设置。用户只应安装信任来源的组件，
+和安装 Rainmeter 皮肤、VS Code 扩展是同一类决定。
 
-允许属性：
+## 4. 仍然保留的检查
 
-```text
-class id role aria-* data-sill-*
-```
+这些是防手滑和防坏包，不是安全边界：
 
-禁止：
+- 拒绝 `..`、绝对路径、盘符、UNC、反斜杠；
+- `.sill` 单文件 20 MB、总包 50 MB、文件数上限；
+- 安装使用临时目录 + 原子 rename；
+- `runtime` / `engine` 版本不匹配时拒绝加载，并给出明确错误；
+- 资源协议只允许读组件目录内的文件。
 
-- `<script>` / `<style>` / `<link>` / `<iframe>` / `<object>` / `<embed>` / `<img>` / `<svg>`；
-- `on*` 事件属性；
-- `style` 属性、`href`、`src`；
-- 自定义标签、表单控件、媒体元素。
+## 5. 数据层
 
-未知标签整段移除；未知属性删除。v1 的 sanitizer 是白名单，不是黑名单。
+`data` / `permissions` 仍然写在 manifest 里，但用途是：
 
-## 4. CSS 限制
+- 让目录页和安装对话框能说清「这个卡读什么」；
+- 让 provider 有稳定的字段契约，组件不用猜宿主快照；
+- 不是运行时门禁。`host.state` 可以一次拿到全部，`permissions` 不阻止它。
 
-- 只允许 `ui/style.css`，挂在 Shadow DOM 内；
-- 禁止 `@import`；
-- 禁止 `url()`（远程图片、字体、背景）；
-- 禁止 `expression()` / `javascript:` / `behavior:`；
-- 文件 ≤ 512 KB；
-- 不使用 `backdrop-filter`、桌面采样或 `position:fixed` 逃出卡片。
+## 6. 安装与分发
 
-## 5. 数据权限
+- 本地 `.sill` 安装：显示 id / 版本 / 作者 / 类型，确认后写入；
+- Skins 目录：不需要安装，保存即刷新；
+- 目录下载、签名、哈希仍未实现；实现前的 `installable` 必须为 `false`；
+- 同一个 `id` 只允许一个安装版本；skins 目录里的同名 id 优先于安装版本。
 
-| 权限 | 风险 | 控制 |
-|---|---|---|
-| `data.time` | 低 | 只读本地时间 |
-| `data.system` | 中 | 只读聚合指标，不暴露进程路径 / 命令行 / PID |
-| `data.media` | 中 | 只读当前会话 |
-| `data.weather` | 低 | 只读天气快照；不暴露精确坐标 |
-| `data.todo` | 中 | 只读待办 |
-| `action.media` | 中 | 播放控制；不暴露其他应用 |
-| `action.todo` | 中 | 只能切换完成状态，不能删除 / 批量改 |
+## 7. 报告
 
-- 权限在安装时展示，不能静默升级。
-- 未声明的数据不进入模板。
-- v1 没有 `storage` / `network` / `settings`。
-
-## 6. 包与路径
-
-- 拒绝 `..`、绝对路径、Windows 盘符、UNC、反斜杠、符号链接逃逸。
-- `.sill` 限制：压缩包 ≤ 10 MB、单文件 ≤ 512 KB、只允许 3 个文件；超过拒绝安装。
-- template 只允许 `widget.json`、`ui/index.html`、`ui/style.css`；
-- web 额外允许 `ui/main.js`；其他文件直接拒绝。
-- 安装使用临时目录 + 原子 rename；失败不留下半个包。
-- 组件目录名由 `id@version` 生成，不信任压缩包内目录名。
-- 路径相对于宿主的 `userData`；不要假设一定是 `%APPDATA%`，便携版会改到 exe 旁。
-
-## 7. 安装与更新
-
-- 安装前显示 id、名称、版本、作者、权限和提醒，确认后才写入。
-- v1 不做代码签名，也不做自动下载。用户选择本地 `.sill` 文件并确认后安装；
-  目录里的 `installable: false` 条目不能被当成可安装组件。
-- 同一个 `id` 只允许一个版本；升级要先卸载再安装。
-- 卸载删除组件目录，并把 id 从布局移除；不碰用户数据。
-- 目录里的 `verified` 只代表按规范检查过，不代表作者可信。
-
-## 8. JS 组件
-
-JS 不放进 template，也不放进宿主 DOM。`type: "web"` 的 JS 在独立 webview 里：
-
-- `trust: "sandboxed"`：CSP、preload 桥、权限动作，无 Node / 文件 / 网络；
-- `trust: "trusted"`：完整 Node，和 Rainmeter 插件同级权限；安装时显示完全信任警告；
-- 主进程 `will-attach-webview` 只接受 data URL，并根据 host 设置的 partition 决定信任级别；
-- 不能因为组件想读系统就把它塞进宿主 renderer。
-
-## 9. 审计与报告（计划）
-
-审计日志还没实现。计划记录：
-
-- 安装 / 卸载 / 更新
-- 权限拒绝
-- 模板拒绝（标签 / 属性 / CSS / 大小）
-- 数据绑定失败
-
-格式为 JSONL，写在 `<userData>/audit/`，保留 14 天，不含组件正文与用户内容。
-用户可以一键清除。
-
-发现漏洞请通过仓库 issue 私下联系维护者，不要公开利用细节。
+发现会让宿主意外崩溃、丢数据或绕过资源目录的问题，请通过仓库 issue 私下联系维护者。
+普通的功能缺陷直接开 issue 即可。

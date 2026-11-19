@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "id": "com.example.rings",
+  "name": "Rings",
+  "description": "CPU / memory / GPU as three SVG rings.",
+  "version": "1.0.0",
+  "author": "raoxi",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "type": "template",
+  "size": { "w": 240, "h": 168 },
+  "span": { "default": 1 },
+  "permissions": ["data.system"],
+  "data": [
+    { "id": "cpu", "source": "system.cpu" },
+    { "id": "mem", "source": "system.memory" },
+    { "id": "gpu", "source": "system.gpu" }
+  ],
+  "strings": {
+    "en": { "title": "SYSTEM", "cpu": "CPU", "mem": "MEM", "gpu": "GPU", "cores": "cores" },
+    "zh": { "title": "系统", "cpu": "CPU", "mem": "内存", "gpu": "显卡", "cores": "核" }
+  },
+  "ui": "ui/index.html"
+}
