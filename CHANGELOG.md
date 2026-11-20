@@ -1,5 +1,12 @@
 # Changelog
 
+## 官方组件 1.1.1 — 2026-11-20
+
+- `sill.clock`：时间改由组件本地 `Date` 驱动，对齐整秒刷新；面板隐藏时暂停，不再依赖宿主 1s 数据推送；
+- `sill.rings`：CPU 下方不再显示核数，改为约略主频（如 `~2.4 GHz`）；
+- `sill.lyrics`：行进度条增加「本句 / Line」标签与 `progressbar` 语义；用 `sampledAt` 补偿 SMTC 采样延迟，100ms 推进，句界回退加 250ms 迟滞，减少闪烁；
+- `registry/packages/` 新增 `sill.clock-1.1.1.sill` / `sill.rings-1.1.1.sill` / `sill.lyrics-1.1.1.sill`，目录条目同步版本与下载地址。
+
 ## 官方组件 1.1.0 — 2026-11-20
 
 五个可安装官方组件（`sill.clock` / `sill.calendar` / `sill.weather` / `sill.rings` / `sill.lyrics`）

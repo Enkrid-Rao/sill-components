@@ -1,5 +1,6 @@
 // 时钟卡：HH:MM（可选 12 小时制）、秒、日期、时段，以及一天进度线。
-// 文本全部由这里写：宿主只推送 time.now，避免 data-sill-text 每秒覆盖。
+// 时间由本地 Date 自己驱动（对齐到秒），不再依赖宿主每 1s 的数据推送：
+// 即使系统监测卡顿，时钟也不会停。
 const el = (id) => root.getElementById(id)
 const pad = (value) => String(value).padStart(2, '0')
 
@@ -14,12 +15,10 @@ const PERIODS = [
 const settings = { seconds: true, hour12: false, date: true }
 const ZH_WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 const EN_WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-let lastIso = ''
 let lastData = {}
 let language = 'zh'
+let timer = null
 
-/* 日期自己排：宿主的 dateLabel 是「11月20日星期五 / Friday 20 November」，
-   在卡片里太长，这里压成「11月20日 周五 / Fri 20 Nov」。 */
 function dateLine(date) {
   if (language === 'en') {
     return `${EN_WEEKDAYS[date.getDay()]} ${date.getDate()} ${date.toLocaleDateString('en-GB', {
@@ -38,7 +37,7 @@ function periodLabel(period) {
   return node?.textContent?.trim() ?? ''
 }
 
-function render() {
+function render(when = new Date()) {
   const digits = el('digits')
   const sec = el('sec')
   const seconds = el('seconds')
@@ -49,61 +48,88 @@ function render() {
   const clock = el('clock')
   if (!digits) return
 
-  const when = lastIso ? new Date(lastIso) : null
-  const valid = when instanceof Date && Number.isFinite(when.getTime())
-  const hour = valid ? when.getHours() : 0
-  const minute = valid ? when.getMinutes() : 0
-  const second = valid ? when.getSeconds() : 0
-  const displayHour = settings.hour12 && valid ? hour % 12 || 12 : hour
-  const dateLabel = valid ? dateLine(when) : ''
+  const hour = when.getHours()
+  const minute = when.getMinutes()
+  const second = when.getSeconds()
+  const displayHour = settings.hour12 ? hour % 12 || 12 : hour
 
-  digits.textContent = valid ? `${pad(displayHour)}:${pad(minute)}` : '--:--'
-  if (lastIso) digits.setAttribute('datetime', lastIso)
+  digits.textContent = `${pad(displayHour)}:${pad(minute)}`
+  digits.setAttribute('datetime', when.toISOString())
 
-  if (sec) sec.textContent = valid ? pad(second) : '00'
+  if (sec) sec.textContent = pad(second)
   if (seconds) seconds.hidden = !settings.seconds
   if (meridiem) {
     meridiem.hidden = !settings.hour12
-    meridiem.textContent = valid ? (hour < 12 ? 'AM' : 'PM') : ''
+    meridiem.textContent = hour < 12 ? 'AM' : 'PM'
   }
 
   if (date) {
     date.hidden = !settings.date
-    date.textContent = dateLabel
+    date.textContent = dateLine(when)
   }
 
-  const period = valid ? periodOf(hour) : 'evening'
+  const period = periodOf(hour)
   if (daypart) {
     daypart.dataset.period = period
-    daypart.hidden = !valid
+    daypart.hidden = false
   }
 
   if (fill) {
-    const progress = valid ? ((hour * 3600 + minute * 60 + second) / 86400) * 100 : 0
+    const progress = ((hour * 3600 + minute * 60 + second) / 86400) * 100
     fill.style.width = `${progress.toFixed(2)}%`
   }
 
   if (clock) {
-    const parts = []
-    if (valid) {
-      const timeText = `${pad(displayHour)}:${pad(minute)}${settings.seconds ? `:${pad(second)}` : ''}`
-      parts.push(timeText)
-      if (settings.hour12) parts.push(hour < 12 ? 'AM' : 'PM')
-      parts.push(periodLabel(period))
-      if (settings.date) {
-        const spokenDate = lastData.time?.dateLabel
-        if (spokenDate) parts.push(spokenDate)
-      }
+    const timeText = `${pad(displayHour)}:${pad(minute)}${settings.seconds ? `:${pad(second)}` : ''}`
+    const parts = [timeText]
+    if (settings.hour12) parts.push(hour < 12 ? 'AM' : 'PM')
+    parts.push(periodLabel(period))
+    if (settings.date) {
+      const spokenDate = lastData.time?.dateLabel
+      if (spokenDate) parts.push(spokenDate)
     }
-    clock.setAttribute('aria-label', parts.filter(Boolean).join(language === 'en' ? ', ' : '，') || '—')
+    clock.setAttribute('aria-label', parts.filter(Boolean).join(language === 'en' ? ', ' : '，'))
+  }
+}
+
+function stopTimer() {
+  if (timer !== null) {
+    clearTimeout(timer)
+    timer = null
+  }
+}
+
+/** 对齐到下一个整秒，避免 setInterval 漂移导致秒数抖动。 */
+function schedule() {
+  stopTimer()
+  if (document.hidden) return
+  const delay = 1000 - (Date.now() % 1000) + 16
+  timer = setTimeout(() => {
+    render(new Date())
+    schedule()
+  }, delay)
+}
+
+function start() {
+  render(new Date())
+  schedule()
+}
+
+document.addEventListener('visibilitychange', onVisibilityChange)
+
+function onVisibilityChange() {
+  if (document.hidden) {
+    stopTimer()
+  } else {
+    render(new Date())
+    schedule()
   }
 }
 
 sill.onData(({ data, language: nextLanguage }) => {
   lastData = data
-  lastIso = data.time?.iso ?? ''
   language = nextLanguage === 'en' ? 'en' : 'zh'
-  render()
+  render(new Date())
 })
 
 function applySettings(values) {
@@ -111,12 +137,15 @@ function applySettings(values) {
   if (typeof values.seconds === 'boolean') settings.seconds = values.seconds
   if (typeof values.hour12 === 'boolean') settings.hour12 = values.hour12
   if (typeof values.date === 'boolean') settings.date = values.date
-  render()
+  render(new Date())
 }
 
 sill.settings.get().then(applySettings)
 const offSettings = sill.settings.onChange(applySettings)
 sill.onDispose(() => {
+  stopTimer()
+  document.removeEventListener('visibilitychange', onVisibilityChange)
   if (typeof offSettings === 'function') offSettings()
 })
 
+start()

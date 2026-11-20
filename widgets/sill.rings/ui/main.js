@@ -27,9 +27,8 @@ function gbText(usedMb, totalMb) {
 
 function subText(data, key) {
   if (key === 'cpu') {
-    const cores = data.cpu?.cores
-    const label = el('coresLabel')?.textContent?.trim() ?? ''
-    return finite(cores) && cores > 0 ? `${cores} ${label}`.trim() : ''
+    const speed = data.cpu?.speedGhz
+    return finite(speed) ? `~${speed.toFixed(1)} GHz` : ''
   }
   if (key === 'gpu') return gbText(data.gpu?.memMb, data.gpu?.totalMb)
   if (key === 'ram') {

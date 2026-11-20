@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "sill.lyrics",
   "name": "Lyrics",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Sill",
   "license": "MIT",
   "runtime": ">=0.6.0",
@@ -30,6 +30,7 @@
     "en": {
       "title": "LYRICS",
       "synced": "Synced",
+      "lineProgress": "Line",
       "plain": "No timing",
       "loading": "Searching",
       "idle": "Nothing playing",
@@ -45,6 +46,7 @@
     "zh": {
       "title": "歌词",
       "synced": "同步",
+      "lineProgress": "本句",
       "plain": "无时间轴",
       "loading": "搜索中",
       "idle": "没有在播放",

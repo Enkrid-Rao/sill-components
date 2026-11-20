@@ -1,7 +1,7 @@
 // 官方歌词组件：LRCLIB（免费、CORS 开放）同步歌词 + 本地平滑推进。
 // 状态、文案都走 widget.json 的 strings；这里只管请求、解析和推进。
 const API = 'https://lrclib.net/api/search'
-const TICK_MS = 200
+const TICK_MS = 100
 const CACHE_MS = 10 * 60 * 1000
 const TIMEOUT_MS = 9000
 
@@ -20,6 +20,7 @@ let requestSeq = 0
 let controller = null
 let ticker = null
 let lastBar = -1
+let currentIndex = -1
 
 const cache = new Map()
 const BLOCKS = {
@@ -126,6 +127,7 @@ function setBar(value) {
   if (rounded === lastBar) return
   lastBar = rounded
   bar.style.width = `${rounded}%`
+  el('progress')?.setAttribute('aria-valuenow', String(rounded))
 }
 
 function setStatus(next) {
@@ -183,7 +185,14 @@ function renderPlain(text) {
 function draw() {
   if (status !== 'synced' || !lines.length) return
   const at = basePosition + (playing ? (performance.now() - baseAt) / 1000 : 0) + offset
-  const index = indexAt(at)
+  let index = indexAt(at)
+
+  // 数据回推 / 播放位置在句界附近抖动时，别让当前句来回闪；
+  // 真正的回退（> 250ms）仍然允许立即跟随。
+  if (currentIndex >= 0 && index < currentIndex && at > lines[currentIndex].time - 0.25) {
+    index = currentIndex
+  }
+  currentIndex = index
 
   if (index < 0) {
     setLine('', false)
@@ -231,12 +240,14 @@ function abortRequest() {
 function applyResult(result) {
   if (result.kind === 'synced') {
     lines = result.lines
+    currentIndex = -1
     setStatus('synced')
     draw()
     return
   }
 
   lines = []
+  currentIndex = -1
   if (result.kind === 'plain') {
     renderPlain(result.plain)
     setStatus('plain')
@@ -267,6 +278,7 @@ async function loadLyrics(item) {
   }
 
   lines = []
+  currentIndex = -1
   setStatus('loading')
   setBar(0)
   setLine('', false)
@@ -357,7 +369,14 @@ function applySettings(values) {
 
 sill.onData(({ data }) => {
   media = data.media ?? {}
-  basePosition = Number(media.position ?? 0)
+  const sampledAt = Number(media.sampledAt ?? 0)
+  const lag =
+    media.status === 'Playing' && sampledAt > 0
+      ? Math.min(5, Math.max(0, (Date.now() - sampledAt) / 1000))
+      : 0
+  // SMTC 的 position 是采样时刻的值；把采样到渲染之间的时间补上，
+  // 否则歌词会比声音慢半拍到一拍。上限 5s，避免长时间暂停后跳句。
+  basePosition = Number(media.position ?? 0) + lag
   baseAt = performance.now()
   playing = media.status === 'Playing'
 
@@ -366,6 +385,7 @@ sill.onData(({ data }) => {
     ++requestSeq
     abortRequest()
     lines = []
+    currentIndex = -1
     currentTrack = ''
     lastText = ''
     setSong(null)

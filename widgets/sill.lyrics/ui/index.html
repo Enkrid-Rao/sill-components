@@ -14,7 +14,17 @@
   <div class="lyr__stage" id="stage">
     <p class="lyr__line" id="line" aria-live="polite">—</p>
     <p class="lyr__next" id="next"></p>
-    <span class="lyr__progress" aria-hidden="true"><i id="bar"></i></span>
+    <div
+      class="lyr__progress"
+      id="progress"
+      role="progressbar"
+      aria-label="Lyric line progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <span class="lyr__progressLabel" data-sill-i18n="lineProgress">本句</span>
+      <span class="lyr__track"><i id="bar"></i></span>
+    </div>
   </div>
 
   <div class="lyr__skeleton" id="loading" hidden>

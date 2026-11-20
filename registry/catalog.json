@@ -262,7 +262,7 @@
         "en": "LRCLIB lookup with a 10-minute cache, a line-to-line progress bar, explicit idle / loading / empty / error / instrumental states and retry.",
         "zh": "LRCLIB 查询 + 10 分钟缓存、行间进度线，以及待机 / 加载 / 空 / 失败 / 纯音乐状态与重试。"
       },
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": "Sill",
       "license": "MIT",
       "type": "template",
@@ -278,7 +278,7 @@
       },
       "span": 1,
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.1.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.1.1.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.lyrics",
@@ -304,7 +304,7 @@
         "en": "Large serif time with optional 12-hour format, seconds, a compact date and a five-step day part; a 2px line shows the day progress.",
         "zh": "大号衬线时间，可切换 12 小时制、秒数与日期；时段分五档，底部 2px 线显示一天进度。"
       },
-      "version": "1.1.0",
+      "version": "1.1.1",
       "runtime": ">=0.6.0",
       "permissions": [
         "data.time"
@@ -323,7 +323,7 @@
       "status": "verified",
       "engine": ">=0.1.0",
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.clock-1.1.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.clock-1.1.1.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.clock",
@@ -425,10 +425,10 @@
         "zh": "CPU / GPU / RAM / SWAP 四个圆环。"
       },
       "description": {
-        "en": "Four rings using only theme colours, used / total under each (cores for CPU), one row on wide cards and 2x2 on narrow ones.",
-        "zh": "四个只用主题色的圆环，每个下面显示已用 / 总量；宽卡一行四个，窄卡 2×2。"
+        "en": "Four rings using only theme colours, used / total under each (approx GHz for CPU), one row on wide cards and 2x2 on narrow ones.",
+        "zh": "四个只用主题色的圆环，每个下面显示已用 / 总量，CPU 显示约略 GHz；宽卡一行四个，窄卡 2×2。"
       },
-      "version": "1.1.0",
+      "version": "1.1.1",
       "runtime": ">=0.7.0",
       "permissions": [
         "data.system"
@@ -450,7 +450,7 @@
       "status": "verified",
       "engine": ">=0.1.0",
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.rings-1.1.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.rings-1.1.1.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.rings",

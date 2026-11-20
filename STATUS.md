@@ -2,7 +2,7 @@
 
 这份文件是「现在到底有什么」的唯一真值。其他文档描述契约与目标，不重复状态数字。
 
-最后核对：2026-11-20；应用只保留初始六组件，`sill.clock` / `sill.calendar` / `sill.weather` / `sill.rings` 已作为官方可安装包发布；五个可安装组件统一升到 **1.1.0**，视觉规范见 [docs/design.md](docs/design.md)。
+最后核对：2026-11-20；应用只保留初始六组件，`sill.clock` / `sill.calendar` / `sill.weather` / `sill.rings` 已作为官方可安装包发布；`clock` / `lyrics` / `rings` 为 **1.1.1**，`calendar` / `weather` 为 **1.1.0**，视觉规范见 [docs/design.md](docs/design.md)。
 
 ## 版本
 
@@ -67,11 +67,11 @@
 ## 已验证
 
 - `python scripts/validate.py` 本地通过；`examples/` 十个示例、catalog、fixtures 全部通过。
-- 官方组件 1.1.0：五个模板在本地预览壳（模拟 Shadow DOM、主题变量、`data-sill-*` 指令与
+- 官方组件 1.1.1：`clock` / `lyrics` / `rings` 在本地预览壳（模拟 Shadow DOM、主题变量、`data-sill-*` 指令与
   `sill` API）里跑过 150 / 185 / 318 / 660 / 1110px × Clear / Lagoon / Ember / Dusk × 中英
   的截图矩阵；`loading` / `empty` / `stale` / `error` / `instrumental` / 12 小时制 / 翻月
   / 偏移等状态逐一看过；无横向溢出。
-- 打包产物 `registry/packages/*-1.1.0.sill` 由 `widget.json` + `README.md` + `ui/**` 组成，
+- 打包产物 `registry/packages/*-1.1.1.sill`（`clock` / `lyrics` / `rings`）由 `widget.json` + `README.md` + `ui/**` 组成，
   解压后根目录正确，体积 5–9 KB。
 - CLI 0.3.1：`sill new` 生成的脚手架通过 `validate` 与 `pack`；`pack` 产物只含合法文件。
 - Sill 0.6.0：`.sill` 安装、加载、卸载通过程序化测试；额外文件 / 路径穿越 / 缺 `ui/index.html`
