@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "sill.clock",
+  "name": "Clock",
+  "version": "1.0.0",
+  "author": "Sill",
+  "type": "template",
+  "span": {
+    "default": 1
+  },
+  "size": {
+    "w": 384,
+    "h": 132
+  },
+  "data": [
+    {
+      "id": "time",
+      "source": "time.now"
+    }
+  ],
+  "strings": {
+    "en": {
+      "title": "CLOCK"
+    },
+    "zh": {
+      "title": "时钟"
+    }
+  },
+  "ui": "ui/index.html",
+  "description": "Time, seconds and the day part, without a card title.",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "permissions": [
+    "data.time"
+  ]
+}

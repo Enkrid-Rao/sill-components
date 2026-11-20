@@ -47,7 +47,7 @@
 
 .halo__dials {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -105,6 +105,10 @@
   stroke: var(--accent-pale);
 }
 
+.halo__dial--swap .halo__value {
+  stroke: hsl(36 86% 70%);
+}
+
 .halo__num {
   color: var(--ink);
   font-size: 15px;
@@ -140,3 +144,4 @@
     transition: none;
   }
 }
+

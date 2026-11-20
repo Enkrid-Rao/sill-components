@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "sill.showcase.halo",
   "name": "Halo",
-  "description": "Three glowing SVG arcs for CPU, memory and GPU, with a packaged grain texture.",
+  "description": "Four glowing SVG arcs for CPU, GPU, RAM and swap, with a packaged grain texture.",
   "version": "1.0.0",
   "author": "raoxi",
   "license": "MIT",
@@ -15,24 +15,25 @@
   "data": [
     { "id": "cpu", "source": "system.cpu" },
     { "id": "mem", "source": "system.memory" },
-    { "id": "gpu", "source": "system.gpu" }
+    { "id": "gpu", "source": "system.gpu" },
+    { "id": "swap", "source": "system.swap" }
   ],
   "strings": {
     "en": {
-      "title": "SYSTEM HALO",
       "cpu": "CPU",
-      "mem": "MEM",
+      "mem": "RAM",
       "gpu": "GPU",
+      "swap": "SWAP",
       "cores": "cores",
-      "memory": "MEMORY"
+      "memory": "RAM"
     },
     "zh": {
-      "title": "系统光环",
-      "cpu": "处理器",
-      "mem": "内存",
-      "gpu": "显卡",
+      "cpu": "CPU",
+      "mem": "RAM",
+      "gpu": "GPU",
+      "swap": "SWAP",
       "cores": "核",
-      "memory": "内存占用"
+      "memory": "RAM 占用"
     }
   },
   "ui": "ui/index.html"

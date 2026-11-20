@@ -10,7 +10,8 @@
 
 ## 现在有什么
 
-六个内置组件都随 Sill 0.6.0 发布；`sill.lyrics` 是第一个可安装的官方模板。
+六个初始组件随 Sill 发布；`sill.lyrics`、`sill.clock`、`sill.calendar`、`sill.weather`、`sill.rings`
+是可安装的官方模板。
 
 | id | 名称 | 数据 | 跨列 | 文档 |
 |---|---|---|---|---|
@@ -20,6 +21,11 @@
 | `sill.media` | 媒体 | SMTC、系统音量 | 1 | [sill.media](../widgets/sill.media/README.md) |
 | `sill.shelf` | 收纳 | 快捷方式 | 1 | [sill.shelf](../widgets/sill.shelf/README.md) |
 | `sill.todo` | 待办 | 本地待办 | 1 或整行 | [sill.todo](../widgets/sill.todo/README.md) |
+| `sill.lyrics` | 歌词 | 媒体、歌词 | 1 | [sill.lyrics](../widgets/sill.lyrics/README.md) |
+| `sill.clock` | 时钟 | 时间 | 1 | [sill.clock](../widgets/sill.clock/README.md) |
+| `sill.calendar` | 日历 | 时间 | 1 | [sill.calendar](../widgets/sill.calendar/README.md) |
+| `sill.weather` | 天气 | 天气 | 1 | [sill.weather](../widgets/sill.weather/README.md) |
+| `sill.rings` | 监控环 | CPU / GPU / 内存 / SWAP | 2 | [sill.rings](../widgets/sill.rings/README.md) |
 
 它们目前是**宿主内置实现**，不是 `.sill` 包：`installable` 全是 `false`。
 内置组件已经能在面板里工作；它们没有独立安装包，所以不能从目录下载。

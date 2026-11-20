@@ -3,7 +3,7 @@
 | 示例 | 类型 | 说明 |
 |---|---|---|
 | [clock](clock) | template | 时间 + 日期，最小静态模板 |
-| [rings](rings) | template | SVG 圆环 + `data-sill-meter`，零 JS |
+| [rings](rings) | template | CPU / GPU / RAM / SWAP 四个独立圆环 + `data-sill-meter` |
 | [inline-clock](inline-clock) | template | 内联 `ui/main.js` + `sill.storage` |
 | [processes](processes) | template | repeat / if / i18n，读 topRam |
 | [media](media) | template | action / meter，媒体控制 |
@@ -27,4 +27,6 @@
 - 压成 `.sill`，从设置 → 组件 → 安装组件… 安装；
 - 用 `python scripts/validate.py` 检查契约。
 
-正式目录下载还没开放。
+组件目录与 URL 安装已可用；签名 / 审核仍未做。
+
+

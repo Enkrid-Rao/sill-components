@@ -187,9 +187,10 @@ clock/
 | `time.now` | `time` `date` `dateLabel` `iso` `epoch` `tz` `weekday` `hour` `minute` |
 | `system.cpu` | `usage` `cores` |
 | `system.memory` | `percent` `usedGb` `totalGb` |
+| `system.swap` | `percent` `usedGb` `totalGb`（虚拟内存 / commit，读不到时 `null`） |
 | `system.gpu` | `usage` `memMb` `totalMb`（无独显时 `null`） |
 | `system.network` | `downBps` `upBps` |
-| `system.processes` | `topRam[{name,mb}]` `gpuMemMb` `gpuTotalMb` |
+| `system.processes` | `topRam[{name,mb}]` `topGpu[{name,pct}]` `gpuMemMb` `gpuTotalMb` |
 | `media.nowPlaying` | `active` `title` `artist` `album` `status` `position` `duration` `progress` `volume` `muted` `app` |
 | `weather.current` | `temp` `high` `low` `code` `condition` `cityName` `stale` `error` |
 | `todo.list` | 数组 `{ id, text, done }` |
@@ -523,3 +524,4 @@ sill pack .\clock         # 生成 clock-1.0.0.sill
 
 相关文档：[manifest](manifest.md) · [工具与目录](package.md) · [运行时契约](runtime.md) ·
 [数据源字段](providers.md) · [信任模型](security.md) · [路线图](roadmap.md)
+

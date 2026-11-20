@@ -1,0 +1,85 @@
+:host { display: block; container-type: inline-size; }
+
+.wx {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+.wx__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.wx__eyebrow {
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.wx__city {
+  color: var(--ink-dim);
+  font-size: clamp(9px, 2.6cqw, 16px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wx__main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wx__icon {
+  display: grid;
+  width: clamp(30px, 10cqw, 78px);
+  height: clamp(30px, 10cqw, 78px);
+  flex: none;
+  place-items: center;
+  color: var(--accent);
+}
+
+.wx__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.wx__temp {
+  font-family: var(--serif);
+  font-size: clamp(28px, 11cqw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.wx__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 7px;
+}
+
+.wx__condition {
+  color: var(--ink-soft);
+  font-size: clamp(11px, 3cqw, 18px);
+}
+
+.wx__range {
+  color: var(--ink-dim);
+  font-size: clamp(9px, 2.6cqw, 16px);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+
+
+
+

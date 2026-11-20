@@ -9,6 +9,10 @@
 - 删除 HTML/CSS 标签白名单与 sanitizer：`svg` / `img` / 内联 `style` / `on*` / `url()` 全部放开；
 - `<script>` 标签仍不执行（innerHTML 规则）；`ui/main.js` 作为宿主页面脚本执行一次；
 - 新增内联 JS API：`sill.data / onData / command / storage / host`，以及 `root`（shadow root）；
+- 示例 `rings` 重做为一张卡里的四个独立圆环（CPU / GPU / RAM / SWAP，渐变 + 发光）；
+- `clock` / `calendar` / `weather` / `rings` 迁入 `widgets/` 作为官方可安装模板（`sill.*`），
+  应用仓库只保留 hero / system / processes / media / shelf / todo 六个初始组件；
+- `halo` 增加 SWAP 圆环并统一命名（虚拟内存）；`analog` / `tasks` / `wave` 去掉组件名标题。
 - 新增组件私有存储：`<userData>/widget-data/<id>.json`；
 - 新增包内资源协议 `sill-asset://<id>/ui/...`，`<img src="assets/x.png">` 与 `url(bg.png)` 自动改写；
 - 新增 Skins 目录：`<userData>/skins/<名字>/` 丢进去即用、保存即刷新，无需打包安装；
@@ -86,6 +90,11 @@
 ## v0.1.0 — 2026-11
 
 首个规范版本：manifest / IR / runtime / script / security / testing / roadmap。
+
+
+
+
+
 
 
 

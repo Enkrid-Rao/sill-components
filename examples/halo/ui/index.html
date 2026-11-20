@@ -2,7 +2,6 @@
   <div class="halo__grain" aria-hidden="true"></div>
 
   <div class="halo__head">
-    <span class="halo__title" data-sill-i18n="title">SYSTEM HALO</span>
     <span class="halo__cores">
       <span data-sill-text="cpu.cores">—</span>
       <span data-sill-i18n="cores">cores</span>
@@ -42,6 +41,17 @@
       </div>
       <span class="halo__label" data-sill-i18n="gpu">GPU</span>
     </div>
+
+    <div class="halo__dial halo__dial--swap">
+      <div class="halo__dialInner">
+        <svg viewBox="0 0 80 80" class="halo__svg" aria-hidden="true">
+          <circle class="halo__track" cx="40" cy="40" r="34" pathLength="100" />
+          <circle class="halo__value" cx="40" cy="40" r="34" pathLength="100" data-sill-meter="swap.percent" />
+        </svg>
+        <span class="halo__num" data-sill-text="swap.percent">—</span>
+      </div>
+      <span class="halo__label" data-sill-i18n="swap">SWAP</span>
+    </div>
   </div>
 
   <div class="halo__foot">
@@ -54,3 +64,5 @@
     </span>
   </div>
 </div>
+
+

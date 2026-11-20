@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "id": "sill.calendar",
+  "name": "Calendar",
+  "version": "1.0.0",
+  "author": "Sill",
+  "type": "template",
+  "span": {
+    "default": 1
+  },
+  "size": {
+    "w": 384,
+    "h": 232
+  },
+  "data": [
+    {
+      "id": "time",
+      "source": "time.now"
+    }
+  ],
+  "ui": "ui/index.html",
+  "description": "A month calendar with today highlighted.",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "permissions": [
+    "data.time"
+  ]
+}

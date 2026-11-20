@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "sill.weather",
+  "name": "Weather",
+  "version": "1.0.0",
+  "author": "Sill",
+  "type": "template",
+  "span": {
+    "default": 1
+  },
+  "size": {
+    "w": 384,
+    "h": 150
+  },
+  "data": [
+    {
+      "id": "weather",
+      "source": "weather.current"
+    }
+  ],
+  "strings": {
+    "en": {
+      "title": "WEATHER"
+    },
+    "zh": {
+      "title": "天气"
+    }
+  },
+  "ui": "ui/index.html",
+  "description": "Current conditions, temperature and the day range.",
+  "license": "MIT",
+  "runtime": ">=0.6.0",
+  "engine": ">=0.1.0",
+  "permissions": [
+    "data.weather"
+  ]
+}

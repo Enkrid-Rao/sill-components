@@ -56,6 +56,16 @@
         "totalGb": "number"
       }
     },
+    "system.swap": {
+      "permission": "data.system",
+      "refresh": "1/2/3/5 s, set by the user",
+      "shape": "object",
+      "fields": {
+        "percent": "number 0-100 | null",
+        "usedGb": "number | null",
+        "totalGb": "number | null"
+      }
+    },
     "system.gpu": {
       "permission": "data.system",
       "refresh": "1/2/3/5 s, set by the user",

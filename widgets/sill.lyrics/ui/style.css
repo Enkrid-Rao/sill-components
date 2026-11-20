@@ -14,7 +14,7 @@
 .lyr__head {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
 }
 
@@ -99,3 +99,4 @@
     animation: none;
   }
 }
+

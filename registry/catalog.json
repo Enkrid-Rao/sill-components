@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "widgets": [
     {
       "id": "sill.hero",
@@ -289,6 +289,174 @@
         "media",
         "lyrics"
       ]
+    },
+    {
+      "id": "sill.clock",
+      "name": {
+        "en": "Clock",
+        "zh": "时钟"
+      },
+      "summary": {
+        "en": "Time, seconds and the day part.",
+        "zh": "时间、秒数和时段。"
+      },
+      "description": {
+        "en": "A large HH:MM clock with inline seconds and the day part below. No card title.",
+        "zh": "大号 HH:MM，秒数并进主时间，下面显示时段。没有卡片标题。"
+      },
+      "version": "1.0.0",
+      "runtime": ">=0.6.0",
+      "permissions": [
+        "data.time"
+      ],
+      "size": {
+        "w": 384,
+        "h": 132
+      },
+      "span": 1,
+      "tags": [
+        "time"
+      ],
+      "author": "Sill",
+      "license": "MIT",
+      "type": "template",
+      "status": "verified",
+      "engine": ">=0.1.0",
+      "installable": true,
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.clock-1.0.0.sill",
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill-components",
+        "path": "widgets/sill.clock",
+        "ref": "main"
+      },
+      "docs": "widgets/sill.clock/README.md"
+    },
+    {
+      "id": "sill.calendar",
+      "name": {
+        "en": "Calendar",
+        "zh": "日历"
+      },
+      "summary": {
+        "en": "A month calendar with today highlighted.",
+        "zh": "带今天高亮的月历。"
+      },
+      "description": {
+        "en": "Month and year header, weekday row and date grid. Monday-first in Chinese, Sunday-first in English.",
+        "zh": "月份 + 年份、周标题和日期网格；中文周一开头，英文周日开头。"
+      },
+      "version": "1.0.0",
+      "runtime": ">=0.6.0",
+      "permissions": [
+        "data.time"
+      ],
+      "size": {
+        "w": 384,
+        "h": 232
+      },
+      "span": 1,
+      "tags": [
+        "time",
+        "calendar"
+      ],
+      "author": "Sill",
+      "license": "MIT",
+      "type": "template",
+      "status": "verified",
+      "engine": ">=0.1.0",
+      "installable": true,
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.calendar-1.0.0.sill",
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill-components",
+        "path": "widgets/sill.calendar",
+        "ref": "main"
+      },
+      "docs": "widgets/sill.calendar/README.md"
+    },
+    {
+      "id": "sill.weather",
+      "name": {
+        "en": "Weather",
+        "zh": "天气"
+      },
+      "summary": {
+        "en": "Current conditions and the day range.",
+        "zh": "当前天气和当天温度范围。"
+      },
+      "description": {
+        "en": "City, condition icon, temperature and high/low. Keeps the last good sample when the network fails.",
+        "zh": "城市、天气图标、温度和最高 / 最低温；网络失败时保留上一次成功数据。"
+      },
+      "version": "1.0.0",
+      "runtime": ">=0.6.0",
+      "permissions": [
+        "data.weather"
+      ],
+      "size": {
+        "w": 384,
+        "h": 150
+      },
+      "span": 1,
+      "tags": [
+        "weather"
+      ],
+      "author": "Sill",
+      "license": "MIT",
+      "type": "template",
+      "status": "verified",
+      "engine": ">=0.1.0",
+      "installable": true,
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.weather-1.0.0.sill",
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill-components",
+        "path": "widgets/sill.weather",
+        "ref": "main"
+      },
+      "docs": "widgets/sill.weather/README.md"
+    },
+    {
+      "id": "sill.rings",
+      "name": {
+        "en": "Rings",
+        "zh": "监控环"
+      },
+      "summary": {
+        "en": "CPU, GPU, RAM and swap as four rings.",
+        "zh": "CPU / GPU / RAM / SWAP 四个圆环。"
+      },
+      "description": {
+        "en": "Four independent rings in one card. Wide cards use one row, narrow cards use 2×2. Swap is Windows virtual memory (commit), shown as percent plus used/total GB.",
+        "zh": "一张卡里的四个独立圆环；宽卡一行四个，窄卡 2×2。SWAP 是 Windows 虚拟内存（commit），显示百分比和已用 / 总量 GB。"
+      },
+      "version": "1.0.0",
+      "runtime": ">=0.7.0",
+      "permissions": [
+        "data.system"
+      ],
+      "size": {
+        "w": 260,
+        "h": 252
+      },
+      "span": 2,
+      "tags": [
+        "system",
+        "cpu",
+        "gpu",
+        "memory"
+      ],
+      "author": "Sill",
+      "license": "MIT",
+      "type": "template",
+      "status": "verified",
+      "engine": ">=0.1.0",
+      "installable": true,
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.rings-1.0.0.sill",
+      "source": {
+        "repo": "https://github.com/Enkrid-Rao/sill-components",
+        "path": "widgets/sill.rings",
+        "ref": "main"
+      },
+      "docs": "widgets/sill.rings/README.md"
     }
   ]
 }

@@ -1,114 +1,136 @@
 :host {
   display: block;
+  --gauge-size: 96px;
 }
 
 .rings {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.rings__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, var(--gauge-size));
+  justify-content: center;
+  align-content: center;
   gap: 10px;
+  color: var(--ink);
+  font-family: var(--sans);
 }
 
-.rings__title {
-  font-size: 10px;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
+:host([data-layout='grid']) .rings {
+  grid-template-columns: repeat(2, var(--gauge-size));
 }
 
-.rings__cores {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.rings__row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.ring {
-  flex: 1 1 0;
-  min-width: 0;
+.gauge {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  min-width: 0;
+  --gauge-color: var(--accent);
+  --gauge-glow: var(--accent-glow);
 }
 
-.ring__dial {
+.gauge--gpu {
+  --gauge-color: hsl(215 82% 74%);
+  --gauge-glow: hsl(215 82% 74% / 0.38);
+}
+
+.gauge--ram {
+  --gauge-color: hsl(36 86% 70%);
+  --gauge-glow: hsl(36 86% 70% / 0.38);
+}
+
+.gauge--swap {
+  --gauge-color: hsl(340 72% 76%);
+  --gauge-glow: hsl(340 72% 76% / 0.38);
+}
+
+.gauge__dial {
   position: relative;
   display: grid;
   place-items: center;
-  width: 100%;
+  width: var(--gauge-size);
+  height: var(--gauge-size);
 }
 
-/* SVG 和读数占同一格，数字才叠在环中心 */
-.ring__dial > * {
-  grid-area: 1 / 1;
-}
-
-.ring__svg {
+.gauge__svg {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 76px;
-  aspect-ratio: 1;
-  /* 起点转到 12 点方向，读数从左往右长 */
+  height: 100%;
   transform: rotate(-90deg);
   overflow: visible;
 }
 
-.ring__track,
-.ring__value {
+.gauge__track {
   fill: none;
-  stroke-width: 5;
+  stroke: rgba(255, 255, 255, 0.07);
 }
 
-.ring__track {
-  stroke: rgba(255, 255, 255, 0.09);
-}
-
-.ring__value {
-  stroke: var(--accent);
+.gauge__value {
+  fill: none;
+  stroke-width: 8;
   stroke-linecap: round;
-  /* pathLength=100 让周长归一化：直接拿 0–100 的读数当 dash 长度 */
   stroke-dasharray: 100;
   stroke-dashoffset: calc(100 - var(--sill-value, 0));
-  transition: stroke-dashoffset 0.5s var(--ease-out, ease-out);
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 0 6px var(--gauge-glow));
 }
 
-.ring--warm .ring__value {
-  stroke: var(--accent-2);
+.gauge--cpu .gauge__value {
+  stroke: url(#g-cpu);
 }
 
-.ring--pale .ring__value {
-  stroke: var(--accent-pale);
+.gauge--gpu .gauge__value {
+  stroke: url(#g-gpu);
 }
 
-.ring__num {
-  font-size: 13px;
+.gauge--ram .gauge__value {
+  stroke: url(#g-ram);
+}
+
+.gauge--swap .gauge__value {
+  stroke: url(#g-swap);
+}
+
+.gauge__center {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   line-height: 1;
-  color: var(--ink-soft);
-  font-variant-numeric: tabular-nums;
 }
 
-.ring__label {
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.gauge__num {
+  font-family: var(--serif);
+  font-size: calc(var(--gauge-size) * 0.23);
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.gauge__pct {
+  margin-left: 1px;
+  color: var(--ink-dim);
+  font-size: calc(var(--gauge-size) * 0.09);
+}
+
+.gauge__label {
   color: var(--ink-faint);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ring__value {
+  .gauge__value {
     transition: none;
   }
 }
+
+
+.gauge__meta {
+  min-height: 10px;
+  color: var(--ink-faint);
+  font-size: 8.5px;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+

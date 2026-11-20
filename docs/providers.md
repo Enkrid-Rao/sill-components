@@ -87,6 +87,14 @@
 | `usedGb` | number | GB，保留一位小数由组件决定 |
 | `totalGb` | number | GB |
 
+### `system.swap`
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| `percent` | number \| null | 虚拟内存（commit）使用率 0–100 |
+| `usedGb` | number \| null | GB |
+| `totalGb` | number \| null | GB |
+
 ### `system.gpu`
 
 | 字段 | 类型 | 说明 |
@@ -207,3 +215,4 @@ provider 层是它的公开版本，字段名不同：
 - 字段只增不改；删除或改类型必须升 `engine` 的主版本。
 - 新 provider 先出现在 `spec/providers.json` 与这份文档，再进引擎。
 - 组件不应假设 provider 一定有值；`null` 是正常状态，不是错误。
+
