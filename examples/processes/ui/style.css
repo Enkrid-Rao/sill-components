@@ -1,5 +1,6 @@
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 .processes {
@@ -17,24 +18,27 @@
 
 .processes__row {
   display: flex;
+  min-width: 0;
   justify-content: space-between;
   gap: 10px;
   color: var(--ink-soft);
-  font-size: 12px;
+  font-size: clamp(11.5px, 3.6cqw, 12.5px);
 }
 
 .processes__name {
   overflow: hidden;
+  min-width: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .processes__mb {
+  flex: none;
   color: var(--ink-dim);
   font-variant-numeric: tabular-nums;
 }
 
 .processes__empty {
   color: var(--ink-faint);
-  font-size: 12px;
+  font-size: 11.5px;
 }

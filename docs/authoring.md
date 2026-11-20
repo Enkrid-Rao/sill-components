@@ -257,6 +257,9 @@ sill.onData(({ data }) => {
 - 动效 120–200ms，`prefers-reduced-motion` 时关掉；
 - 需要圆角时用 8–12px，胶囊用 999px。
 
+官方组件已经把这套视觉语言固定成更细的规范：字号阶梯、宽卡换排版、状态机写法、`null` 的
+显示规则都在 [design.md](design.md)。写新组件前过一遍那份清单。
+
 ## 8. ui/main.js：宿主 API
 
 `main.js` 在面板页面里执行一次，宿主注入两个参数：

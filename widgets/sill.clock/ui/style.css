@@ -3,47 +3,176 @@
   container-type: inline-size;
 }
 
+/* 时间卡：主数字 + 秒 / 日期 + 时段 / 一天进度线。
+   宽卡变成两栏（左边时间，右边日期与时段），不做拉伸。 */
 .clock {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'time'
+    'meta'
+    'day';
+  gap: 7px;
   color: var(--ink);
   font-family: var(--sans);
 }
 
 .clock__time {
+  grid-area: time;
   display: flex;
+  min-width: 0;
   align-items: baseline;
-  gap: 4px;
+  gap: 6px;
 }
 
 .clock__digits {
+  display: block;
   font-family: var(--serif);
-  font-size: clamp(40px, 14cqw, 120px);
+  font-style: italic;
   font-weight: 400;
-  line-height: 0.92;
-  letter-spacing: -0.025em;
+  font-size: clamp(44px, 17cqw, 156px);
+  line-height: 0.8;
+  letter-spacing: -0.035em;
   font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+
+.clock__face {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+}
+
+/* 12 小时制时 PM 做上标：贴着数字右上角，不占秒数的基线位置 */
+.clock__meridiem {
+  position: absolute;
+  top: 8%;
+  left: 100%;
+  margin-left: 11px;
+  color: var(--accent);
+  font-size: clamp(9px, 2.3cqw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
 }
 
 .clock__seconds {
-  color: var(--accent);
-  font-size: clamp(10px, 3cqw, 20px);
+  flex: none;
+  color: var(--ink-dim);
+  font-size: clamp(11px, 3.2cqw, 20px);
+  line-height: 1;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
-.clock__seconds::before {
-  content: ':';
+.clock__colon {
   margin-right: 1px;
   color: var(--ink-faint);
 }
 
-.clock__daypart {
-  color: var(--ink-dim);
-  font-size: clamp(10px, 3cqw, 18px);
-  letter-spacing: 0.02em;
+.clock__meta {
+  grid-area: meta;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 14px;
+  min-width: 0;
 }
 
+.clock__date {
+  overflow: hidden;
+  color: var(--ink-dim);
+  font-size: clamp(10.5px, 3cqw, 12.5px);
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clock__daypart {
+  flex: none;
+  color: var(--ink-soft);
+  font-size: clamp(10.5px, 3.4cqw, 13px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.clock__daypart > span {
+  display: none;
+}
+
+.clock__daypart[data-period='lateNight'] > [data-period='lateNight'],
+.clock__daypart[data-period='dawn'] > [data-period='dawn'],
+.clock__daypart[data-period='morning'] > [data-period='morning'],
+.clock__daypart[data-period='afternoon'] > [data-period='afternoon'],
+.clock__daypart[data-period='evening'] > [data-period='evening'] {
+  display: inline;
+}
+
+.clock__day {
+  grid-area: day;
+  height: 2px;
+  margin-top: 1px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.clock__dayFill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  opacity: 0.85;
+  transition: width 1s linear;
+}
+
+/* 宽卡：时间与日期信息左右分栏，日期右对齐成一个小块 */
+@container (min-width: 460px) {
+  .clock {
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    grid-template-areas:
+      'time meta'
+      'day day';
+    gap: 10px 24px;
+    align-items: end;
+  }
+
+  .clock__meta {
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: end;
+    gap: 2px;
+    text-align: right;
+  }
+
+  .clock__date {
+    max-width: 100%;
+    font-size: 11.5px;
+    letter-spacing: 0.01em;
+  }
+
+  .clock__daypart {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: clamp(18px, 2.6cqw, 30px);
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  .clock__day {
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clock__dayFill {
+    transition: none;
+  }
+}
 
 

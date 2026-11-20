@@ -142,6 +142,10 @@ web 规则见 [docs/web.md](docs/web.md)。
 `lyrics` 是第一个从本仓库分发的可安装官方组件：源码在 `widgets/sill.lyrics/`，打包产物在
 `registry/packages/`，目录条目用 `installable: true` + `download` 指向 raw 直链。
 
+五个可安装组件（`lyrics` / `clock` / `calendar` / `weather` / `rings`）在 1.1.0 统一了视觉规范：
+衬线斜体主值、`--accent-2` / `--accent-pale` 派生色、185–1110px 的容器查询布局、完整的状态与焦点样式。
+规范见 [docs/design.md](docs/design.md)。
+
 目录见 [registry/README.md](registry/README.md)。
 
 ## 文档
@@ -149,6 +153,7 @@ web 规则见 [docs/web.md](docs/web.md)。
 | 文档 | 内容 |
 |---|---|
 | [docs/authoring.md](docs/authoring.md) | **写组件的完整指南**（从这里开始） |
+| [docs/design.md](docs/design.md) | **组件视觉规范**：字号、颜色、响应式、状态机、自检清单 |
 | [STATUS.md](STATUS.md) | 已实现 / 未实现 |
 | [CHANGELOG.md](CHANGELOG.md) | 版本变更 |
 | [docs/runtime.md](docs/runtime.md) | 渲染、尺寸、主题、性能 |

@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "sill.lyrics",
   "name": "Lyrics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Sill",
   "license": "MIT",
   "runtime": ">=0.6.0",
@@ -27,8 +27,36 @@
     }
   ],
   "strings": {
-    "en": { "title": "LYRICS", "empty": "No lyrics found", "idle": "Nothing playing" },
-    "zh": { "title": "歌词", "empty": "没有找到歌词", "idle": "没有在播放" }
+    "en": {
+      "title": "LYRICS",
+      "synced": "Synced",
+      "plain": "No timing",
+      "loading": "Searching",
+      "idle": "Nothing playing",
+      "idleHint": "Open a music app and lyrics appear here.",
+      "empty": "No lyrics found",
+      "emptyHint": "This track may not be in the LRCLIB database yet.",
+      "error": "Lyrics unavailable",
+      "errorHint": "The lookup failed. Check the network and try again.",
+      "instrumental": "Instrumental",
+      "instrumentalHint": "This track has no vocals.",
+      "retry": "Search again"
+    },
+    "zh": {
+      "title": "歌词",
+      "synced": "同步",
+      "plain": "无时间轴",
+      "loading": "搜索中",
+      "idle": "没有在播放",
+      "idleHint": "打开音乐应用后，歌词会显示在这里。",
+      "empty": "没有找到歌词",
+      "emptyHint": "这首歌可能还没有收录到 LRCLIB。",
+      "error": "歌词暂时取不到",
+      "errorHint": "查询失败，检查网络后再试一次。",
+      "instrumental": "纯音乐",
+      "instrumentalHint": "这首歌没有人声。",
+      "retry": "重新搜索"
+    }
   },
   "ui": "ui/index.html"
 }

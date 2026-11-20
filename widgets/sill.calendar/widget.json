@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "sill.calendar",
   "name": "Calendar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Sill",
   "type": "template",
   "span": {
@@ -18,8 +18,20 @@
       "source": "time.now"
     }
   ],
+  "strings": {
+    "en": {
+      "prev": "Previous month",
+      "next": "Next month",
+      "today": "Today"
+    },
+    "zh": {
+      "prev": "上个月",
+      "next": "下个月",
+      "today": "今天"
+    }
+  },
   "ui": "ui/index.html",
-  "description": "A month calendar with today highlighted.",
+  "description": "A month calendar with month navigation, today highlighted and a stable six-week grid.",
   "license": "MIT",
   "runtime": ">=0.6.0",
   "engine": ">=0.1.0",

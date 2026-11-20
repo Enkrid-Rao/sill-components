@@ -1,6 +1,23 @@
-<div class="clock">
+<div class="clock" id="clock" role="group">
   <div class="clock__time">
-    <span class="clock__digits" id="time">--:--</span><span class="clock__seconds" id="seconds">00</span>
+    <span class="clock__face">
+      <time class="clock__digits" id="digits" datetime="">--:--</time>
+      <span class="clock__meridiem" id="meridiem" hidden>PM</span>
+    </span>
+    <span class="clock__seconds" id="seconds"><span class="clock__colon">:</span><span id="sec">00</span></span>
   </div>
-  <div class="clock__daypart" id="daypart"></div>
+
+  <div class="clock__meta">
+    <span class="clock__date" id="date"></span>
+    <span class="clock__daypart" id="daypart" data-period="evening">
+      <span data-period="lateNight" data-sill-i18n="lateNight">Late night</span>
+      <span data-period="dawn" data-sill-i18n="dawn">Early morning</span>
+      <span data-period="morning" data-sill-i18n="morning">Morning</span>
+      <span data-period="afternoon" data-sill-i18n="afternoon">Afternoon</span>
+      <span data-period="evening" data-sill-i18n="evening">Evening</span>
+    </span>
+  </div>
+
+  <div class="clock__day" aria-hidden="true"><i class="clock__dayFill" id="dayFill"></i></div>
 </div>
+

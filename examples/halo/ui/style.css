@@ -1,5 +1,6 @@
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 .halo {
@@ -106,19 +107,22 @@
 }
 
 .halo__dial--swap .halo__value {
-  stroke: hsl(36 86% 70%);
+  stroke: var(--ink-dim);
+  filter: none;
 }
 
 .halo__num {
   color: var(--ink);
-  font-size: 15px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(12px, 4.6cqw, 15px);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 .halo__label {
   color: var(--ink-faint);
-  font-size: 10px;
+  font-size: 9.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -144,4 +148,3 @@
     transition: none;
   }
 }
-

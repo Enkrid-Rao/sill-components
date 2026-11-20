@@ -2,8 +2,8 @@
   "schema": 1,
   "id": "sill.rings",
   "name": "Rings",
-  "description": "CPU / GPU / RAM / SWAP as four independent rings in one card.",
-  "version": "1.0.0",
+  "description": "CPU / GPU / RAM / SWAP as four rings, with used / total under each.",
+  "version": "1.1.0",
   "author": "Sill",
   "license": "MIT",
   "runtime": ">=0.7.0",
@@ -37,5 +37,15 @@
       "source": "system.swap"
     }
   ],
+  "strings": {
+    "en": {
+      "cores": "cores",
+      "noData": "No data"
+    },
+    "zh": {
+      "cores": "核",
+      "noData": "无数据"
+    }
+  },
   "ui": "ui/index.html"
 }

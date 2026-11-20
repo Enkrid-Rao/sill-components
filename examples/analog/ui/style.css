@@ -1,11 +1,12 @@
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 .analog {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .analog__head,
@@ -38,8 +39,9 @@
 }
 
 .analog__svg {
-  width: 132px;
-  height: 132px;
+  width: clamp(104px, 46cqw, 132px);
+  height: auto;
+  aspect-ratio: 1;
 }
 
 .analog__rim {
@@ -91,15 +93,18 @@
 }
 
 .analog__date {
+  overflow: hidden;
   color: var(--ink-dim);
   font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .analog__time {
+  flex: none;
   color: var(--ink);
   font-family: var(--serif);
   font-size: 20px;
   font-style: italic;
   font-variant-numeric: tabular-nums;
 }
-

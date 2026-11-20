@@ -1,31 +1,35 @@
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 .clock {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 5px;
 }
 
 .clock__label {
+  color: var(--ink-faint);
   font-size: 10px;
   letter-spacing: 0.17em;
   text-transform: uppercase;
-  color: var(--ink-faint);
 }
 
 .clock__time {
+  color: var(--ink);
   font-family: var(--serif);
   font-style: italic;
-  font-size: 56px;
+  font-size: clamp(40px, 15cqw, 56px);
   line-height: 0.92;
   letter-spacing: -0.02em;
-  color: rgba(250, 255, 252, 0.97);
   font-variant-numeric: lining-nums tabular-nums;
 }
 
 .clock__date {
-  font-size: 12px;
+  overflow: hidden;
   color: var(--ink-dim);
+  font-size: 11.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

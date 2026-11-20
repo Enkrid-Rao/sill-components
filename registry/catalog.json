@@ -259,10 +259,10 @@
         "zh": "跟随当前播放歌曲的同步歌词。"
       },
       "description": {
-        "en": "Looks up LRCLIB by title and artist, shows the current line and the next one, and follows playback. The offset can be tuned in settings.",
-        "zh": "按歌名 / 歌手向 LRCLIB 查询，显示当前行与下一行并跟随播放；可在设置里校正偏移。"
+        "en": "LRCLIB lookup with a 10-minute cache, a line-to-line progress bar, explicit idle / loading / empty / error / instrumental states and retry.",
+        "zh": "LRCLIB 查询 + 10 分钟缓存、行间进度线，以及待机 / 加载 / 空 / 失败 / 纯音乐状态与重试。"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": "Sill",
       "license": "MIT",
       "type": "template",
@@ -278,7 +278,7 @@
       },
       "span": 1,
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.0.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.1.0.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.lyrics",
@@ -297,21 +297,21 @@
         "zh": "时钟"
       },
       "summary": {
-        "en": "Time, seconds and the day part.",
-        "zh": "时间、秒数和时段。"
+        "en": "Time, seconds, date and the day part.",
+        "zh": "时间、秒数、日期与时段。"
       },
       "description": {
-        "en": "A large HH:MM clock with inline seconds and the day part below. No card title.",
-        "zh": "大号 HH:MM，秒数并进主时间，下面显示时段。没有卡片标题。"
+        "en": "Large serif time with optional 12-hour format, seconds, a compact date and a five-step day part; a 2px line shows the day progress.",
+        "zh": "大号衬线时间，可切换 12 小时制、秒数与日期；时段分五档，底部 2px 线显示一天进度。"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "runtime": ">=0.6.0",
       "permissions": [
         "data.time"
       ],
       "size": {
         "w": 384,
-        "h": 132
+        "h": 150
       },
       "span": 1,
       "tags": [
@@ -323,7 +323,7 @@
       "status": "verified",
       "engine": ">=0.1.0",
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.clock-1.0.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.clock-1.1.0.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.clock",
@@ -338,21 +338,21 @@
         "zh": "日历"
       },
       "summary": {
-        "en": "A month calendar with today highlighted.",
-        "zh": "带今天高亮的月历。"
+        "en": "A month calendar with navigation.",
+        "zh": "可翻月的月历。"
       },
       "description": {
-        "en": "Month and year header, weekday row and date grid. Monday-first in Chinese, Sunday-first in English.",
-        "zh": "月份 + 年份、周标题和日期网格；中文周一开头，英文周日开头。"
+        "en": "Fixed six-week grid so the height never jumps, previous / next month and today buttons, Monday-first in Chinese, Sunday-first in English.",
+        "zh": "固定六周网格、翻月不跳高度；上 / 下月与今天按钮；中文周一开头，英文周日开头。"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "runtime": ">=0.6.0",
       "permissions": [
         "data.time"
       ],
       "size": {
         "w": 384,
-        "h": 232
+        "h": 240
       },
       "span": 1,
       "tags": [
@@ -365,7 +365,7 @@
       "status": "verified",
       "engine": ">=0.1.0",
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.calendar-1.0.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.calendar-1.1.0.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.calendar",
@@ -384,10 +384,10 @@
         "zh": "当前天气和当天温度范围。"
       },
       "description": {
-        "en": "City, condition icon, temperature and high/low. Keeps the last good sample when the network fails.",
-        "zh": "城市、天气图标、温度和最高 / 最低温；网络失败时保留上一次成功数据。"
+        "en": "Two-tone WMO icons with day and night variants, °C / °F switch, high/low arrows, and explicit loading / stale / error states.",
+        "zh": "按 WMO code 的双色昼夜图标、°C / °F 切换、高低温箭头，以及加载 / 缓存 / 失败状态。"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "runtime": ">=0.6.0",
       "permissions": [
         "data.weather"
@@ -406,7 +406,7 @@
       "status": "verified",
       "engine": ">=0.1.0",
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.weather-1.0.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.weather-1.1.0.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.weather",
@@ -425,17 +425,17 @@
         "zh": "CPU / GPU / RAM / SWAP 四个圆环。"
       },
       "description": {
-        "en": "Four independent rings in one card. Wide cards use one row, narrow cards use 2×2. Swap is Windows virtual memory (commit), shown as percent plus used/total GB.",
-        "zh": "一张卡里的四个独立圆环；宽卡一行四个，窄卡 2×2。SWAP 是 Windows 虚拟内存（commit），显示百分比和已用 / 总量 GB。"
+        "en": "Four rings using only theme colours, used / total under each (cores for CPU), one row on wide cards and 2x2 on narrow ones.",
+        "zh": "四个只用主题色的圆环，每个下面显示已用 / 总量；宽卡一行四个，窄卡 2×2。"
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "runtime": ">=0.7.0",
       "permissions": [
         "data.system"
       ],
       "size": {
         "w": 260,
-        "h": 252
+        "h": 250
       },
       "span": 2,
       "tags": [
@@ -450,7 +450,7 @@
       "status": "verified",
       "engine": ">=0.1.0",
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.rings-1.0.0.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.rings-1.1.0.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.rings",

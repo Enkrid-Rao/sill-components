@@ -1,5 +1,6 @@
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 .wave {
@@ -11,8 +12,8 @@
 .wave__art {
   position: relative;
   flex: 0 0 auto;
-  width: 76px;
-  height: 76px;
+  width: clamp(56px, 24cqw, 76px);
+  height: clamp(56px, 24cqw, 76px);
 }
 
 .wave__img {
@@ -86,7 +87,7 @@
   height: 3px;
   margin-top: 6px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 99px;
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -108,27 +109,35 @@
   display: grid;
   width: 27px;
   height: 23px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 7px;
-  padding: 0;
   place-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 0;
   color: var(--ink-soft);
   font: inherit;
   font-size: 13px;
   line-height: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 7px;
   cursor: pointer;
+  transition:
+    background 160ms var(--ease-out),
+    color 160ms var(--ease-out);
 }
 
 .wave__button:hover {
-  background: rgba(255, 255, 255, 0.11);
-  color: var(--ink);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.wave__button:focus-visible {
+  outline: 1.5px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .wave__button--main {
-  border-color: var(--accent-soft);
-  background: var(--accent-soft);
   color: var(--accent-pale);
+  background: var(--accent-soft);
+  border-color: transparent;
 }
 
 .wave__button--mute {
@@ -140,4 +149,18 @@
   .wave__pulse {
     animation: none;
   }
+
+  .wave__fill {
+    transition: none;
+  }
+}
+
+
+.wave__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

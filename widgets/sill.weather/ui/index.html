@@ -1,13 +1,33 @@
-<div class="wx">
+<div class="wx" id="wx" role="group" data-state="loading">
   <div class="wx__head">
-    <span class="wx__city" id="city"></span>
+    <span class="wx__cap" data-sill-i18n="title">WEATHER</span>
+    <span class="wx__place" id="place">
+      <span class="wx__city" id="city"></span>
+      <span class="wx__city" id="cityPending" data-sill-i18n="locating" hidden>定位中…</span>
+    </span>
   </div>
+
   <div class="wx__main">
-    <div class="wx__icon" id="icon"></div>
-    <div class="wx__temp" id="temp">--°</div>
+    <span class="wx__icon" id="icon" aria-hidden="true"></span>
+    <span class="wx__reading">
+      <span class="wx__temp">
+        <span id="temp">--</span><span class="wx__deg">°</span><span class="wx__unit" id="unit">C</span>
+      </span>
+      <span class="wx__cond">
+        <span id="condLive"></span>
+        <span id="condLoading" data-sill-i18n="loading">正在获取天气…</span>
+        <span id="condError" data-sill-i18n="unavailable" hidden>天气暂不可用</span>
+      </span>
+    </span>
   </div>
-  <div class="wx__meta">
-    <span class="wx__condition" id="condition"></span>
+
+  <div class="wx__side">
     <span class="wx__range" id="range"></span>
+    <span class="wx__stale" id="stale" hidden>
+      <span class="wx__staleDot" aria-hidden="true"></span>
+      <span data-sill-i18n="updated">更新于</span>
+      <span id="updated"></span>
+    </span>
   </div>
 </div>
+

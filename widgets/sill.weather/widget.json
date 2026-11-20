@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "sill.weather",
   "name": "Weather",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Sill",
   "type": "template",
   "span": {
@@ -18,16 +18,45 @@
       "source": "weather.current"
     }
   ],
+  "settings": [
+    {
+      "key": "unit",
+      "type": "select",
+      "label": {
+        "en": "Temperature unit",
+        "zh": "温度单位"
+      },
+      "options": [
+        {
+          "value": "c",
+          "label": "°C"
+        },
+        {
+          "value": "f",
+          "label": "°F"
+        }
+      ],
+      "default": "c"
+    }
+  ],
   "strings": {
     "en": {
-      "title": "WEATHER"
+      "title": "WEATHER",
+      "loading": "Fetching weather…",
+      "unavailable": "Weather unavailable",
+      "locating": "Locating…",
+      "updated": "Updated"
     },
     "zh": {
-      "title": "天气"
+      "title": "天气",
+      "loading": "正在获取天气…",
+      "unavailable": "天气暂不可用",
+      "locating": "定位中…",
+      "updated": "更新于"
     }
   },
   "ui": "ui/index.html",
-  "description": "Current conditions, temperature and the day range.",
+  "description": "Current conditions, temperature and the day range, with stale and offline states.",
   "license": "MIT",
   "runtime": ">=0.6.0",
   "engine": ">=0.1.0",

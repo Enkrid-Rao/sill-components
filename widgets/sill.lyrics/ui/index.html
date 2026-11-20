@@ -1,13 +1,54 @@
-<div class="lyr">
+<div class="lyr" id="lyr" data-state="idle">
   <div class="lyr__head">
-    <span class="lyr__state" id="state"></span>
+    <span class="lyr__cap" data-sill-i18n="title">歌词</span>
+    <span class="lyr__meta">
+      <span class="lyr__offset" id="offset" hidden></span>
+      <span class="lyr__badge" id="badge" data-state="idle" hidden>
+        <span data-state="synced" data-sill-i18n="synced">同步</span>
+        <span data-state="plain" data-sill-i18n="plain">无时间轴</span>
+        <span data-state="loading" data-sill-i18n="loading">搜索中</span>
+      </span>
+    </span>
   </div>
 
-  <div class="lyr__viewport">
-    <p class="lyr__line lyr__line--current" id="line" aria-live="polite">—</p>
-    <p class="lyr__line lyr__line--next" id="next"></p>
+  <div class="lyr__stage" id="stage">
+    <p class="lyr__line" id="line" aria-live="polite">—</p>
+    <p class="lyr__next" id="next"></p>
+    <span class="lyr__progress" aria-hidden="true"><i id="bar"></i></span>
+  </div>
+
+  <div class="lyr__skeleton" id="loading" hidden>
+    <span class="lyr__bone"></span>
+    <span class="lyr__bone lyr__bone--short"></span>
+  </div>
+
+  <div class="lyr__plain" id="plain" hidden></div>
+
+  <div class="lyr__block" id="idle" hidden>
+    <p class="lyr__state"><span data-sill-i18n="idle">没有在播放</span></p>
+    <p class="lyr__hint" data-sill-i18n="idleHint"></p>
+  </div>
+
+  <div class="lyr__block" id="empty" hidden>
+    <p class="lyr__state"><span data-sill-i18n="empty">没有找到歌词</span></p>
+    <p class="lyr__hint" data-sill-i18n="emptyHint"></p>
+    <button class="lyr__retry" id="retryEmpty" type="button">
+      <span data-sill-i18n="retry">重新搜索</span>
+    </button>
+  </div>
+
+  <div class="lyr__block" id="error" hidden>
+    <p class="lyr__state"><span data-sill-i18n="error">歌词暂时取不到</span></p>
+    <p class="lyr__hint" data-sill-i18n="errorHint"></p>
+    <button class="lyr__retry" id="retryError" type="button">
+      <span data-sill-i18n="retry">重新搜索</span>
+    </button>
+  </div>
+
+  <div class="lyr__block" id="instrumental" hidden>
+    <p class="lyr__state"><span data-sill-i18n="instrumental">纯音乐</span></p>
+    <p class="lyr__hint" data-sill-i18n="instrumentalHint"></p>
   </div>
 
   <div class="lyr__song" id="song"></div>
 </div>
-

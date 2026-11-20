@@ -1,5 +1,37 @@
 # Changelog
 
+## 官方组件 1.1.0 — 2026-11-20
+
+五个可安装官方组件（`sill.clock` / `sill.calendar` / `sill.weather` / `sill.rings` / `sill.lyrics`）
+按同一套视觉规范重做，打包产物升到 1.1.0，目录条目的 `version` / `download` / 描述同步更新。
+
+### 新增
+
+- [docs/design.md](docs/design.md)：组件视觉规范（字号、颜色、响应式、状态机、无障碍、发布自检）；
+- `sill.clock` 设置：显示秒数 / 12 小时制 / 显示日期；时段文案进 `strings`，五档（凌晨 → 晚上）；
+- `sill.calendar` 交互：上 / 下月与「今天」，固定六周网格，翻月动画与 `:focus-visible`；
+- `sill.weather` 设置：°C / °F；双色昼夜图标；`loading` / `stale` / `error` 三种状态；
+- `sill.rings` 每个环下方的「已用 / 总量」（CPU 显示核数）、无数据态、主题色环；
+- `sill.lyrics` 七种状态、行进度线、偏移胶囊、重试按钮、10 分钟缓存与请求中止；
+- `sill.weather` / `sill.lyrics` / `sill.clock` 的设置监听在 `onDispose` 里解绑。
+
+### 修复
+
+- `sill.weather`：`Number(null) === 0` 导致无数据时显示 `0° / 高 0° 低 0°`；现在显示 `--`；
+- `sill.rings`：删掉 `#cpuPct` / `.rings__unit` 等不存在的选择器、`data-value` 死属性、
+  直接写宿主 `.card` 内联样式的 `fit()`，改用纯 CSS 容器查询；
+- `sill.rings`：不再写死蓝 / 琥珀 / 粉三组色相，四个环全部从 `--accent*` 派生；
+- `sill.calendar`：中文周标题 8px / 英文单字母重复（S M T W T F S）改为可读的双字母与 10.5px 下限；
+  今天的高亮不再在宽卡被拉成椭圆；翻月不再跳高度；
+- `sill.lyrics`：`setInterval` 未清理、重复文案表、只显示两行纯歌词、请求无法中止等问题；
+- `sill.clock`：宽卡不再把 318px 的排版横向拉长，改为「时间 + 日期/时段」两栏。
+
+### 示例
+
+- 统一改掉硬编码颜色（`rgba(250,255,252,.97)`、`hsl(36 …)`）与空标题行；
+- `analog` 秒数解析改为 `new Date(iso)`；`media` / `wave` / `tasks` 补 hover / focus-visible；
+- `clock` / `inline-clock` / `analog` / `wave` / `halo` 补 `container-type` 与 `clamp()` 字号。
+
 ## v0.4 — 未发布
 
 把「模板」从静态白名单卡升级成 Rainmeter 式可信组件：去掉白名单、加内联 JS、组件存储、包内资源与 Skins 目录。

@@ -1,115 +1,89 @@
-<div class="rings">
-  <div class="gauge gauge--cpu" data-gauge="cpu">
+<div class="rings" id="rings">
+  <div class="gauge gauge--cpu" id="gaugeCpu" role="group">
     <div class="gauge__dial">
-      <svg class="gauge__svg" viewBox="0 0 88 88" aria-hidden="true">
-        <defs>
-          <linearGradient id="g-cpu" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--gauge-color)" />
-            <stop offset="1" stop-color="color-mix(in srgb, var(--gauge-color) 55%, white)" />
-          </linearGradient>
-        </defs>
-        <circle class="gauge__track" cx="44" cy="44" r="36" stroke-width="7" />
+      <svg class="gauge__svg" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="gauge__track" cx="50" cy="50" r="43" />
         <circle
-          class="gauge__value"
-          cx="44"
-          cy="44"
-          r="36"
-          stroke-width="7"
+          class="gauge__arc"
+          cx="50"
+          cy="50"
+          r="43"
           pathLength="100"
           data-sill-meter="cpu.usage"
-          data-value="cpu"
         />
       </svg>
       <span class="gauge__center">
-        <span class="gauge__num" data-sill-text="cpu.usage">—</span><span class="gauge__pct">%</span>
+        <span class="gauge__num" id="numCpu">—</span><span class="gauge__pct" id="pctCpu" hidden>%</span>
       </span>
     </div>
     <span class="gauge__label">CPU</span>
+    <span class="gauge__sub" id="subCpu">—</span>
   </div>
 
-  <div class="gauge gauge--gpu" data-gauge="gpu">
+  <div class="gauge gauge--gpu" id="gaugeGpu" role="group">
     <div class="gauge__dial">
-      <svg class="gauge__svg" viewBox="0 0 88 88" aria-hidden="true">
-        <defs>
-          <linearGradient id="g-gpu" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--gauge-color)" />
-            <stop offset="1" stop-color="color-mix(in srgb, var(--gauge-color) 55%, white)" />
-          </linearGradient>
-        </defs>
-        <circle class="gauge__track" cx="44" cy="44" r="36" stroke-width="7" />
+      <svg class="gauge__svg" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="gauge__track" cx="50" cy="50" r="43" />
         <circle
-          class="gauge__value"
-          cx="44"
-          cy="44"
-          r="36"
-          stroke-width="7"
+          class="gauge__arc"
+          cx="50"
+          cy="50"
+          r="43"
           pathLength="100"
           data-sill-meter="gpu.usage"
-          data-value="gpu"
         />
       </svg>
       <span class="gauge__center">
-        <span class="gauge__num" data-sill-text="gpu.usage">—</span><span class="gauge__pct">%</span>
+        <span class="gauge__num" id="numGpu">—</span><span class="gauge__pct" id="pctGpu" hidden>%</span>
       </span>
     </div>
     <span class="gauge__label">GPU</span>
+    <span class="gauge__sub" id="subGpu">—</span>
   </div>
 
-  <div class="gauge gauge--ram" data-gauge="ram">
+  <div class="gauge gauge--ram" id="gaugeRam" role="group">
     <div class="gauge__dial">
-      <svg class="gauge__svg" viewBox="0 0 88 88" aria-hidden="true">
-        <defs>
-          <linearGradient id="g-ram" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--gauge-color)" />
-            <stop offset="1" stop-color="color-mix(in srgb, var(--gauge-color) 55%, white)" />
-          </linearGradient>
-        </defs>
-        <circle class="gauge__track" cx="44" cy="44" r="36" stroke-width="7" />
+      <svg class="gauge__svg" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="gauge__track" cx="50" cy="50" r="43" />
         <circle
-          class="gauge__value"
-          cx="44"
-          cy="44"
-          r="36"
-          stroke-width="7"
+          class="gauge__arc"
+          cx="50"
+          cy="50"
+          r="43"
           pathLength="100"
           data-sill-meter="mem.percent"
-          data-value="mem"
         />
       </svg>
       <span class="gauge__center">
-        <span class="gauge__num" data-sill-text="mem.percent">—</span><span class="gauge__pct">%</span>
+        <span class="gauge__num" id="numRam">—</span><span class="gauge__pct" id="pctRam" hidden>%</span>
       </span>
     </div>
     <span class="gauge__label">RAM</span>
+    <span class="gauge__sub" id="subRam">—</span>
   </div>
 
-  <div class="gauge gauge--swap" data-gauge="swap">
+  <div class="gauge gauge--swap" id="gaugeSwap" role="group">
     <div class="gauge__dial">
-      <svg class="gauge__svg" viewBox="0 0 88 88" aria-hidden="true">
-        <defs>
-          <linearGradient id="g-swap" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--gauge-color)" />
-            <stop offset="1" stop-color="color-mix(in srgb, var(--gauge-color) 55%, white)" />
-          </linearGradient>
-        </defs>
-        <circle class="gauge__track" cx="44" cy="44" r="36" stroke-width="7" />
+      <svg class="gauge__svg" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="gauge__track" cx="50" cy="50" r="43" />
         <circle
-          class="gauge__value"
-          cx="44"
-          cy="44"
-          r="36"
-          stroke-width="7"
+          class="gauge__arc"
+          cx="50"
+          cy="50"
+          r="43"
           pathLength="100"
           data-sill-meter="swap.percent"
-          data-value="swap"
         />
       </svg>
       <span class="gauge__center">
-        <span class="gauge__num" data-sill-text="swap.percent">—</span><span class="gauge__pct">%</span>
+        <span class="gauge__num" id="numSwap">—</span><span class="gauge__pct" id="pctSwap" hidden>%</span>
       </span>
     </div>
     <span class="gauge__label">SWAP</span>
-    <span class="gauge__meta" id="swapMeta"></span>
+    <span class="gauge__sub" id="subSwap">—</span>
   </div>
+
+  <span class="sill-i18n" id="coresLabel" data-sill-i18n="cores" hidden>核</span>
+  <span class="sill-i18n" id="noDataLabel" data-sill-i18n="noData" hidden>无数据</span>
 </div>
 

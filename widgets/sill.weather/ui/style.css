@@ -1,85 +1,277 @@
-:host { display: block; container-type: inline-size; }
+:host {
+  display: block;
+  container-type: inline-size;
+}
 
 .wx {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'head'
+    'main'
+    'side';
+  gap: 9px;
   color: var(--ink);
   font-family: var(--sans);
 }
 
+/* ---------- 头部：眉标 + 城市 ---------- */
+
 .wx__head {
+  grid-area: head;
   display: flex;
+  min-width: 0;
   align-items: baseline;
-  justify-content: flex-end;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.wx__eyebrow {
+.wx__cap {
+  flex: none;
   color: var(--ink-faint);
   font-size: 10px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
 }
 
+.wx__place {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 5px;
+}
+
 .wx__city {
-  color: var(--ink-dim);
-  font-size: clamp(9px, 2.6cqw, 16px);
   overflow: hidden;
+  color: var(--ink-dim);
+  font-size: 11px;
+  line-height: 1.4;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* ---------- 主体：图标 + 温度 + 描述 ---------- */
+
 .wx__main {
+  grid-area: main;
   display: flex;
-  align-items: center;
+  min-width: 0;
+  align-items: flex-start;
   gap: 12px;
 }
 
 .wx__icon {
   display: grid;
-  width: clamp(30px, 10cqw, 78px);
-  height: clamp(30px, 10cqw, 78px);
+  width: clamp(36px, 15cqw, 68px);
+  height: clamp(36px, 15cqw, 68px);
   flex: none;
+  margin-top: 4px;
   place-items: center;
   color: var(--accent);
+  transition: opacity 200ms var(--ease-out);
 }
 
 .wx__icon svg {
   width: 100%;
   height: 100%;
+  overflow: visible;
+}
+
+.wx__sun,
+.wx__moon {
+  stroke: var(--accent);
+}
+
+.wx__cloud {
+  stroke: var(--ink-soft);
+}
+
+.wx__drop {
+  stroke: var(--accent);
+  opacity: 0.85;
+}
+
+.wx__flake {
+  stroke: var(--ink-soft);
+}
+
+.wx__bolt {
+  fill: var(--accent-2);
+  stroke: var(--accent-2);
+}
+
+.wx__fog {
+  stroke: var(--ink-dim);
+}
+
+.wx__reading {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .wx__temp {
-  font-family: var(--serif);
-  font-size: clamp(28px, 11cqw, 80px);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  font-variant-numeric: lining-nums tabular-nums;
-}
-
-.wx__meta {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 7px;
-}
-
-.wx__condition {
-  color: var(--ink-soft);
-  font-size: clamp(11px, 3cqw, 18px);
-}
-
-.wx__range {
-  color: var(--ink-dim);
-  font-size: clamp(9px, 2.6cqw, 16px);
-  font-variant-numeric: tabular-nums;
+  align-items: flex-start;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(42px, 16cqw, 96px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums tabular-nums;
   white-space: nowrap;
 }
 
+.wx__deg {
+  margin-left: 0.03em;
+  color: var(--ink-soft);
+}
 
+.wx__unit {
+  margin-top: 0.32em;
+  margin-left: 0.06em;
+  color: var(--ink-faint);
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.21em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.wx__cond {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  color: var(--ink-soft);
+  font-size: clamp(11px, 3.2cqw, 13px);
+  line-height: 1.45;
+}
+
+.wx__cond > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- 侧栏 / 底部：高低温 + 数据时间 ---------- */
+
+.wx__side {
+  grid-area: side;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.wx__range {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink-dim);
+  font-size: clamp(10px, 2.8cqw, 12px);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.wx__range:empty {
+  display: none;
+}
+
+.wx__hi,
+.wx__lo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.wx__arrow {
+  color: var(--ink-faint);
+  font-size: 0.9em;
+}
+
+.wx__stale {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink-faint);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.wx__staleDot {
+  width: 4px;
+  height: 4px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent-2);
+}
+
+/* ---------- 状态 ---------- */
+
+.wx[data-state='loading'] .wx__icon {
+  opacity: 0.45;
+}
+
+.wx[data-state='loading'] .wx__temp {
+  opacity: 0.55;
+}
+
+.wx[data-state='error'] .wx__icon {
+  opacity: 0.35;
+}
+
+.wx[data-state='stale'] .wx__icon {
+  opacity: 0.7;
+}
+
+.wx[data-state='loading'] .wx__side {
+  visibility: hidden;
+}
+
+/* ---------- 宽卡：左天气、右高低温 ---------- */
+
+@container (min-width: 520px) {
+  .wx {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'head head'
+      'main side';
+    align-items: end;
+    column-gap: 28px;
+    row-gap: 10px;
+  }
+
+  .wx__icon {
+    margin-top: 6px;
+  }
+
+  .wx__side {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .wx__range {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wx__icon {
+    transition: none;
+  }
+}
 
 
 

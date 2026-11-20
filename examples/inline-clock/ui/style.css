@@ -1,5 +1,6 @@
 :host {
   display: block;
+  container-type: inline-size;
 }
 
 .clock {
@@ -16,11 +17,12 @@
 }
 
 .clock__time {
+  color: var(--ink);
   font-family: var(--serif);
   font-style: italic;
-  font-size: 46px;
+  font-size: clamp(38px, 14cqw, 52px);
   line-height: 0.95;
-  color: var(--ink);
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -29,17 +31,26 @@
 }
 
 .clock__btn {
+  padding: 4px 10px;
+  color: var(--ink-soft);
   font: inherit;
   font-size: 12px;
-  color: var(--ink-soft);
   background: var(--accent-soft);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 4px 10px;
   cursor: pointer;
+  transition:
+    color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out);
 }
 
 .clock__btn:hover {
   color: var(--accent);
   border-color: var(--accent);
 }
+
+.clock__btn:focus-visible {
+  outline: 1.5px solid var(--accent);
+  outline-offset: 2px;
+}
+

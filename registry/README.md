@@ -11,28 +11,30 @@
 ## 现在有什么
 
 六个初始组件随 Sill 发布；`sill.lyrics`、`sill.clock`、`sill.calendar`、`sill.weather`、`sill.rings`
-是可安装的官方模板。
+是可安装的官方模板，当前版本都是 **1.1.0**，源码与打包产物都在本仓库。
 
-| id | 名称 | 数据 | 跨列 | 文档 |
-|---|---|---|---|---|
-| `sill.hero` | 头图 | 时间、天气 | 整行 | [sill.hero](../widgets/sill.hero/README.md) |
-| `sill.system` | 系统 | CPU / 内存 / GPU / 网络 | 1 | [sill.system](../widgets/sill.system/README.md) |
-| `sill.processes` | 进程 | 进程内存、显存 | 1 | [sill.processes](../widgets/sill.processes/README.md) |
-| `sill.media` | 媒体 | SMTC、系统音量 | 1 | [sill.media](../widgets/sill.media/README.md) |
-| `sill.shelf` | 收纳 | 快捷方式 | 1 | [sill.shelf](../widgets/sill.shelf/README.md) |
-| `sill.todo` | 待办 | 本地待办 | 1 或整行 | [sill.todo](../widgets/sill.todo/README.md) |
-| `sill.lyrics` | 歌词 | 媒体、歌词 | 1 | [sill.lyrics](../widgets/sill.lyrics/README.md) |
-| `sill.clock` | 时钟 | 时间 | 1 | [sill.clock](../widgets/sill.clock/README.md) |
-| `sill.calendar` | 日历 | 时间 | 1 | [sill.calendar](../widgets/sill.calendar/README.md) |
-| `sill.weather` | 天气 | 天气 | 1 | [sill.weather](../widgets/sill.weather/README.md) |
-| `sill.rings` | 监控环 | CPU / GPU / 内存 / SWAP | 2 | [sill.rings](../widgets/sill.rings/README.md) |
+| id | 名称 | 数据 | 跨列 | 可安装 | 文档 |
+|---|---|---|---|---|---|
+| `sill.hero` | 头图 | 时间、天气 | 整行 | 否 | [sill.hero](../widgets/sill.hero/README.md) |
+| `sill.system` | 系统 | CPU / 内存 / GPU / 网络 | 1 | 否（随应用发布） | [sill.system](../widgets/sill.system/README.md) |
+| `sill.processes` | 进程 | 进程内存、显存 | 1 | 否（随应用发布） | [sill.processes](../widgets/sill.processes/README.md) |
+| `sill.media` | 媒体 | SMTC、系统音量 | 1 | 否 | [sill.media](../widgets/sill.media/README.md) |
+| `sill.shelf` | 收纳 | 快捷方式 | 1 | 否 | [sill.shelf](../widgets/sill.shelf/README.md) |
+| `sill.todo` | 待办 | 本地待办 | 1 或整行 | 否 | [sill.todo](../widgets/sill.todo/README.md) |
+| `sill.lyrics` | 歌词 | 媒体、歌词 | 1 | **是** | [sill.lyrics](../widgets/sill.lyrics/README.md) |
+| `sill.clock` | 时钟 | 时间 | 1 | **是** | [sill.clock](../widgets/sill.clock/README.md) |
+| `sill.calendar` | 日历 | 时间 | 1 | **是** | [sill.calendar](../widgets/sill.calendar/README.md) |
+| `sill.weather` | 天气 | 天气 | 1 | **是** | [sill.weather](../widgets/sill.weather/README.md) |
+| `sill.rings` | 监控环 | CPU / GPU / 内存 / SWAP | 2 | **是** | [sill.rings](../widgets/sill.rings/README.md) |
 
-它们目前是**宿主内置实现**，不是 `.sill` 包：`installable` 全是 `false`。
-内置组件已经能在面板里工作；它们没有独立安装包，所以不能从目录下载。
-
-**为什么没有把它们的源码复制进来：** 这六个组件和宿主的 CSS、React context、布局 id
-绑在一起，复制一份到本仓库会立刻漂移，而且没有宿主依赖也编译不了。目录只记录来源、权限与
-契约；等它们变成真正独立的 `.sill` 包，再逐个搬进来。
+- hero / media / shelf / todo 是宿主内置实现，与 React context、布局 id 绑在一起，所以
+  `installable: false` 是准确的；它们的视觉规范见 [docs/design.md](../docs/design.md)。
+- system / processes 是随应用发布的模板包（`resources/builtin-widgets/`），不走目录下载，
+  因此也标 `installable: false`。
+- lyrics / clock / calendar / weather / rings 的源码在 `widgets/`，打包产物在
+  [`packages/`](packages/)，目录条目 `installable: true` + `download` 指向 raw 直链。
+- 五个可安装组件的 `version` 是 1.1.0；同一版本的 `.sill` 见
+  `packages/<id>-1.1.0.sill`，旧版本保留以兼容旧链接。
 
 ## `catalog.json`
 
@@ -108,7 +110,8 @@ Sill 的「设置 → 组件 → 组件目录」会读它，用户点安装后�
 3. 在 `registry/catalog.json` 增加条目，`docs` 指向仓库内的说明页；
 4. PR 里说明数据来源、权限用途和失败时的表现。
 
-硬规则：**模板不执行 JS、不联网、不写数据；数据只来自 manifest 声明的 provider。**
+硬规则：**`<script>` 不执行**（要 JS 写 `ui/main.js`）；数据只来自 manifest 声明的 provider；
+模板可以 `fetch` https、加载远程图片/字体，但不允许远程脚本，也不能给卡片铺背景。
 
 ## 相关
 

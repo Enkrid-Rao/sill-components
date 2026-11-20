@@ -22,10 +22,11 @@ for (let i = 0; i < 12; i += 1) {
 
 sill.onData(({ data }) => {
   const now = data.now ?? {}
-  const hour = Number(now.hour) || 0
-  const minute = Number(now.minute) || 0
-  // time.now 没有独立的秒字段，iso 形如 2026-11-19T14:03:07+08:00。
-  const second = Number(String(now.iso ?? '').slice(17, 19)) || 0
+  const when = now.iso ? new Date(now.iso) : null
+  const valid = when instanceof Date && Number.isFinite(when.getTime())
+  const hour = valid ? when.getHours() : 0
+  const minute = valid ? when.getMinutes() : 0
+  const second = valid ? when.getSeconds() : 0
 
   hourHand.setAttribute('transform', `rotate(${hour * 30 + minute * 0.5} 60 60)`)
   minHand.setAttribute('transform', `rotate(${minute * 6 + second * 0.1} 60 60)`)

@@ -28,6 +28,8 @@ python scripts/validate.py
 
 CI 会在每次 push / PR 跑同一份脚本。它不替代手工视觉验收。
 
+组件的字号、颜色、响应式断点、状态写法和发布前自检表见 [design.md](design.md)。
+
 ## 2. 玻璃与 atmosphere
 
 这是模板方案的核心，必须单独看：

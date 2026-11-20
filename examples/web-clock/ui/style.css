@@ -14,16 +14,23 @@ body {
   color: var(--ink-faint);
   font-size: 10px;
   letter-spacing: 0.17em;
+  text-transform: uppercase;
 }
 
 .webclock__host {
+  overflow: hidden;
   color: var(--ink-dim);
   font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .webclock__time {
+  color: var(--ink);
   font-family: var(--serif);
   font-size: 48px;
   font-style: italic;
   line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }

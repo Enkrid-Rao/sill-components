@@ -1,53 +1,56 @@
 :host {
   display: block;
-  --gauge-size: 96px;
+  container-type: inline-size;
 }
 
+/* 四圆环：宽卡一行四个，窄卡 2×2；圆环直径跟格子走，但有上限。 */
 .rings {
   display: grid;
-  grid-template-columns: repeat(4, var(--gauge-size));
-  justify-content: center;
-  align-content: center;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 3.4cqw, 26px);
   color: var(--ink);
   font-family: var(--sans);
 }
 
-:host([data-layout='grid']) .rings {
-  grid-template-columns: repeat(2, var(--gauge-size));
-}
-
 .gauge {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  min-width: 0;
+  gap: 5px;
+  --gauge-color: var(--accent);
+  --gauge-glow: var(--accent-glow);
+  --gauge-max: 108px;
+}
+
+.gauge--cpu {
   --gauge-color: var(--accent);
   --gauge-glow: var(--accent-glow);
 }
 
 .gauge--gpu {
-  --gauge-color: hsl(215 82% 74%);
-  --gauge-glow: hsl(215 82% 74% / 0.38);
+  --gauge-color: var(--accent-2);
+  --gauge-glow: color-mix(in oklab, var(--accent-2) 38%, transparent);
 }
 
 .gauge--ram {
-  --gauge-color: hsl(36 86% 70%);
-  --gauge-glow: hsl(36 86% 70% / 0.38);
+  --gauge-color: var(--accent-pale);
+  --gauge-glow: color-mix(in oklab, var(--accent-pale) 32%, transparent);
 }
 
+/* SWAP 是虚拟内存，属于辅助信息：不抢强调色，也没有光 */
 .gauge--swap {
-  --gauge-color: hsl(340 72% 76%);
-  --gauge-glow: hsl(340 72% 76% / 0.38);
+  --gauge-color: var(--ink-dim);
+  --gauge-glow: transparent;
 }
 
 .gauge__dial {
+  container-type: inline-size;
   position: relative;
   display: grid;
+  width: min(100%, var(--gauge-max));
+  aspect-ratio: 1;
   place-items: center;
-  width: var(--gauge-size);
-  height: var(--gauge-size);
 }
 
 .gauge__svg {
@@ -55,39 +58,31 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  transform: rotate(-90deg);
   overflow: visible;
+  transform: rotate(-90deg);
 }
 
 .gauge__track {
   fill: none;
   stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 6;
 }
 
-.gauge__value {
+.gauge__arc {
   fill: none;
-  stroke-width: 8;
+  stroke: var(--gauge-color);
+  stroke-width: 6;
   stroke-linecap: round;
   stroke-dasharray: 100;
   stroke-dashoffset: calc(100 - var(--sill-value, 0));
-  transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  filter: drop-shadow(0 0 6px var(--gauge-glow));
+  filter: drop-shadow(0 0 4px var(--gauge-glow));
+  transition:
+    stroke-dashoffset 0.85s var(--ease-out),
+    opacity 200ms var(--ease-out);
 }
 
-.gauge--cpu .gauge__value {
-  stroke: url(#g-cpu);
-}
-
-.gauge--gpu .gauge__value {
-  stroke: url(#g-gpu);
-}
-
-.gauge--ram .gauge__value {
-  stroke: url(#g-ram);
-}
-
-.gauge--swap .gauge__value {
-  stroke: url(#g-swap);
+.gauge:hover .gauge__arc {
+  filter: drop-shadow(0 0 7px var(--gauge-glow));
 }
 
 .gauge__center {
@@ -95,42 +90,96 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
+  gap: 1px;
   line-height: 1;
 }
 
 .gauge__num {
+  color: var(--ink);
   font-family: var(--serif);
-  font-size: calc(var(--gauge-size) * 0.23);
+  font-style: italic;
+  font-size: clamp(18px, 30cqw, 32px);
+  line-height: 1;
   letter-spacing: -0.02em;
   font-variant-numeric: lining-nums tabular-nums;
 }
 
 .gauge__pct {
-  margin-left: 1px;
-  color: var(--ink-dim);
-  font-size: calc(var(--gauge-size) * 0.09);
+  color: var(--ink-faint);
+  font-size: clamp(9px, 10cqw, 11px);
+  font-variant-numeric: tabular-nums;
 }
 
 .gauge__label {
   color: var(--ink-faint);
-  font-size: 9px;
+  font-size: 9.5px;
   letter-spacing: 0.16em;
+  line-height: 1.2;
   text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .gauge__value {
-    transition: none;
-  }
-}
-
-
-.gauge__meta {
-  min-height: 10px;
-  color: var(--ink-faint);
-  font-size: 8.5px;
-  letter-spacing: 0.01em;
+.gauge__sub {
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--ink-dim);
+  font-size: 9.5px;
+  line-height: 1.3;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.gauge[data-empty='true'] .gauge__num {
+  color: var(--ink-faint);
+}
+
+.gauge[data-empty='true'] .gauge__sub {
+  color: var(--ink-faint);
+}
+
+.sill-i18n {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* 宽卡：一行四个，圆环略大 */
+@container (min-width: 300px) {
+  .rings {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .gauge {
+    --gauge-max: 112px;
+  }
+}
+
+/* 很窄的自由卡：字号再收一档，不横向溢出 */
+@container (max-width: 199px) {
+  .rings {
+    gap: 8px;
+  }
+
+  .gauge {
+    --gauge-max: 86px;
+    gap: 4px;
+  }
+
+  .gauge__label {
+    font-size: 9px;
+  }
+
+  .gauge__sub {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gauge__arc {
+    transition: none;
+  }
+}

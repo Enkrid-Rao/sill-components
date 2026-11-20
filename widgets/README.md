@@ -33,6 +33,9 @@
 - **官方可安装组件**（在本仓库发布）：lyrics、clock、calendar、weather、rings；
 - 应用源码只保留初始组件；新组件不再进 `apps/desktop/resources/builtin-widgets/`。
 
+五个可安装组件当前版本都是 **1.1.0**：同一套字号 / 颜色 / 状态 / 响应式规范，见
+[docs/design.md](../docs/design.md)。打包产物在 [`registry/packages/`](../registry/packages/)。
+
 ## 发布一个可安装的官方组件
 
 1. 在 `widgets/<id>/` 写 `widget.json` + `ui/**`（可选 `README.md`）；

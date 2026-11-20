@@ -5,7 +5,7 @@
   </div>
 
   <div class="wave__body">
-    
+    <div class="wave__label" data-sill-i18n="label">NOW PLAYING</div>
     <div class="wave__title" data-sill-text="media.title">—</div>
     <div class="wave__artist" data-sill-text="media.artist">—</div>
     <div class="wave__status" data-sill-text="media.status">—</div>
@@ -19,8 +19,10 @@
       <button class="wave__button" type="button" data-sill-action="media.prev" aria-label="previous">‹</button>
       <button class="wave__button wave__button--main" type="button" data-sill-action="media.playpause" aria-label="play or pause">▶</button>
       <button class="wave__button" type="button" data-sill-action="media.next" aria-label="next">›</button>
-      <button class="wave__button wave__button--mute" type="button" data-sill-action="media.mute" aria-label="mute">♪</button>
+      <button class="wave__button wave__button--mute" type="button" data-sill-action="media.mute">
+        <span aria-hidden="true">♪</span>
+        <span class="wave__sr" data-sill-i18n="mute">mute</span>
+      </button>
     </div>
   </div>
 </div>
-

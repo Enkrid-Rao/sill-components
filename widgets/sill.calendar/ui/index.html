@@ -1,8 +1,28 @@
-<div class="cal">
+<div class="cal" id="cal" role="group" aria-label="—">
   <div class="cal__head">
-    <span class="cal__month" id="month">—</span>
-    <span class="cal__year" id="year"></span>
+    <div class="cal__title">
+      <span class="cal__month" id="month">—</span>
+      <span class="cal__year" id="year"></span>
+    </div>
+    <div class="cal__meta">
+      <span class="cal__todayCap" data-sill-i18n="today">今天</span>
+      <span class="cal__todayLabel" id="todayLabel"></span>
+    </div>
+    <div class="cal__nav">
+      <button class="cal__btn" id="prev" type="button">
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M7.4 2.6 4 6l3.4 3.4" /></svg>
+        <span class="cal__sr" data-sill-i18n="prev">上个月</span>
+      </button>
+      <button class="cal__btn" id="next" type="button">
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4.6 2.6 8 6l-3.4 3.4" /></svg>
+        <span class="cal__sr" data-sill-i18n="next">下个月</span>
+      </button>
+      <button class="cal__today" id="today" type="button" hidden>
+        <span data-sill-i18n="today">今天</span>
+      </button>
+    </div>
   </div>
-  <div class="cal__week" id="weekdays"></div>
-  <div class="cal__grid" id="grid"></div>
+
+  <div class="cal__week" id="weekdays" aria-hidden="true"></div>
+  <div class="cal__grid" id="grid" aria-hidden="true"></div>
 </div>

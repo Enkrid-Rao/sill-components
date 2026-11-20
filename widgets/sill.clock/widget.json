@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "sill.clock",
   "name": "Clock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Sill",
   "type": "template",
   "span": {
@@ -18,16 +18,53 @@
       "source": "time.now"
     }
   ],
+  "settings": [
+    {
+      "key": "seconds",
+      "type": "switch",
+      "label": {
+        "en": "Show seconds",
+        "zh": "显示秒数"
+      },
+      "default": true
+    },
+    {
+      "key": "hour12",
+      "type": "switch",
+      "label": {
+        "en": "12-hour clock",
+        "zh": "12 小时制"
+      },
+      "default": false
+    },
+    {
+      "key": "date",
+      "type": "switch",
+      "label": {
+        "en": "Show date",
+        "zh": "显示日期"
+      },
+      "default": true
+    }
+  ],
   "strings": {
     "en": {
-      "title": "CLOCK"
+      "lateNight": "Late night",
+      "dawn": "Early morning",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening"
     },
     "zh": {
-      "title": "时钟"
+      "lateNight": "凌晨",
+      "dawn": "清晨",
+      "morning": "上午",
+      "afternoon": "下午",
+      "evening": "晚上"
     }
   },
   "ui": "ui/index.html",
-  "description": "Time, seconds and the day part, without a card title.",
+  "description": "Time, seconds, date and the day part, with a quiet day-progress line.",
   "license": "MIT",
   "runtime": ">=0.6.0",
   "engine": ">=0.1.0",
