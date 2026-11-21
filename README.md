@@ -140,7 +140,8 @@ web 规则见 [docs/web.md](docs/web.md)。
 
 `hero / media / shelf / todo` 仍是宿主内置实现；`system` / `processes` 已改成随应用发布的模板包。
 `lyrics` 是第一个从本仓库分发的可安装官方组件：源码在 `widgets/sill.lyrics/`，打包产物在
-`registry/packages/`，目录条目用 `installable: true` + `download` 指向 raw 直链。
+`registry/packages/`，目录条目用 `installable: true` + `download` + `sha256` 指向 raw 直链；
+宿主安装前会校验包 hash，不匹配拒绝安装。
 
 五个可安装组件（`lyrics` / `clock` / `calendar` / `weather` / `rings`）统一了视觉规范；`lyrics` / `clock` / `rings` 已到 1.1.1，`calendar` / `weather` 为 1.1.0：
 衬线斜体主值、`--accent-2` / `--accent-pale` 派生色、185–1110px 的容器查询布局、完整的状态与焦点样式。

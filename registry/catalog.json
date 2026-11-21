@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "widgets": [
     {
       "id": "sill.hero",
@@ -288,7 +288,8 @@
       "tags": [
         "media",
         "lyrics"
-      ]
+      ],
+      "sha256": "a2e69a58262f350d6a686a1ca95573efc3d272863ae36f77ab04bae9bfe4733b"
     },
     {
       "id": "sill.clock",
@@ -329,7 +330,8 @@
         "path": "widgets/sill.clock",
         "ref": "main"
       },
-      "docs": "widgets/sill.clock/README.md"
+      "docs": "widgets/sill.clock/README.md",
+      "sha256": "26095de4a28b2232ffa6c5ddec79a17d0dacfe97b90e2e63104cddbc21951955"
     },
     {
       "id": "sill.calendar",
@@ -371,7 +373,8 @@
         "path": "widgets/sill.calendar",
         "ref": "main"
       },
-      "docs": "widgets/sill.calendar/README.md"
+      "docs": "widgets/sill.calendar/README.md",
+      "sha256": "cc2c830d8ece328f86287f85725e97552294ac0abb47c0c347006076fe39ca16"
     },
     {
       "id": "sill.weather",
@@ -412,7 +415,8 @@
         "path": "widgets/sill.weather",
         "ref": "main"
       },
-      "docs": "widgets/sill.weather/README.md"
+      "docs": "widgets/sill.weather/README.md",
+      "sha256": "85a7a0c18ef3dff39cd1c769c7bd644e30261bf67b8cb28b5d245cc011b92304"
     },
     {
       "id": "sill.rings",
@@ -456,7 +460,8 @@
         "path": "widgets/sill.rings",
         "ref": "main"
       },
-      "docs": "widgets/sill.rings/README.md"
+      "docs": "widgets/sill.rings/README.md",
+      "sha256": "a4d13b9dc6873ce1fd12dd885c44cd9ecca477e4a61bae0bd63863346338e3f5"
     }
   ]
 }

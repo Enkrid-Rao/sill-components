@@ -18,6 +18,7 @@ No network access. Python 3.10+.
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 import sys
 from html.parser import HTMLParser
@@ -337,6 +338,14 @@ def check_catalog() -> None:
             target = file_under(ROOT, download[len(repo_prefix) :])
             if target is None or not target.is_file():
                 error(path, f"download `{download}` does not exist in this repo")
+            elif entry.get("installable") is True:
+                expected = entry.get("sha256")
+                if not expected:
+                    error(path, f"installable `{entry['id']}` has no sha256")
+                else:
+                    actual = hashlib.sha256(target.read_bytes()).hexdigest()
+                    if actual != expected:
+                        error(path, f"sha256 mismatch for `{entry['id']}`: {actual}")
         if entry["type"] == "builtin" and entry.get("installable") is True:
             error(path, f"builtin `{entry['id']}` cannot be installable before a package exists")
         if entry["type"] == "template" and entry.get("installable") is not True:

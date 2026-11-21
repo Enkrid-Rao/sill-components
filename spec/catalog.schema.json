@@ -167,6 +167,11 @@
           "maxLength": 500,
           "description": "Direct .sill URL; required when installable is true."
         },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 of the .sill package; required when installable is true."
+        },
         "source": {
           "type": "object",
           "additionalProperties": false,
