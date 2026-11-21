@@ -262,7 +262,7 @@
         "en": "LRCLIB lookup with a 10-minute cache, a line-to-line progress bar, explicit idle / loading / empty / error / instrumental states and retry.",
         "zh": "LRCLIB 查询 + 10 分钟缓存、行间进度线，以及待机 / 加载 / 空 / 失败 / 纯音乐状态与重试。"
       },
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": "Sill",
       "license": "MIT",
       "type": "template",
@@ -278,7 +278,7 @@
       },
       "span": 1,
       "installable": true,
-      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.1.1.sill",
+      "download": "https://raw.githubusercontent.com/Enkrid-Rao/sill-components/main/registry/packages/sill.lyrics-1.1.2.sill",
       "source": {
         "repo": "https://github.com/Enkrid-Rao/sill-components",
         "path": "widgets/sill.lyrics",
@@ -289,7 +289,7 @@
         "media",
         "lyrics"
       ],
-      "sha256": "a2e69a58262f350d6a686a1ca95573efc3d272863ae36f77ab04bae9bfe4733b"
+      "sha256": "961ac71ae3a7a16c1bfce7d2877f45b7d8666d382dd60b77f78d698f10702668"
     },
     {
       "id": "sill.clock",

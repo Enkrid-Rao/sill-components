@@ -143,7 +143,7 @@ web 规则见 [docs/web.md](docs/web.md)。
 `registry/packages/`，目录条目用 `installable: true` + `download` + `sha256` 指向 raw 直链；
 宿主安装前会校验包 hash，不匹配拒绝安装。
 
-五个可安装组件（`lyrics` / `clock` / `calendar` / `weather` / `rings`）统一了视觉规范；`lyrics` / `clock` / `rings` 已到 1.1.1，`calendar` / `weather` 为 1.1.0：
+五个可安装组件（`lyrics` / `clock` / `calendar` / `weather` / `rings`）统一了视觉规范；`lyrics` 为 1.1.2，`clock` / `rings` 为 1.1.1，`calendar` / `weather` 为 1.1.0：
 衬线斜体主值、`--accent-2` / `--accent-pale` 派生色、185–1110px 的容器查询布局、完整的状态与焦点样式。
 规范见 [docs/design.md](docs/design.md)。
 

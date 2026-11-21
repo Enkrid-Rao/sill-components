@@ -11,6 +11,7 @@ let status = 'idle'
 let lines = []
 let media = null
 let offset = 0
+let hostOffset = 0
 let basePosition = 0
 let baseAt = 0
 let playing = false
@@ -184,7 +185,7 @@ function renderPlain(text) {
 
 function draw() {
   if (status !== 'synced' || !lines.length) return
-  const at = basePosition + (playing ? (performance.now() - baseAt) / 1000 : 0) + offset
+  const at = basePosition + (playing ? (performance.now() - baseAt) / 1000 : 0) + offset + hostOffset
   let index = indexAt(at)
 
   // 数据回推 / 播放位置在句界附近抖动时，别让当前句来回闪；
@@ -348,12 +349,13 @@ function updateOffsetChip() {
   const chip = el('offset')
   if (!chip) return
   const relevant = status === 'synced' || status === 'plain' || status === 'loading'
-  if (!relevant || !Number.isFinite(offset) || Math.abs(offset) < 0.01) {
+  const effective = offset + hostOffset
+  if (!relevant || !Number.isFinite(effective) || Math.abs(effective) < 0.01) {
     chip.hidden = true
     return
   }
   chip.hidden = false
-  const rounded = Math.round(offset * 10) / 10
+  const rounded = Math.round(effective * 10) / 10
   chip.textContent = `${rounded > 0 ? '+' : ''}${rounded}s`
 }
 
@@ -369,6 +371,8 @@ function applySettings(values) {
 
 sill.onData(({ data }) => {
   media = data.media ?? {}
+  hostOffset = Number(media.lyricsOffsetMs || 0) / 1000
+  updateOffsetChip()
   const sampledAt = Number(media.sampledAt ?? 0)
   const lag =
     media.status === 'Playing' && sampledAt > 0
